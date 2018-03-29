@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+ #import <KSGuaidViewManager.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    _mRootViewController = [[ViewController alloc] init];
+    //2.创建导航视图控制器，被管理对象为mRootViewController
+    _mUINavigationController = [[UINavigationController alloc] initWithRootViewController:_mRootViewController];
+    //3.为window指定根视图控制器对象为mNavigationController
+    self.window.rootViewController = _mUINavigationController;
+    
+    
+    KSGuaidManager.images = @[[UIImage imageNamed:@"guid01"],
+                              [UIImage imageNamed:@"guid02"],
+                              [UIImage imageNamed:@"guid03"],
+                              [UIImage imageNamed:@"guid04"]];
+    
+    KSGuaidManager.shouldDismissWhenDragging = YES;
+    [KSGuaidManager begin];
+    
     return YES;
 }
 

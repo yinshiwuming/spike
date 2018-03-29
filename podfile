@@ -1,0 +1,7 @@
+platform :ios, ‘9.0’
+target 'spike' do
+pod 'AFNetworking'
+pod 'KSGuaidView'
+pod 'MBProgressHUD'
+pod 'SDCycleScrollView','~> 1.75'  
+end
