@@ -8,6 +8,9 @@
 
 #import "MyintViewController.h"
 #import "MUIViewController.h"
+#import "SETViewController.h"
+#import "WPhotoViewController.h"
+#import "BalanceViewController.h"
 @interface MyintViewController ()
 {
     UIView *topvew;
@@ -16,6 +19,8 @@
     UIButton *mybutton;
     UIButton *downleft;
     UIButton *downright;
+    UIImageView *imageView;
+     NSMutableArray *_photosArr;
 }
 
 @end
@@ -29,9 +34,15 @@
     topvew=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 235)];
     topvew.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"20140517014348962"]];
     
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(162.5,74.5,60.2,60.5);
-    imageView.image = [UIImage imageNamed:@"热巴.png"];
+    imageView = [[UIImageView alloc] init];
+    imageView.frame = CGRectMake(WIDTH/2-40,100,75,75);
+    imageView.image=[UIImage imageNamed:@"Home_Scroll_03"];
+    imageView.layer.cornerRadius=imageView.frame.size.width/2;//裁成圆角
+    imageView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addButClick)];
+    [imageView addGestureRecognizer:tapGesture];
+    imageView.userInteractionEnabled = YES;
+    [topvew addSubview:imageView];
     [self.view addSubview:topvew];
     
     downleft=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-49, WIDTH/2, 49)];
@@ -104,6 +115,23 @@
     
     
     // Do any additional setup after loading the view.
+}-(void)addButClick
+{
+    WPhotoViewController *WphotoVC = [[WPhotoViewController alloc] init];
+    //选择图片的最大数
+    WphotoVC.selectPhotoOfMax = 1;
+    [WphotoVC setSelectPhotosBack:^(NSMutableArray *phostsArr) {
+        
+        
+        _photosArr = phostsArr;
+        NSLog(@"++++++%@++++",[[_photosArr objectAtIndex:0] objectForKey:@"image"]);
+        
+        imageView.image=[[_photosArr objectAtIndex:0] objectForKey:@"image"];
+        
+        
+        
+    }];
+    [self presentViewController:WphotoVC animated:YES completion:nil];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
@@ -123,7 +151,7 @@
         return 3;
     }
     else {
-        return 1;
+        return 2;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -171,6 +199,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section==2&&indexPath.row==1) {
+        
+        SETViewController *vc=[[SETViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    if (indexPath.section==1&&indexPath.row==2) {
+        
+       BalanceViewController *vc=[[BalanceViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    
+}
 -(void)leftbuttonClick{
     
     
@@ -178,9 +222,7 @@
     [self.navigationController pushViewController:vc animated:YES];
     
     
-    
-    
-    
+    NSLog(@"++++%@+++++",self.navigationController.viewControllers);
     
 }
 /*
