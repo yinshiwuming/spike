@@ -11,6 +11,8 @@
 #import "SETViewController.h"
 #import "WPhotoViewController.h"
 #import "BalanceViewController.h"
+#import "NoticeViewController.h"
+#import "invitationViewController.h"
 @interface MyintViewController ()
 {
     UIView *topvew;
@@ -22,6 +24,8 @@
     UIImageView *imageView;
      NSMutableArray *_photosArr;
 }
+@property(nonatomic, strong) UILabel*titlab;
+@property(nonatomic, strong) UILabel*agelab;
 
 @end
 
@@ -31,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
-    topvew=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 235)];
+    topvew=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.35)];
     topvew.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"20140517014348962"]];
     
     imageView = [[UIImageView alloc] init];
@@ -43,6 +47,21 @@
     [imageView addGestureRecognizer:tapGesture];
     imageView.userInteractionEnabled = YES;
     [topvew addSubview:imageView];
+    _titlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-30, 50, 75, 75)];
+    _titlab.text=@"雪飞扬";
+    [topvew addSubview:_titlab];
+    _agelab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-30, 180, 68, 17)];
+    _agelab.text=@"6年雪龄";
+    _agelab.backgroundColor=[UIColor yellowColor];
+    [topvew addSubview:_agelab];
+    
+    
+    
+    
+    
+    
+    
+    
     [self.view addSubview:topvew];
     
     downleft=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-49, WIDTH/2, 49)];
@@ -97,14 +116,14 @@
     
     
     
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 232, WIDTH,  HEIGHT-300) style:UITableViewStyleGrouped ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT*0.35, WIDTH,  HEIGHT*0.56) style:UITableViewStyleGrouped ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
     mytabview.delegate = self;
     // 设置tableView的背景图
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-    mytabview.rowHeight = 33;
+    mytabview.rowHeight = HEIGHT*0.05;
     mytabview.scrollEnabled =NO;
     
     //这里设置顶部间距
@@ -112,6 +131,7 @@
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
     [self.view addSubview:mytabview];
    
+    
     
     
     // Do any additional setup after loading the view.
@@ -212,14 +232,27 @@
        BalanceViewController *vc=[[BalanceViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
+    if (indexPath.section==2&&indexPath.row==0) {
+        NoticeViewController*vc=[[NoticeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (indexPath.section==0&&indexPath.row==2) {
+        
+        invitationViewController *vc=[[invitationViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
+    if (indexPath.section==1&&indexPath.row==0) {
+       
+        
+    }
     
 }
 -(void)leftbuttonClick{
     
     
-    MUIViewController *vc=[[MUIViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
     
     NSLog(@"++++%@+++++",self.navigationController.viewControllers);

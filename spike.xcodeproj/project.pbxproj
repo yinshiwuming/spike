@@ -16,7 +16,9 @@
 		02041F7B206DD94200A9D0EF /* wphoto_select_yes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02041F71206DD94200A9D0EF /* wphoto_select_yes@2x.png */; };
 		02041F7C206DD94200A9D0EF /* WPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02041F73206DD94200A9D0EF /* WPhotoViewController.m */; };
 		02041F7F206DE06E00A9D0EF /* BalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02041F7E206DE06E00A9D0EF /* BalanceViewController.m */; };
+		02041F82206F54CB00A9D0EF /* NoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02041F81206F54CB00A9D0EF /* NoticeViewController.m */; };
 		0217C5B3206B6A4C00A4051F /* HavTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0217C5B2206B6A4C00A4051F /* HavTableViewCell.m */; };
+		0232944A20734571004AAA24 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0232944920734571004AAA24 /* TimeViewController.m */; };
 		0237D150206B94E2004240B5 /* CZHDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14A206B94E2004240B5 /* CZHDatePickerView.m */; };
 		0237D151206B94E2004240B5 /* UIButton+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14D206B94E2004240B5 /* UIButton+CZHExtension.m */; };
 		0237D152206B94E2004240B5 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14F206B94E2004240B5 /* UIView+CZHExtension.m */; };
@@ -37,6 +39,7 @@
 		02F4990B206B29B70016C636 /* CredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4990A206B29B70016C636 /* CredViewController.m */; };
 		02F4990E206B36F20016C636 /* HavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4990D206B36F20016C636 /* HavViewController.m */; };
 		02F49911206B3C340016C636 /* NoHavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F49910206B3C340016C636 /* NoHavViewController.m */; };
+		02F7DA5D2073203C001ADE3A /* invitationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F7DA5C2073203C001ADE3A /* invitationViewController.m */; };
 		963DB0558B065A2E5B107028 /* libPods-spike.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 582BA302EAF39D87DBAF1F42 /* libPods-spike.a */; };
 /* End PBXBuildFile section */
 
@@ -74,9 +77,13 @@
 		02041F74206DD94200A9D0EF /* WPMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPMacros.h; sourceTree = "<group>"; };
 		02041F7D206DE06E00A9D0EF /* BalanceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalanceViewController.h; sourceTree = "<group>"; };
 		02041F7E206DE06E00A9D0EF /* BalanceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceViewController.m; sourceTree = "<group>"; };
+		02041F80206F54CB00A9D0EF /* NoticeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoticeViewController.h; sourceTree = "<group>"; };
+		02041F81206F54CB00A9D0EF /* NoticeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoticeViewController.m; sourceTree = "<group>"; };
 		0217C5B1206B6A4C00A4051F /* HavTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HavTableViewCell.h; sourceTree = "<group>"; };
 		0217C5B2206B6A4C00A4051F /* HavTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HavTableViewCell.m; sourceTree = "<group>"; };
 		0217C5B7206B807000A4051F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0232944820734571004AAA24 /* TimeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
+		0232944920734571004AAA24 /* TimeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
 		0237D149206B94E2004240B5 /* CZHDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHDatePickerView.h; sourceTree = "<group>"; };
 		0237D14A206B94E2004240B5 /* CZHDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHDatePickerView.m; sourceTree = "<group>"; };
 		0237D14B206B94E2004240B5 /* DatePickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerHeader.h; sourceTree = "<group>"; };
@@ -118,6 +125,8 @@
 		02F4990D206B36F20016C636 /* HavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HavViewController.m; sourceTree = "<group>"; };
 		02F4990F206B3C340016C636 /* NoHavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoHavViewController.h; sourceTree = "<group>"; };
 		02F49910206B3C340016C636 /* NoHavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoHavViewController.m; sourceTree = "<group>"; };
+		02F7DA5B2073203C001ADE3A /* invitationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = invitationViewController.h; sourceTree = "<group>"; };
+		02F7DA5C2073203C001ADE3A /* invitationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = invitationViewController.m; sourceTree = "<group>"; };
 		08AF506FDC8CFE287C1662A4 /* Pods-spike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-spike/Pods-spike.debug.xcconfig"; sourceTree = "<group>"; };
 		27EB5995A26AD8DBC2D39CFE /* Pods-spike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spike.release.xcconfig"; path = "Pods/Target Support Files/Pods-spike/Pods-spike.release.xcconfig"; sourceTree = "<group>"; };
 		582BA302EAF39D87DBAF1F42 /* libPods-spike.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-spike.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -289,6 +298,12 @@
 				02041F65206DD94200A9D0EF /* WPhoto */,
 				02F136D72069EFF800D6FAC5 /* MyintViewController.h */,
 				02F136D82069EFF800D6FAC5 /* MyintViewController.m */,
+				0232944820734571004AAA24 /* TimeViewController.h */,
+				0232944920734571004AAA24 /* TimeViewController.m */,
+				02F7DA5B2073203C001ADE3A /* invitationViewController.h */,
+				02F7DA5C2073203C001ADE3A /* invitationViewController.m */,
+				02041F80206F54CB00A9D0EF /* NoticeViewController.h */,
+				02041F81206F54CB00A9D0EF /* NoticeViewController.m */,
 				0250A4EE206D193A00A91B52 /* SETViewController.h */,
 				0250A4EF206D193A00A91B52 /* SETViewController.m */,
 				02041F7D206DE06E00A9D0EF /* BalanceViewController.h */,
@@ -521,12 +536,15 @@
 				02A7C08A20633EB700D356FA /* ViewController.m in Sources */,
 				02041F77206DD94200A9D0EF /* UIImage+fixOrientation.m in Sources */,
 				02F49911206B3C340016C636 /* NoHavViewController.m in Sources */,
+				02041F82206F54CB00A9D0EF /* NoticeViewController.m in Sources */,
+				02F7DA5D2073203C001ADE3A /* invitationViewController.m in Sources */,
 				02041F75206DD94200A9D0EF /* myPhotoCell.m in Sources */,
 				02041F78206DD94200A9D0EF /* WPFunctionView.m in Sources */,
 				02041F76206DD94200A9D0EF /* NavView.m in Sources */,
 				02A7C09520633EB700D356FA /* main.m in Sources */,
 				02A7C08720633EB700D356FA /* AppDelegate.m in Sources */,
 				0237D150206B94E2004240B5 /* CZHDatePickerView.m in Sources */,
+				0232944A20734571004AAA24 /* TimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

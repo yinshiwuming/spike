@@ -22,6 +22,8 @@
     UIButton *downleft;
     UIButton *downright;
     UITableView *mytabview;
+    UIView *view2;
+    UIView *view;
 }
 
 @end
@@ -62,11 +64,11 @@
     topbtn1.backgroundColor=[UIColor whiteColor];
     [topbtn1 setTitle: @"已完成订单" forState: UIControlStateNormal];
     [topbtn1 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    UIView *view = [[UIView alloc] init];
+    view = [[UIView alloc] init];
     view.frame = CGRectMake(WIDTH/6,43,WIDTH/6,2);
     view.backgroundColor = [UIColor yellowColor];
     [topbtn1 addSubview:view];
-   // [topbtn1 addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+    [topbtn1 addTarget:self action:@selector(topbtn1) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:topbtn1];
   
     
@@ -75,8 +77,12 @@
     topbtn2.backgroundColor=[UIColor whiteColor];
     [topbtn2 setTitle: @"已支付订单" forState: UIControlStateNormal];
     [topbtn2 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    
-    // [topbtn1 addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+    view2 = [[UIView alloc] init];
+    view2.frame = CGRectMake(WIDTH/6,43,WIDTH/6,2);
+    view2.backgroundColor = [UIColor yellowColor];
+    view2.hidden=YES;
+    [topbtn2 addSubview:view2];
+    [topbtn2 addTarget:self action:@selector(topbtn2) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:topbtn2];
     
     downleft=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-49, WIDTH/2, 49)];
@@ -218,6 +224,30 @@
     
     
 }
+//点击刷新刷新数据源
+-(void)topbtn1{
+    
+    view2.hidden=YES;
+    view.hidden=NO;
+    
+    
+    
+    
+    
+}
+//点击刷新数据源
+-(void)topbtn2{
+    
+    view2.hidden=NO;
+    view.hidden=YES;
+    
+    
+    
+    
+    
+}
+
+
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     

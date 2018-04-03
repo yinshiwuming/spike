@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LookViewController : UIViewController
+@interface LookViewController : UIViewController<UITextFieldDelegate>
 
 @end

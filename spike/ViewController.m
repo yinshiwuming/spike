@@ -23,6 +23,9 @@
     UILabel *registeredlab;
     UILabel *lookinglab;
     UILabel * additionallab;
+    UILabel *third;
+    
+    
 }
 @end
 
@@ -67,10 +70,14 @@
     [imageView addSubview:lookinglab];
     lookinglab.userInteractionEnabled=YES;
     UITapGestureRecognizer *look = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(look)];
-    
     [lookinglab addGestureRecognizer:look];
-    
-  
+    third=[[UILabel alloc]init];
+    third.frame=CGRectMake(WIDTH/2-33, HEIGHT*0.75, 76, 13);
+                 
+    third.text=@"其他登录";
+    third.font=[UIFont fontWithName:@"PingFang-SC-Medium" size:13];
+    third.textColor= [UIColor colorWithRed:255/255 green:255/255 blue:255/255 alpha:1];
+    [imageView addSubview:third];
     
 }
 -(void)tapAction:(id)tap
