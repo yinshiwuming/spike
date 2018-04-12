@@ -7,11 +7,16 @@
 //
 
 #import "SETViewController.h"
+#import "MBProgressHUD.h"
+#import "LBClearCacheTool.h"
+
+#import "SVProgressHUD.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
+#define filePath [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
 @interface SETViewController (){
      UITableView *mytabview;
-    
+    MBProgressHUD *HUD;
     
 }
 
@@ -71,7 +76,12 @@
     }
     
     if (indexPath.section==0&&indexPath.row==0) {
-        cell.textLabel.text = @"清除缓存";
+        NSString *fileSize = [LBClearCacheTool getCacheSizeWithFilePath:filePath];
+        if ([fileSize integerValue] == 0) {
+            cell.textLabel.text = @"清除缓存";
+        }else {
+            cell.textLabel.text = [NSString stringWithFormat:@"清除缓存(%@)",fileSize];
+        }
     } if (indexPath.section==0&&indexPath.row==1) {
         cell.textLabel.text = @"帮助与反馈";
     } if (indexPath.section==0&&indexPath.row==2) {
@@ -89,7 +99,51 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.row==0&&indexPath.section==0) {
+        UIAlertController *alert=[UIAlertController alertControllerWithTitle:@"确定清除缓存吗?" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        //创建一个取消和一个确定按钮
+        UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
+        UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            //清楚缓存
+            BOOL isSuccess = [LBClearCacheTool clearCacheWithFilePath:filePath];
+            if (isSuccess) {
+                [mytabview reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+                [SVProgressHUD showSuccessWithStatus:@"清除成功"];
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [SVProgressHUD dismiss];
+                });
+            }
+            
+            
+            
+        }   ];
+        //将取消和确定按钮添加进弹框控制器
+        [alert addAction:actionCancle];
+        [alert addAction:actionOk];
+        //添加一个文本框到弹框控制器
+        
+        
+        //显示弹框控制器
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }
+    
+    
+    
+}
+-(void)mbProgressHUDUntil:(NSString *)title {
+    
+    
+    HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.label.text = title;}
 /*
 #pragma mark - Navigation
 

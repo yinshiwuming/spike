@@ -13,6 +13,11 @@
 #import "BalanceViewController.h"
 #import "NoticeViewController.h"
 #import "invitationViewController.h"
+#import "TimeViewController.h"
+#import "CourseViewController.h"
+#import "BuyViewController.h"
+#import "WebViewController.h"
+#import "invitationMianViewController.h"
 @interface MyintViewController ()
 {
     UIView *topvew;
@@ -237,16 +242,27 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (indexPath.section==0&&indexPath.row==2) {
-        
-        invitationViewController *vc=[[invitationViewController alloc]init];
+        invitationMianViewController *vc=[[invitationMianViewController alloc]init];
+       
         [self.navigationController pushViewController:vc animated:YES];
     }
     
     if (indexPath.section==1&&indexPath.row==0) {
-       
+        TimeViewController *vc=[[TimeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
         
     }
-    
+    if (indexPath.section==0&&indexPath.row==1) {
+        CourseViewController *vc=[[CourseViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (indexPath.section==1&&indexPath.row==1) {
+        //cell.textLabel.text = @"购买";
+        BuyViewController *vc=[[ BuyViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        
+    }
 }
 -(void)leftbuttonClick{
     

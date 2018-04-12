@@ -165,7 +165,7 @@
     
    
     
-    user=[self createTextFielfFrame:CGRectMake(40, 158, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入你的手机号"];
+    user=[self createTextFielfFrame:CGRectMake(40, 158, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"  请输入你的手机号"];
     //user.text=@"13419693608";
     //user.keyboardType=UIKeyboardTypeNumberPad;
     user.delegate = self;
