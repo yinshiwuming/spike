@@ -133,7 +133,7 @@
      _rightdate.text=@"请选择";
         
       _rightdate.textColor=[UIColor lightGrayColor];
-       _rightdate.textAlignment=NSTextAlignmentRight  ;
+       _rightdate.textAlignment=NSTextAlignmentRight;
        _rightdate.font=[UIFont fontWithName:@"Helvetica" size:12];
        
         

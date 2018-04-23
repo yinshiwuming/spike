@@ -16,6 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - KSGuaidView (0.0.5)
   - MBProgressHUD (1.1.0)
+  - MJExtension (3.0.13)
   - SDCycleScrollView (1.75):
     - SDWebImage (>= 4.0.0)
   - SDWebImage (4.3.3):
@@ -26,15 +27,17 @@ DEPENDENCIES:
   - AFNetworking
   - KSGuaidView
   - MBProgressHUD
+  - MJExtension
   - SDCycleScrollView (~> 1.75)
 
 SPEC CHECKSUMS:
   AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   KSGuaidView: 8a208b7df4140db1c86a8bc1eb170f91b0aabf19
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
 
-PODFILE CHECKSUM: 59f41464c9b5a0213cd7e242277eb2498b54fcc8
+PODFILE CHECKSUM: e17ea85dcd77d17c712219f9be21a4c15c3d81bd
 
 COCOAPODS: 1.4.0

@@ -7,6 +7,9 @@
 //
 
 #import "CourseViewController.h"
+#import "courdata.h"
+#import "courTableViewCell.h"
+#import "MJExtension.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface CourseViewController (){
@@ -30,6 +33,14 @@
     UIButton*confirm;
     UITableView *mytabview;
     NSMutableArray*arry;
+    NSDictionary *dict;
+    NSDictionary *dict1;
+    NSDictionary *dict2;
+    NSDictionary *dict3;
+    NSDictionary *dict4;
+    NSDictionary *dict5;
+    NSDictionary *dict6;
+    NSDictionary *dict7;
     
     
 }
@@ -112,7 +123,37 @@
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
     [confirm addTarget:self action:@selector(ysClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirm];
-     arry=[NSMutableArray arrayWithObjects:@"小班课",@"大班课",@"大班课5次", nil];
+    
+    dict = @{
+             @"name" : @"大班课500",
+             
+             };
+    
+    // 将字典转为User模型
+    
+    dict3 = @{
+              @"name" : @"小班课500",
+              
+              
+              };
+    dict1 = @{
+              @"name" : @"中班课300",
+              
+              };
+    dict4= @{
+             @"name" : @"中班课300",
+             
+             };
+    dict5 = @{
+              @"name" : @"中班课300",
+              
+              };
+    dict6 = @{
+              @"name" : @"中班课300",
+              
+              };
+    
+    arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
     // Do any additional setup after loading the view.
 }
 
@@ -131,15 +172,11 @@
 {
     static NSString * cellIdentifier  = @"cell";
     // 从重用队列中取出cell对象
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    courTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     // 如果没有,则创建(解释:一般刚进入界面的时候,是不需要重用的,当时显示的是能够映入界面的足够的cell,只有拖动的时候,才需要)
     
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellIdentifier];
-    for (int i=0; i<arry.count; i++) {
-        timelab2=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH/2, 12)];
-        timelab2.text= arry[i];
-        
-    }
+        cell = [[courTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellIdentifier];
+   
    
    
     
@@ -154,15 +191,8 @@
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell addSubview:timelab2];
     [cell addSubview:pickbtn1];
-
-    
-    
-    
-    
-    
-    
-    
-    
+courdata *myuse = [courdata objectWithKeyValues:arry[indexPath.row]];
+    cell.cour=myuse;
     
     
     return cell;

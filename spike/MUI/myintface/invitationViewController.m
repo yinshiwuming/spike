@@ -74,12 +74,11 @@
     label1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
     label1.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
     [cell addSubview:label1];
-    
     return cell;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 /*

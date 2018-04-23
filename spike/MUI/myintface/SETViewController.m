@@ -9,7 +9,7 @@
 #import "SETViewController.h"
 #import "MBProgressHUD.h"
 #import "LBClearCacheTool.h"
-
+#import "HelpViewController.h"
 #import "SVProgressHUD.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
@@ -134,7 +134,14 @@
         
     }
     
-    
+    if (indexPath.section==0&&indexPath.row==1) {
+        
+        //跳转帮住反馈
+        
+        HelpViewController*vc=[[HelpViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
     
 }
 -(void)mbProgressHUDUntil:(NSString *)title {

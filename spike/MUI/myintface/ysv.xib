@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="90" id="da0-jT-Rbk" customClass="ysControllTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="367" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="da0-jT-Rbk" id="1Et-qx-hng">
+                <rect key="frame" x="0.0" y="0.0" width="367" height="89.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预约教练" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uri-fN-Whq">
+                        <rect key="frame" x="16" y="17" width="70" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-4-3 10：00：39" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgl-GM-MKh">
+                        <rect key="frame" x="16" y="58" width="170" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+180" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAX-Rx-uR0">
+                        <rect key="frame" x="285" y="58" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="42" id="hdv-zP-Pno"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bgl-GM-MKh" firstAttribute="top" secondItem="uri-fN-Whq" secondAttribute="bottom" constant="20" id="2oy-d3-7lc"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="aAX-Rx-uR0" secondAttribute="trailing" constant="24" id="Ffv-zK-Yvw"/>
+                    <constraint firstItem="bgl-GM-MKh" firstAttribute="bottom" secondItem="1Et-qx-hng" secondAttribute="bottomMargin" id="abF-kF-g6N"/>
+                    <constraint firstItem="bgl-GM-MKh" firstAttribute="top" secondItem="aAX-Rx-uR0" secondAttribute="top" id="jtL-yR-2Zy"/>
+                    <constraint firstItem="uri-fN-Whq" firstAttribute="leading" secondItem="bgl-GM-MKh" secondAttribute="leading" id="qjQ-Ia-Ru9"/>
+                    <constraint firstItem="bgl-GM-MKh" firstAttribute="baseline" secondItem="aAX-Rx-uR0" secondAttribute="baseline" id="rgv-hn-HEr"/>
+                    <constraint firstItem="aAX-Rx-uR0" firstAttribute="leading" secondItem="bgl-GM-MKh" secondAttribute="trailing" constant="99" id="t5J-Xn-HTl"/>
+                    <constraint firstItem="uri-fN-Whq" firstAttribute="leading" secondItem="1Et-qx-hng" secondAttribute="leadingMargin" id="tv9-5c-FvL"/>
+                    <constraint firstItem="aAX-Rx-uR0" firstAttribute="top" secondItem="1Et-qx-hng" secondAttribute="topMargin" constant="47" id="upe-f8-tqP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-234.5" y="-104"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -9,6 +9,8 @@
 #import "TimeViewController.h"
 #import "TimeViewController.h"
 #import "WSDatePickerView.h"
+#import "MJExtension.h"
+#import "timeTableViewCell.h"
 #define RGB(x,y,z) [UIColor colorWithRed:x/255.0 green:y/255.0 blue:z/255.0 alpha:1.0]
 
 #define randomColor [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1]
@@ -40,6 +42,18 @@
     UIButton *yesbtn;
     UITableView *mytabview;
     NSMutableArray*arry;
+    NSMutableArray*Askarry;
+    UIScrollView *newview;
+    
+    NSDictionary *dict;
+    NSDictionary *dict1;
+    NSDictionary *dict2;
+    NSDictionary *dict3;
+     NSDictionary *dict4;
+     NSDictionary *dict5;
+     NSDictionary *dict6;
+     NSDictionary *dict7;
+    
 }
 @property (nonatomic,strong)UIPickerView * pickerViewtime;
 @property (nonatomic,strong)UIPickerView *pickerView;
@@ -86,33 +100,21 @@
     twoview.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:twoview];
     topbtn1=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 44)];
-    //topbtn1.backgroundColor=[UIColor whiteColor];
     topbtn1.backgroundColor=[UIColor whiteColor];
     [topbtn1 setTitle: @"平日班" forState: UIControlStateNormal];
     [topbtn1 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     topbtn1.backgroundColor=[UIColor yellowColor];
     [topbtn1 addTarget:self action:@selector(topbtn1) forControlEvents:UIControlEventTouchUpInside];
     [twoview addSubview:topbtn1];
-    
-    
     topbtn2=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH/2, 0, WIDTH/2, 44)];
-    //topbtn1.backgroundColor=[UIColor whiteColor];
     topbtn2.backgroundColor=[UIColor whiteColor];
     [topbtn2 setTitle: @"周末班" forState: UIControlStateNormal];
     [topbtn2 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
    
     [topbtn2 addTarget:self action:@selector(topbtn2) forControlEvents:UIControlEventTouchUpInside];
     [twoview addSubview:topbtn2];
-//    view1=[[UIView alloc]initWithFrame:CGRectMake(0, 44, WIDTH, 44)];
-//    view1.backgroundColor=[UIColor redColor];
-//    timelab=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH/2, 12)];
-//    timelab.text=@"9：00-12：00";
-//    timelab.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
-//    pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-20, 10, 20, 20)];
-//    [pickbtn1 setImage:[UIImage imageNamed:@"选中"]forState:UIControlStateNormal];
-//    [view1 addSubview:pickbtn1];
-//    [view1 addSubview:timelab];
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, WIDTH,  HEIGHT*0.56) style:UITableViewStyleGrouped ];
+
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, WIDTH,  HEIGHT*0.5) style:UITableViewStyleGrouped ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
@@ -120,50 +122,62 @@
     // 设置tableView的背景图
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
     mytabview.rowHeight = HEIGHT*0.05;
-    mytabview.scrollEnabled =NO;
+//    mytabview.scrollEnabled =NO;
     CGRect frame=CGRectMake(0, 0, 0, 4);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
    
     [twoview addSubview:mytabview];
-//    view2=[[UIView alloc]initWithFrame:CGRectMake(0, 84, WIDTH, 44)];
-//     view2.backgroundColor=[UIColor yellowColor];
-//    timelab2=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH/2, 12)];
-//
-//    timelab2.text= @"14：00-17：00";
-//    timelab2.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
-//    [view2 addSubview:timelab2];
-//    //[pickbtn2 setImage:[UIImage imageNamed:@"选中"]forState:UIControlStateNormal];
-//
-//    [twoview addSubview:view2];
-//
-    
-//    view3=[[UIView alloc]initWithFrame:CGRectMake(0, 128, WIDTH, 44)];
-//    view3.backgroundColor=[UIColor blueColor];
-//
-//    timelab3=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH/2, 12)];
-//    timelab3.text=@"9：00-12：00";
-//    timelab3.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
-//    //[pickbtn3 setImage:[UIImage imageNamed:@"选中"]forState:UIControlStateNormal];
-//    [view3 addSubview:timelab3];
-//     [twoview addSubview:view3];
-    
+
+    //这里赋值请假时间的数组
+    Askarry=[NSMutableArray arrayWithObjects:@"2018-01-04" ,@"2018-01-04",nil];
     restbtn=[[UIButton alloc]initWithFrame:CGRectMake(88, HEIGHT*0.3, 186, 44)];
     [restbtn setTitle:@"休息时间选择" forState:UIControlStateNormal];
-     [restbtn addTarget:self action:@selector(choos) forControlEvents:UIControlEventTouchUpInside];
-    
+    [restbtn addTarget:self action:@selector(choos) forControlEvents:UIControlEventTouchUpInside];
     restbtn.layer.borderColor=[UIColor yellowColor].CGColor;
     restbtn.backgroundColor=[UIColor yellowColor];
     [twoview addSubview:restbtn];
+    
+
     confirm=[[UIButton alloc]initWithFrame:CGRectMake(88, HEIGHT-44, 186, 44)];
     confirm.backgroundColor=[UIColor lightGrayColor];
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
     [self.view addSubview:confirm];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(walkVCClick:) name:@"buttonLoseResponse" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(walkVCClick:)name:@"buttonLoseResponse" object:nil];
     
     // Do any additional setup after loading the view.
     //关于传过来的数组
-    arry=[NSMutableArray arrayWithObjects:@"9：00-12：00",@"14：00-17：00",@"19：00-21：00", nil];
+    
      _selectIndexs = [NSMutableArray new];
+    dict = @{
+             @"name" : @"9：00-12：00",
+             
+             };
+    
+    // 将字典转为User模型
+    
+    dict3 = @{
+              @"name" : @"14：00-17：00",
+              
+              
+              };
+    dict1 = @{
+              @"name" : @"19：00-21：00",
+              
+              };
+    dict4= @{
+              @"name" : @"19：00-21：00",
+              
+              };
+    dict5 = @{
+              @"name" : @"19：00-21：00",
+              
+              };
+    dict6 = @{
+              @"name" : @"19：00-21：00",
+              
+              };
+    
+    arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
     
 }
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -178,9 +192,6 @@
         NSInteger result = 0;
         
         result = self.letter.count;//根据数组的元素个数返回几行数据
-        
-        
-        
         return result;
     } else {
         return 2;
@@ -192,9 +203,6 @@
         NSString * title = nil;
         
         title = self.letter[row];
-        
-        
-        
         return title;
     } else {
         
@@ -231,7 +239,7 @@
 -(void)topbtn1{
     
     [mytabview reloadData];
-     topbtn1.backgroundColor=[UIColor yellowColor];
+    topbtn1.backgroundColor=[UIColor yellowColor];
     topbtn2.backgroundColor=[UIColor whiteColor];
     
 }
@@ -280,12 +288,10 @@
     self.pickerViewtime.backgroundColor=[UIColor yellowColor];
     //取消按钮和确认按钮
     
-  ybtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 8, 60, 20)];
+    ybtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 8, 60, 20)];
     ybtn.backgroundColor=[UIColor lightGrayColor];
     [ybtn setTitle:@"取消" forState:UIControlStateNormal];
-    
-    
-     [ybtn addTarget:self action:@selector(leftbuttonClick) forControlEvents:UIControlEventTouchUpInside];
+    [ybtn addTarget:self action:@selector(leftbuttonClick) forControlEvents:UIControlEventTouchUpInside];
     
     [picview addSubview:ybtn];
     
@@ -295,12 +301,10 @@
     yesbtn.backgroundColor=[UIColor yellowColor];
     
     [yesbtn setTitle:@"确定" forState:UIControlStateNormal];
-    
-    
     [yesbtn addTarget:self action:@selector(right) forControlEvents:UIControlEventTouchUpInside];
     [picview addSubview:yesbtn];
     
-    
+
     
 }
 
@@ -329,9 +333,19 @@
     [picview removeFromSuperview];
 }
 -(void)right{
+    //这里是请假时间段选择时间
+    
+    NSInteger row=[self.pickerViewtime selectedRowInComponent:0];
+    NSString *str=_letter[row];
+    NSLog(@"++++++++++%@____________",str) ;
+    
+    
+    
+    
     [self.pickerViewtime removeFromSuperview];
     //[ybtn removeFromSuperview];
     [picview removeFromSuperview];
+    [self btnallok];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -346,39 +360,34 @@
 {
     static NSString * cellIdentifier  = @"cell";
     // 从重用队列中取出cell对象
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    timeTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     // 如果没有,则创建(解释:一般刚进入界面的时候,是不需要重用的,当时显示的是能够映入界面的足够的cell,只有拖动的时候,才需要)
     
-    cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellIdentifier];
-    for (int i=0; i<arry.count; i++) {
-        timelab2=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH/2, 12)];
-        timelab2.text= arry[i];
-        
-    }
-    
+    cell = [[timeTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellIdentifier];
+//    for (int i=0; i<arry.count; i++) {
+//        timelab2=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH/2, 12)];
+//        cell.textLabel.text= arry[i];
+//        cell.textLabel.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
+//    }
+   
     
     
     //    timelab2=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH/2, 12)];
     //
     //    timelab2.text= @"小班5次课250";
     
-    timelab2.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
+    //timelab2.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
     UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-20, 10, 20, 20)];
     [pickbtn1 setImage:[UIImage imageNamed:@"椭圆 1 拷贝"] forState:UIControlStateNormal];
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
-    [cell addSubview:timelab2];
+//    [cell addSubview:timelab2];
     [cell addSubview:pickbtn1];
     
     
+   celldata *myuse = [celldata objectWithKeyValues:arry[indexPath.row]];
     
-    
-    
-    
-    
-    
-    
-    
+    cell.celldata=myuse;
     
     return cell;
 }
@@ -394,9 +403,11 @@
         // 获取cell的indexPath
         NSIndexPath *indexPath = [mytabview indexPathForCell:cell];
         NSLog(@"点击的是第%ld行按钮",indexPath.row);
-        [_selectIndexs addObject:indexPath];
+        NSString *stringInt = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        [_selectIndexs addObject:stringInt];
+        NSLog(@"**********%@",_selectIndexs);
         ((UIButton *)sender).selected = YES;
-        
+     
     }
     else{
         
@@ -404,10 +415,57 @@
         UITableViewCell *cell = (UITableViewCell *)[sender superview] ;
         // 获取cell的indexPath
         NSIndexPath *indexPath = [mytabview indexPathForCell:cell];
-        
-        [_selectIndexs removeObject:indexPath];
-        
-    }
+       
+        NSLog(@"点击的是第%ld行按钮",indexPath.row);
+        NSString *stringInt = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        [_selectIndexs removeObject:stringInt];}
+    
+}
+-(void)btnallok{
+    UIScrollView *newview =[[UIScrollView alloc]init];
+    //依次为它的x y位置，长和宽
+    newview.frame =CGRectMake(0, HEIGHT*0.3+324, WIDTH,84);
+    newview.backgroundColor=[UIColor whiteColor];
+    [newview setContentSize:CGSizeMake(320, 420)];
+    //把这个对象加到view中去。显示出来
+    [self.view addSubview:newview];
+
+    UIButton*btn=[[UIButton alloc]initWithFrame:CGRectMake(20, 0, WIDTH/2-20, 34)];
+    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -btn.imageView.frame.size.width, 0, btn.imageView.frame.size.width)];
+    [btn setImageEdgeInsets:UIEdgeInsetsMake(0,0, btn.titleLabel.bounds.size.width,btn.titleLabel.bounds.size.width)];
+    
+    [btn setTitle:@"2018-11-4" forState: UIControlStateNormal ];
+    
+    [btn setImage:[UIImage imageNamed:@"日历、日期 拷贝"] forState:UIControlStateNormal];
+    
+    [btn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+    
+    [btn.layer setCornerRadius:10];
+    
+    [btn.layer setBorderWidth:2];//设置边界的宽度
+    //设置按钮的边界颜色
+    CGColorRef cgColor = [UIColor groupTableViewBackgroundColor].CGColor;
+    [btn.layer setBorderColor:cgColor];
+    //设置一个数组
+    [newview addSubview:btn];
+    //设置数组读取获得i值遍历数组后九宫格创建btn
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 /*

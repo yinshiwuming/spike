@@ -10,6 +10,8 @@
 #import "SDCycleScrollView.h"
 #import "MyintViewController.h"
 #import "UIImageView+WebCache.h"
+#import "detailedViewController.h"
+#import "MUUITableViewCell.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface MUIViewController ()<SDCycleScrollViewDelegate>{
@@ -32,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor= [UIColor colorWithRed:230.0/255.0 green:245.0/255.0 blue:253.0/255.0 alpha:100];
+    self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     
     UIScrollView *demoContainerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 300)];
     demoContainerView.contentSize = CGSizeMake(self.view.frame.size.width, 0);
@@ -65,7 +67,7 @@
     [topbtn1 setTitle: @"已完成订单" forState: UIControlStateNormal];
     [topbtn1 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     view = [[UIView alloc] init];
-    view.frame = CGRectMake(WIDTH/6,43,WIDTH/6,2);
+    view.frame = CGRectMake(WIDTH/6,43,WIDTH/6,3);
     view.backgroundColor = [UIColor yellowColor];
     [topbtn1 addSubview:view];
     [topbtn1 addTarget:self action:@selector(topbtn1) forControlEvents:UIControlEventTouchUpInside];
@@ -78,7 +80,7 @@
     [topbtn2 setTitle: @"已支付订单" forState: UIControlStateNormal];
     [topbtn2 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     view2 = [[UIView alloc] init];
-    view2.frame = CGRectMake(WIDTH/6,43,WIDTH/6,2);
+    view2.frame = CGRectMake(WIDTH/6,43,WIDTH/6,3);
     view2.backgroundColor = [UIColor yellowColor];
     view2.hidden=YES;
     [topbtn2 addSubview:view2];
@@ -110,6 +112,7 @@
     downright.backgroundColor=[UIColor whiteColor];
     [downright setTitle: @"我的" forState: UIControlStateNormal];
     [downright setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+  
     [downright setImage:[UIImage imageNamed:@"我的(2)"] forState: UIControlStateNormal];
     
     
@@ -129,13 +132,14 @@
     
     [downright addTarget:self action:@selector(rightbuttonClick) forControlEvents:UIControlEventTouchUpInside];
      [self.view addSubview:downright];
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(8, HEIGHT*0.41, WIDTH-16,  HEIGHT*0.48) style:UITableViewStylePlain ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(8, HEIGHT*0.41, WIDTH-16,  HEIGHT*0.5) style:UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
     mytabview.delegate = self;
     // 设置tableView的背景图
-    mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
+//    mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
+    mytabview.backgroundColor=[UIColor groupTableViewBackgroundColor];
     mytabview.rowHeight = 124;
     //mytabview.scrollEnabled =NO;
     
@@ -159,53 +163,14 @@
     return 4;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    // cell的重用标识(
-    static NSString * cellIdentifier  = @"cell";
+    static NSString * cellIdentifier  = @"mucell";
     // 从重用队列中取出cell对象
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    MUUITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     // 如果没有,则创建(解释:一般刚进入界面的时候,是不需要重用的,当时显示的是能够映入界面的足够的cell,只有拖动的时候,才需要)
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellIdentifier];
-    }
     
-    //    if (indexPath.section == 1) {
-    //        cell.imageView.image = [UIImage imageNamed:@"image1.png"];
-    //    }else{
-    //        cell.imageView.image = [UIImage imageNamed:@"image.png"];
-    //    }
-    //
-    //    if (indexPath.row == 1) {
-    //        cell.textLabel.text = @"尖峰";
-    //    }else{
-    //        cell.textLabel.text = @"尖峰";
-    //    }
-    //
+    cell = [[[NSBundle mainBundle] loadNibNamed:@"MUIUEmpty" owner:nil options:nil] lastObject];
     
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(18,7,124,110);
-    
-    imageView.image = [UIImage imageNamed:@"Home_Scroll_04"];
-    [cell addSubview:imageView];
-    UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(164,7,66,13.5);
-    label.text = @"预约教练";
-    label.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
-    label.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
-    [cell addSubview:label];
-    UILabel *label1 = [[UILabel alloc] init];
-    label1.frame = CGRectMake(162.5,44,38,11);
-    label1.text = @"成人票";
-    label1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
-    label1.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
-    [cell addSubview:label1];
-    UILabel *label2 = [[UILabel alloc] init];
-    label2.frame = CGRectMake(164,70,38,9);
-    label2.text = @"6-5";
-    label2.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
-    label2.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
-    [cell addSubview:label2];
-        return cell;
+    return cell;
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
@@ -240,11 +205,6 @@
     
     view2.hidden=NO;
     view.hidden=YES;
-    
-    
-    
-    
-    
 }
 
 
@@ -262,7 +222,14 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //这里跳转控制器并且把订单id传过去;
+    detailedViewController *vc=[[detailedViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+}
 /*
 #pragma mark - Navigation
 

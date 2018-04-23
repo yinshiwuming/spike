@@ -3,6 +3,6 @@ target 'spike' do
 pod 'AFNetworking'
 pod 'KSGuaidView'
 pod 'MBProgressHUD'
- 
+ pod 'MJExtension'
 pod 'SDCycleScrollView','~> 1.75'  
 end

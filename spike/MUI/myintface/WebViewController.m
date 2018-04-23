@@ -32,30 +32,13 @@
     NSURL* url = [NSURL URLWithString:@"https://www.baidu.com"];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [webView loadRequest:request];//加载
-//    imm=[[UIButton alloc]initWithFrame:CGRectMake(0.3*WIDTH, HEIGHT*0.42, WIDTH*0.38, 44)];
-//    [imm setTitle:@"立即邀请" forState:UIControlStateNormal ];
-//    imm.backgroundColor=[UIColor yellowColor];
-//    [webView addSubview:imm];
-//    alread=[[UIButton alloc]initWithFrame:CGRectMake(0.3*WIDTH, HEIGHT*0.42+88, WIDTH*0.38, 44)];
-//     [alread setTitle:@"已经邀请" forState:UIControlStateNormal ];
-//    alread.backgroundColor=[UIColor lightGrayColor];
-//
-//
-//    [alread addTarget:self action:@selector(Method) forControlEvents:UIControlEventTouchUpInside];
-//
-//    [webView addSubview:alread];
+
     
     AIV = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(WIDTH/2-25, 200, 50, 50)];
     
     //设置样式
     AIV.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    /*
-     typedef NS_ENUM(NSInteger, UIActivityIndicatorViewStyle) {
-     UIActivityIndicatorViewStyleWhiteLarge,
-     UIActivityIndicatorViewStyleWhite,
-     UIActivityIndicatorViewStyleGray __TVOS_PROHIBITED,
-     };
-     */
+   
     AIV.color = [UIColor lightGrayColor];
     
     //缩放倍数

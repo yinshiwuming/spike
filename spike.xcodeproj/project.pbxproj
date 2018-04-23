@@ -25,6 +25,8 @@
 		0206B6CD207AF79A00A1C287 /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0206B6C9207AF79A00A1C287 /* WSDatePickerView.xib */; };
 		0206B6D0207B96C400A1C287 /* invitationMianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0206B6CF207B96C400A1C287 /* invitationMianViewController.m */; };
 		0217C5B3206B6A4C00A4051F /* HavTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0217C5B2206B6A4C00A4051F /* HavTableViewCell.m */; };
+		022AF4912088386100A61417 /* buymyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 022AF4902088386100A61417 /* buymyViewController.m */; };
+		022E25D42084831400B49E84 /* timeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 022E25D32084831400B49E84 /* timeTableViewCell.m */; };
 		0232944A20734571004AAA24 /* TimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0232944920734571004AAA24 /* TimeViewController.m */; };
 		023294942073A12E004AAA24 /* CCDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0232944D2073A12E004AAA24 /* CCDatePickerView.m */; };
 		023294952073A12E004AAA24 /* CCDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0232944E2073A12E004AAA24 /* CCDatePickerView.xib */; };
@@ -59,6 +61,18 @@
 		023294B22073A12E004AAA24 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0232948E2073A12E004AAA24 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		023294B32073A12E004AAA24 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 023294902073A12E004AAA24 /* View+MASAdditions.m */; };
 		023294B42073A12E004AAA24 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 023294932073A12E004AAA24 /* ViewController+MASAdditions.m */; };
+		0236011C207F08E8009CFC11 /* detailedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0236011B207F08E8009CFC11 /* detailedViewController.m */; };
+		02360120207F28BC009CFC11 /* pingjia.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0236011D207F28BB009CFC11 /* pingjia.xib */; };
+		02360121207F28BC009CFC11 /* myTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0236011F207F28BC009CFC11 /* myTableViewCell.m */; };
+		02360124207F373A009CFC11 /* WQLStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02360123207F373A009CFC11 /* WQLStarView.m */; };
+		02360126207F374E009CFC11 /* starBackImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 02360125207F374E009CFC11 /* starBackImage.png */; };
+		02360129207F3CA4009CFC11 /* YsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02360128207F3CA4009CFC11 /* YsViewController.m */; };
+		0236012B207F3EAC009CFC11 /* ysv.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0236012A207F3EAC009CFC11 /* ysv.xib */; };
+		0236012E207F3FA1009CFC11 /* ysControllTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0236012D207F3FA1009CFC11 /* ysControllTableViewCell.m */; };
+		02360130207F43A6009CFC11 /* MUIUEmpty.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0236012F207F43A6009CFC11 /* MUIUEmpty.xib */; };
+		02360133207F43BB009CFC11 /* MUUITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02360132207F43BB009CFC11 /* MUUITableViewCell.m */; };
+		02360136207F5C1A009CFC11 /* successViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02360135207F5C1A009CFC11 /* successViewController.m */; };
+		02360139207F74F0009CFC11 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02360138207F74F0009CFC11 /* HelpViewController.m */; };
 		0237D150206B94E2004240B5 /* CZHDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14A206B94E2004240B5 /* CZHDatePickerView.m */; };
 		0237D151206B94E2004240B5 /* UIButton+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14D206B94E2004240B5 /* UIButton+CZHExtension.m */; };
 		0237D152206B94E2004240B5 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14F206B94E2004240B5 /* UIView+CZHExtension.m */; };
@@ -84,11 +98,22 @@
 		02B5043C207C684900E7C5DF /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B50435207C684900E7C5DF /* SVRadialGradientLayer.m */; };
 		02F136D92069EFF800D6FAC5 /* MyintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F136D82069EFF800D6FAC5 /* MyintViewController.m */; };
 		02F136DC206A2BF200D6FAC5 /* LookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F136DB206A2BF200D6FAC5 /* LookViewController.m */; };
+		02F4793D20803FB60027D459 /* feedbackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4793C20803FB60027D459 /* feedbackTableViewCell.m */; };
+		02F4793F208041BE0027D459 /* secion.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02F4793E208041BE0027D459 /* secion.xib */; };
+		02F47942208052DF0027D459 /* mydata.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F47941208052DF0027D459 /* mydata.m */; };
+		02F47945208067C10027D459 /* opinionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F47944208067C10027D459 /* opinionViewController.m */; };
+		02F47948208083810027D459 /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F47947208083810027D459 /* PersonalViewController.m */; };
+		02F4794B2080A8090027D459 /* nicknameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4794A2080A8090027D459 /* nicknameViewController.m */; };
 		02F4990B206B29B70016C636 /* CredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4990A206B29B70016C636 /* CredViewController.m */; };
 		02F4990E206B36F20016C636 /* HavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4990D206B36F20016C636 /* HavViewController.m */; };
 		02F49911206B3C340016C636 /* NoHavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F49910206B3C340016C636 /* NoHavViewController.m */; };
+		02F4DEB6208591C400893E27 /* celldata.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F4DEB5208591C400893E27 /* celldata.m */; };
 		02F7DA5D2073203C001ADE3A /* invitationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F7DA5C2073203C001ADE3A /* invitationViewController.m */; };
 		02F87C7A20745ECE009740BB /* CourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F87C7920745ECE009740BB /* CourseViewController.m */; };
+		02FB05AE208D7AD800CA0BF6 /* courTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FB05AD208D7AD800CA0BF6 /* courTableViewCell.m */; };
+		02FB05B1208D7B8C00CA0BF6 /* courdata.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FB05B0208D7B8C00CA0BF6 /* courdata.m */; };
+		02FC5A2320819C2D00E37456 /* Notice.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02FC5A2220819C2D00E37456 /* Notice.xib */; };
+		02FC5A2620819F4F00E37456 /* noticTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 02FC5A2520819F4F00E37456 /* noticTableViewCell.m */; };
 		963DB0558B065A2E5B107028 /* libPods-spike.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 582BA302EAF39D87DBAF1F42 /* libPods-spike.a */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -144,6 +169,10 @@
 		0217C5B1206B6A4C00A4051F /* HavTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HavTableViewCell.h; sourceTree = "<group>"; };
 		0217C5B2206B6A4C00A4051F /* HavTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HavTableViewCell.m; sourceTree = "<group>"; };
 		0217C5B7206B807000A4051F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		022AF48F2088386100A61417 /* buymyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = buymyViewController.h; sourceTree = "<group>"; };
+		022AF4902088386100A61417 /* buymyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = buymyViewController.m; sourceTree = "<group>"; };
+		022E25D22084831400B49E84 /* timeTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = timeTableViewCell.h; sourceTree = "<group>"; };
+		022E25D32084831400B49E84 /* timeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = timeTableViewCell.m; sourceTree = "<group>"; };
 		0232944820734571004AAA24 /* TimeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeViewController.h; sourceTree = "<group>"; };
 		0232944920734571004AAA24 /* TimeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeViewController.m; sourceTree = "<group>"; };
 		0232944C2073A12E004AAA24 /* CCDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCDatePickerView.h; sourceTree = "<group>"; };
@@ -284,6 +313,26 @@
 		023294FB2073A13E004AAA24 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		023294FC2073A13E004AAA24 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		023294FD2073A13E004AAA24 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		0236011A207F08E8009CFC11 /* detailedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detailedViewController.h; sourceTree = "<group>"; };
+		0236011B207F08E8009CFC11 /* detailedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = detailedViewController.m; sourceTree = "<group>"; };
+		0236011D207F28BB009CFC11 /* pingjia.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = pingjia.xib; sourceTree = "<group>"; };
+		0236011E207F28BB009CFC11 /* myTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myTableViewCell.h; sourceTree = "<group>"; };
+		0236011F207F28BC009CFC11 /* myTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myTableViewCell.m; sourceTree = "<group>"; };
+		02360122207F373A009CFC11 /* WQLStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WQLStarView.h; sourceTree = "<group>"; };
+		02360123207F373A009CFC11 /* WQLStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WQLStarView.m; sourceTree = "<group>"; };
+		02360125207F374E009CFC11 /* starBackImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starBackImage.png; sourceTree = "<group>"; };
+		02360127207F3CA4009CFC11 /* YsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YsViewController.h; sourceTree = "<group>"; };
+		02360128207F3CA4009CFC11 /* YsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YsViewController.m; sourceTree = "<group>"; };
+		0236012A207F3EAC009CFC11 /* ysv.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ysv.xib; sourceTree = "<group>"; };
+		0236012C207F3FA1009CFC11 /* ysControllTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ysControllTableViewCell.h; sourceTree = "<group>"; };
+		0236012D207F3FA1009CFC11 /* ysControllTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ysControllTableViewCell.m; sourceTree = "<group>"; };
+		0236012F207F43A6009CFC11 /* MUIUEmpty.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MUIUEmpty.xib; sourceTree = "<group>"; };
+		02360131207F43BB009CFC11 /* MUUITableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MUUITableViewCell.h; sourceTree = "<group>"; };
+		02360132207F43BB009CFC11 /* MUUITableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUUITableViewCell.m; sourceTree = "<group>"; };
+		02360134207F5C1A009CFC11 /* successViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = successViewController.h; sourceTree = "<group>"; };
+		02360135207F5C1A009CFC11 /* successViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = successViewController.m; sourceTree = "<group>"; };
+		02360137207F74F0009CFC11 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		02360138207F74F0009CFC11 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		0237D149206B94E2004240B5 /* CZHDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHDatePickerView.h; sourceTree = "<group>"; };
 		0237D14A206B94E2004240B5 /* CZHDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZHDatePickerView.m; sourceTree = "<group>"; };
 		0237D14B206B94E2004240B5 /* DatePickerHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerHeader.h; sourceTree = "<group>"; };
@@ -332,16 +381,36 @@
 		02F136D82069EFF800D6FAC5 /* MyintViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyintViewController.m; sourceTree = "<group>"; };
 		02F136DA206A2BF200D6FAC5 /* LookViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LookViewController.h; sourceTree = "<group>"; };
 		02F136DB206A2BF200D6FAC5 /* LookViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LookViewController.m; sourceTree = "<group>"; };
+		02F4793B20803FB60027D459 /* feedbackTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = feedbackTableViewCell.h; sourceTree = "<group>"; };
+		02F4793C20803FB60027D459 /* feedbackTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = feedbackTableViewCell.m; sourceTree = "<group>"; };
+		02F4793E208041BE0027D459 /* secion.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secion.xib; sourceTree = "<group>"; };
+		02F47940208052DF0027D459 /* mydata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mydata.h; sourceTree = "<group>"; };
+		02F47941208052DF0027D459 /* mydata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mydata.m; sourceTree = "<group>"; };
+		02F47943208067C10027D459 /* opinionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = opinionViewController.h; sourceTree = "<group>"; };
+		02F47944208067C10027D459 /* opinionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = opinionViewController.m; sourceTree = "<group>"; };
+		02F47946208083810027D459 /* PersonalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalViewController.h; sourceTree = "<group>"; };
+		02F47947208083810027D459 /* PersonalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalViewController.m; sourceTree = "<group>"; };
+		02F479492080A8090027D459 /* nicknameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nicknameViewController.h; sourceTree = "<group>"; };
+		02F4794A2080A8090027D459 /* nicknameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = nicknameViewController.m; sourceTree = "<group>"; };
 		02F49909206B29B70016C636 /* CredViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CredViewController.h; sourceTree = "<group>"; };
 		02F4990A206B29B70016C636 /* CredViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CredViewController.m; sourceTree = "<group>"; };
 		02F4990C206B36F20016C636 /* HavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HavViewController.h; sourceTree = "<group>"; };
 		02F4990D206B36F20016C636 /* HavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HavViewController.m; sourceTree = "<group>"; };
 		02F4990F206B3C340016C636 /* NoHavViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NoHavViewController.h; sourceTree = "<group>"; };
 		02F49910206B3C340016C636 /* NoHavViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoHavViewController.m; sourceTree = "<group>"; };
+		02F4DEB4208591C400893E27 /* celldata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = celldata.h; sourceTree = "<group>"; };
+		02F4DEB5208591C400893E27 /* celldata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = celldata.m; sourceTree = "<group>"; };
 		02F7DA5B2073203C001ADE3A /* invitationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = invitationViewController.h; sourceTree = "<group>"; };
 		02F7DA5C2073203C001ADE3A /* invitationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = invitationViewController.m; sourceTree = "<group>"; };
 		02F87C7820745ECE009740BB /* CourseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CourseViewController.h; sourceTree = "<group>"; };
 		02F87C7920745ECE009740BB /* CourseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CourseViewController.m; sourceTree = "<group>"; };
+		02FB05AC208D7AD800CA0BF6 /* courTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = courTableViewCell.h; sourceTree = "<group>"; };
+		02FB05AD208D7AD800CA0BF6 /* courTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = courTableViewCell.m; sourceTree = "<group>"; };
+		02FB05AF208D7B8C00CA0BF6 /* courdata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = courdata.h; sourceTree = "<group>"; };
+		02FB05B0208D7B8C00CA0BF6 /* courdata.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = courdata.m; sourceTree = "<group>"; };
+		02FC5A2220819C2D00E37456 /* Notice.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Notice.xib; sourceTree = "<group>"; };
+		02FC5A2420819F4F00E37456 /* noticTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = noticTableViewCell.h; sourceTree = "<group>"; };
+		02FC5A2520819F4F00E37456 /* noticTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = noticTableViewCell.m; sourceTree = "<group>"; };
 		08AF506FDC8CFE287C1662A4 /* Pods-spike.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spike.debug.xcconfig"; path = "Pods/Target Support Files/Pods-spike/Pods-spike.debug.xcconfig"; sourceTree = "<group>"; };
 		27EB5995A26AD8DBC2D39CFE /* Pods-spike.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spike.release.xcconfig"; path = "Pods/Target Support Files/Pods-spike/Pods-spike.release.xcconfig"; sourceTree = "<group>"; };
 		582BA302EAF39D87DBAF1F42 /* libPods-spike.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-spike.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -718,6 +787,17 @@
 				02F136D62069EED300D6FAC5 /* myintface */,
 				02A7C0BC2063424B00D356FA /* MUIViewController.h */,
 				02A7C0BD2063424B00D356FA /* MUIViewController.m */,
+				0236012F207F43A6009CFC11 /* MUIUEmpty.xib */,
+				02360131207F43BB009CFC11 /* MUUITableViewCell.h */,
+				02360132207F43BB009CFC11 /* MUUITableViewCell.m */,
+				0236011A207F08E8009CFC11 /* detailedViewController.h */,
+				0236011B207F08E8009CFC11 /* detailedViewController.m */,
+				02360122207F373A009CFC11 /* WQLStarView.h */,
+				02360123207F373A009CFC11 /* WQLStarView.m */,
+				02360125207F374E009CFC11 /* starBackImage.png */,
+				0236011D207F28BB009CFC11 /* pingjia.xib */,
+				0236011E207F28BB009CFC11 /* myTableViewCell.h */,
+				0236011F207F28BC009CFC11 /* myTableViewCell.m */,
 			);
 			path = MUI;
 			sourceTree = "<group>";
@@ -758,12 +838,28 @@
 				02041F65206DD94200A9D0EF /* WPhoto */,
 				02F136D72069EFF800D6FAC5 /* MyintViewController.h */,
 				02F136D82069EFF800D6FAC5 /* MyintViewController.m */,
+				02F47946208083810027D459 /* PersonalViewController.h */,
+				02F47947208083810027D459 /* PersonalViewController.m */,
+				02F479492080A8090027D459 /* nicknameViewController.h */,
+				02F4794A2080A8090027D459 /* nicknameViewController.m */,
 				0232944820734571004AAA24 /* TimeViewController.h */,
 				0232944920734571004AAA24 /* TimeViewController.m */,
+				022E25D22084831400B49E84 /* timeTableViewCell.h */,
+				02F4DEB4208591C400893E27 /* celldata.h */,
+				02F4DEB5208591C400893E27 /* celldata.m */,
+				022E25D32084831400B49E84 /* timeTableViewCell.m */,
 				0206B6BC2079AA5B00A1C287 /* BuyViewController.h */,
 				0206B6BD2079AA5B00A1C287 /* BuyViewController.m */,
+				022AF48F2088386100A61417 /* buymyViewController.h */,
+				022AF4902088386100A61417 /* buymyViewController.m */,
+				02360134207F5C1A009CFC11 /* successViewController.h */,
+				02360135207F5C1A009CFC11 /* successViewController.m */,
 				02F87C7820745ECE009740BB /* CourseViewController.h */,
 				02F87C7920745ECE009740BB /* CourseViewController.m */,
+				02FB05AC208D7AD800CA0BF6 /* courTableViewCell.h */,
+				02FB05AD208D7AD800CA0BF6 /* courTableViewCell.m */,
+				02FB05AF208D7B8C00CA0BF6 /* courdata.h */,
+				02FB05B0208D7B8C00CA0BF6 /* courdata.m */,
 				02F7DA5B2073203C001ADE3A /* invitationViewController.h */,
 				02F7DA5C2073203C001ADE3A /* invitationViewController.m */,
 				0206B6BF207A3EB500A1C287 /* WebViewController.h */,
@@ -772,12 +868,29 @@
 				0206B6CF207B96C400A1C287 /* invitationMianViewController.m */,
 				02041F80206F54CB00A9D0EF /* NoticeViewController.h */,
 				02041F81206F54CB00A9D0EF /* NoticeViewController.m */,
+				02FC5A2220819C2D00E37456 /* Notice.xib */,
+				02FC5A2420819F4F00E37456 /* noticTableViewCell.h */,
+				02FC5A2520819F4F00E37456 /* noticTableViewCell.m */,
 				0250A4EE206D193A00A91B52 /* SETViewController.h */,
 				0250A4EF206D193A00A91B52 /* SETViewController.m */,
+				02360137207F74F0009CFC11 /* HelpViewController.h */,
+				02360138207F74F0009CFC11 /* HelpViewController.m */,
+				02F47943208067C10027D459 /* opinionViewController.h */,
+				02F47944208067C10027D459 /* opinionViewController.m */,
+				02F4793B20803FB60027D459 /* feedbackTableViewCell.h */,
+				02F47940208052DF0027D459 /* mydata.h */,
+				02F47941208052DF0027D459 /* mydata.m */,
+				02F4793E208041BE0027D459 /* secion.xib */,
+				02F4793C20803FB60027D459 /* feedbackTableViewCell.m */,
 				02B50427207C682500E7C5DF /* LBClearCacheTool.h */,
 				02B50426207C682500E7C5DF /* LBClearCacheTool.m */,
 				02041F7D206DE06E00A9D0EF /* BalanceViewController.h */,
 				02041F7E206DE06E00A9D0EF /* BalanceViewController.m */,
+				02360127207F3CA4009CFC11 /* YsViewController.h */,
+				02360128207F3CA4009CFC11 /* YsViewController.m */,
+				0236012A207F3EAC009CFC11 /* ysv.xib */,
+				0236012C207F3FA1009CFC11 /* ysControllTableViewCell.h */,
+				0236012D207F3FA1009CFC11 /* ysControllTableViewCell.m */,
 			);
 			path = myintface;
 			sourceTree = "<group>";
@@ -871,6 +984,11 @@
 					02A7C08120633EB700D356FA = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					02A7C09920633EB800D356FA = {
 						CreatedOnToolsVersion = 9.2;
@@ -909,7 +1027,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02360126207F374E009CFC11 /* starBackImage.png in Resources */,
 				02B50436207C684900E7C5DF /* LICENSE.txt in Resources */,
+				02360130207F43A6009CFC11 /* MUIUEmpty.xib in Resources */,
 				02041F79206DD94200A9D0EF /* wphoto_back@2x.png in Resources */,
 				02A7C09220633EB700D356FA /* LaunchScreen.storyboard in Resources */,
 				023294952073A12E004AAA24 /* CCDatePickerView.xib in Resources */,
@@ -917,9 +1037,13 @@
 				0206B6CD207AF79A00A1C287 /* WSDatePickerView.xib in Resources */,
 				02B50437207C684900E7C5DF /* README.md in Resources */,
 				02041F7A206DD94200A9D0EF /* wphoto_select_no@2x.png in Resources */,
+				02F4793F208041BE0027D459 /* secion.xib in Resources */,
 				02B5043A207C684900E7C5DF /* SVProgressHUD.bundle in Resources */,
+				02FC5A2320819C2D00E37456 /* Notice.xib in Resources */,
+				0236012B207F3EAC009CFC11 /* ysv.xib in Resources */,
 				02041F7B206DD94200A9D0EF /* wphoto_select_yes@2x.png in Resources */,
 				0232949D2073A12E004AAA24 /* CCYearPickerView.xib in Resources */,
+				02360120207F28BC009CFC11 /* pingjia.xib in Resources */,
 				02A7C08F20633EB700D356FA /* Assets.xcassets in Resources */,
 				02A7C08D20633EB700D356FA /* Main.storyboard in Resources */,
 			);
@@ -997,15 +1121,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				022E25D42084831400B49E84 /* timeTableViewCell.m in Sources */,
 				02F4990E206B36F20016C636 /* HavViewController.m in Sources */,
+				02F47942208052DF0027D459 /* mydata.m in Sources */,
 				023294A72073A12E004AAA24 /* JTCalendarMonthView.m in Sources */,
 				02A7C0C120638B6D00D356FA /* registeredViewController.m in Sources */,
 				0206B6C1207A3EB500A1C287 /* WebViewController.m in Sources */,
 				023294992073A12E004AAA24 /* CCMinitePickerView.m in Sources */,
 				02A7C0BE2063424B00D356FA /* MUIViewController.m in Sources */,
+				0236011C207F08E8009CFC11 /* detailedViewController.m in Sources */,
 				02B50439207C684900E7C5DF /* SVProgressAnimatedView.m in Sources */,
 				023294AD2073A12E004AAA24 /* MASConstraintMaker.m in Sources */,
 				023294B02073A12E004AAA24 /* MASViewConstraint.m in Sources */,
+				02360136207F5C1A009CFC11 /* successViewController.m in Sources */,
+				02360133207F43BB009CFC11 /* MUUITableViewCell.m in Sources */,
 				0206B6D0207B96C400A1C287 /* invitationMianViewController.m in Sources */,
 				0237D151206B94E2004240B5 /* UIButton+CZHExtension.m in Sources */,
 				023294B32073A12E004AAA24 /* View+MASAdditions.m in Sources */,
@@ -1030,18 +1159,25 @@
 				0250A4F0206D193A00A91B52 /* SETViewController.m in Sources */,
 				02F87C7A20745ECE009740BB /* CourseViewController.m in Sources */,
 				02041F7F206DE06E00A9D0EF /* BalanceViewController.m in Sources */,
+				02F4DEB6208591C400893E27 /* celldata.m in Sources */,
 				02A7C0BB20633F4900D356FA /* LoginViewController.m in Sources */,
 				0206B6CB207AF79A00A1C287 /* UIView+Extension.m in Sources */,
+				02F4793D20803FB60027D459 /* feedbackTableViewCell.m in Sources */,
+				02F4794B2080A8090027D459 /* nicknameViewController.m in Sources */,
 				02A7C08A20633EB700D356FA /* ViewController.m in Sources */,
 				023294AE2073A12E004AAA24 /* MASLayoutConstraint.m in Sources */,
+				02360139207F74F0009CFC11 /* HelpViewController.m in Sources */,
 				02041F77206DD94200A9D0EF /* UIImage+fixOrientation.m in Sources */,
+				02360124207F373A009CFC11 /* WQLStarView.m in Sources */,
 				023294AB2073A12E004AAA24 /* MASCompositeConstraint.m in Sources */,
 				023294B12073A12E004AAA24 /* NSArray+MASAdditions.m in Sources */,
 				023294962073A12E004AAA24 /* CCHourCircleSlider.m in Sources */,
 				02F49911206B3C340016C636 /* NoHavViewController.m in Sources */,
+				02F47945208067C10027D459 /* opinionViewController.m in Sources */,
 				02B50428207C682500E7C5DF /* LBClearCacheTool.m in Sources */,
 				023294AC2073A12E004AAA24 /* MASConstraint.m in Sources */,
 				02041F82206F54CB00A9D0EF /* NoticeViewController.m in Sources */,
+				02360129207F3CA4009CFC11 /* YsViewController.m in Sources */,
 				023294972073A12E004AAA24 /* CCHourPickerView.m in Sources */,
 				02B5043C207C684900E7C5DF /* SVRadialGradientLayer.m in Sources */,
 				023294A62073A12E004AAA24 /* JTCalendarMenuView.m in Sources */,
@@ -1050,19 +1186,26 @@
 				02F7DA5D2073203C001ADE3A /* invitationViewController.m in Sources */,
 				023294AF2073A12E004AAA24 /* MASViewAttribute.m in Sources */,
 				02041F75206DD94200A9D0EF /* myPhotoCell.m in Sources */,
+				022AF4912088386100A61417 /* buymyViewController.m in Sources */,
+				0236012E207F3FA1009CFC11 /* ysControllTableViewCell.m in Sources */,
 				02041F78206DD94200A9D0EF /* WPFunctionView.m in Sources */,
 				02B5043B207C684900E7C5DF /* SVProgressHUD.m in Sources */,
 				023294942073A12E004AAA24 /* CCDatePickerView.m in Sources */,
 				023294AA2073A12E004AAA24 /* JTCircleView.m in Sources */,
 				02041F76206DD94200A9D0EF /* NavView.m in Sources */,
+				02FB05AE208D7AD800CA0BF6 /* courTableViewCell.m in Sources */,
 				02A7C09520633EB700D356FA /* main.m in Sources */,
 				02A7C08720633EB700D356FA /* AppDelegate.m in Sources */,
 				023294A52073A12E004AAA24 /* JTCalendarMenuMonthView.m in Sources */,
 				0232949C2073A12E004AAA24 /* CCYearPickerView.m in Sources */,
 				023294A32073A12E004AAA24 /* JTCalendarDataCache.m in Sources */,
+				02FB05B1208D7B8C00CA0BF6 /* courdata.m in Sources */,
+				02F47948208083810027D459 /* PersonalViewController.m in Sources */,
 				0237D150206B94E2004240B5 /* CZHDatePickerView.m in Sources */,
 				0232949F2073A12E004AAA24 /* UIView+CCUtil.m in Sources */,
 				0232944A20734571004AAA24 /* TimeViewController.m in Sources */,
+				02360121207F28BC009CFC11 /* myTableViewCell.m in Sources */,
+				02FC5A2620819F4F00E37456 /* noticTableViewCell.m in Sources */,
 				023294A82073A12E004AAA24 /* JTCalendarMonthWeekDaysView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

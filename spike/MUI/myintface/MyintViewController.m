@@ -16,8 +16,10 @@
 #import "TimeViewController.h"
 #import "CourseViewController.h"
 #import "BuyViewController.h"
+#import "buymyViewController.h"
 #import "WebViewController.h"
 #import "invitationMianViewController.h"
+#import "PersonalViewController.h"
 @interface MyintViewController ()
 {
     UIView *topvew;
@@ -55,7 +57,7 @@
     _titlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-30, 50, 75, 75)];
     _titlab.text=@"雪飞扬";
     [topvew addSubview:_titlab];
-    _agelab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-30, 180, 68, 17)];
+    _agelab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-39, 180, 68, 17)];
     _agelab.text=@"6年雪龄";
     _agelab.backgroundColor=[UIColor yellowColor];
     [topvew addSubview:_agelab];
@@ -152,8 +154,6 @@
         NSLog(@"++++++%@++++",[[_photosArr objectAtIndex:0] objectForKey:@"image"]);
         
         imageView.image=[[_photosArr objectAtIndex:0] objectForKey:@"image"];
-        
-        
         
     }];
     [self presentViewController:WphotoVC animated:YES completion:nil];
@@ -260,9 +260,18 @@
         //cell.textLabel.text = @"购买";
         BuyViewController *vc=[[ BuyViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
-        
+//        buymyViewController*vc=[[buymyViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
         
     }
+    
+    
+    if (indexPath.section==0&&indexPath.row==0) {
+        PersonalViewController *vc=[[PersonalViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    
 }
 -(void)leftbuttonClick{
     

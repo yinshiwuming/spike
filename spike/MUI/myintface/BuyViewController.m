@@ -7,7 +7,7 @@
 //
 
 #import "BuyViewController.h"
-
+#import "successViewController.h"
 @interface BuyViewController (){
     
     UIButton*view1;
@@ -57,8 +57,8 @@
     time1.text=@"30小时";
     pick1=[[UILabel alloc]initWithFrame:CGRectMake(0, 28, WIDTH*0.3, 14)];
     pick1.text=@"75元";
-    pick1.textAlignment = UITextAlignmentCenter;
-    time1.textAlignment = UITextAlignmentCenter;
+    pick1.textAlignment =UITextAlignmentCenter;
+    time1.textAlignment =UITextAlignmentCenter;
     
     time2=[[UILabel alloc]initWithFrame:CGRectMake(0, 10, WIDTH*0.3, 14)];
     time2.text=@"30小时";
@@ -78,9 +78,6 @@
     pick4.text=@"75元";
     pick4.textAlignment = UITextAlignmentCenter;
     time4.textAlignment = UITextAlignmentCenter;
-    
-    
-    
     [view1 addSubview:time1];
     [view1 addSubview:pick1];
     [view2 addSubview:time2];
@@ -104,8 +101,6 @@
     label.textAlignment=NSTextAlignmentLeft;
     [self.view addSubview:label];
     [self.view addSubview:checkBox];
-    
-    
     buybtn=[UIButton buttonWithType:UIButtonTypeCustom];
     buybtn.frame= CGRectMake(40, HEIGHT*0.61, WIDTH-80, 44);
     [buybtn setTitle:@"立即购买" forState:UIControlStateNormal ];
@@ -133,6 +128,9 @@
     dateStr=[format1 stringFromDate:date];
     NSLog(@"+++++%@++++++",dateStr);
     
+    successViewController *vc=[[successViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 /*
 #pragma mark - Navigation

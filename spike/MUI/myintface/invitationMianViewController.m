@@ -34,8 +34,6 @@
     alread=[[UIButton alloc]initWithFrame:CGRectMake(0.3*WIDTH, HEIGHT*0.42+88, WIDTH*0.38, 44)];
     [alread setTitle:@"已经邀请" forState:UIControlStateNormal ];
     alread.backgroundColor=[UIColor lightGrayColor];
-    
-    
     [alread addTarget:self action:@selector(Method) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:alread];
