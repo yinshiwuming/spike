@@ -36,7 +36,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     
-    UIScrollView *demoContainerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 300)];
+    UIScrollView *demoContainerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.45)];
     demoContainerView.contentSize = CGSizeMake(self.view.frame.size.width, 0);
     [self.view addSubview:demoContainerView];
     
@@ -47,7 +47,7 @@
                                   ];
     _imagesURLStrings = imagesURLStrings;
     
-    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, 200) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.3) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     cycleScrollView3.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
     cycleScrollView3.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
     cycleScrollView3.imageURLStringsGroup = imagesURLStrings;
@@ -61,10 +61,11 @@
     // Do any additional setup after loading the view.
     
     
-    topbtn1=[[UIButton alloc]initWithFrame:CGRectMake(0, 219, WIDTH/2, 44)];
+    topbtn1=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT*0.32, WIDTH/2, 44)];
     //topbtn1.backgroundColor=[UIColor whiteColor];
     topbtn1.backgroundColor=[UIColor whiteColor];
-    [topbtn1 setTitle: @"已完成订单" forState: UIControlStateNormal];
+    [topbtn1 setTitle: @"已支付订单" forState: UIControlStateNormal];
+    topbtn1.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
     [topbtn1 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     view = [[UIView alloc] init];
     view.frame = CGRectMake(WIDTH/6,43,WIDTH/6,3);
@@ -74,11 +75,12 @@
     [self.view addSubview:topbtn1];
   
     
-    topbtn2=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH/2, 219, WIDTH/2, 44)];
+    topbtn2=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH/2,  HEIGHT*0.32, WIDTH/2, 44)];
     //topbtn1.backgroundColor=[UIColor whiteColor];
     topbtn2.backgroundColor=[UIColor whiteColor];
-    [topbtn2 setTitle: @"已支付订单" forState: UIControlStateNormal];
+    [topbtn2 setTitle: @"已完成订单" forState: UIControlStateNormal];
     [topbtn2 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+    topbtn2.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
     view2 = [[UIView alloc] init];
     view2.frame = CGRectMake(WIDTH/6,43,WIDTH/6,3);
     view2.backgroundColor = [UIColor yellowColor];
@@ -140,7 +142,7 @@
     // 设置tableView的背景图
 //    mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
     mytabview.backgroundColor=[UIColor groupTableViewBackgroundColor];
-    mytabview.rowHeight = 124;
+    mytabview.rowHeight = HEIGHT*0.16;
     //mytabview.scrollEnabled =NO;
     
     //这里设置顶部间距
@@ -227,7 +229,8 @@
     //这里跳转控制器并且把订单id传过去;
     detailedViewController *vc=[[detailedViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
     
 }
 /*

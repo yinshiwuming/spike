@@ -48,9 +48,10 @@
     [self.view addSubview:mytabview];
     mytabview.tableFooterView=[[UIView alloc]initWithFrame:frame];
     
-    btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 618, 375, 49)];
-    btn.backgroundColor=[UIColor yellowColor];
+    btn=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT*0.92, WIDTH, 44)];
+    btn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [btn setTitle:@"意见反馈" forState:UIControlStateNormal];
+    [btn setTintColor:[UIColor blackColor]];
     [btn addTarget:self action:@selector(opin) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
@@ -97,15 +98,9 @@
     return cell;
 }
 -(void)opin{
-    
-    
     //关于意见反馈界面
     opinionViewController*vc=[[opinionViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
-    
-    
-    
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

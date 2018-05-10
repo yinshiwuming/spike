@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TimeViewController : UIViewController<UIPickerViewDataSource,UIPickerViewDelegate,UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
-
+@property (nonatomic,strong) UIScrollView *newview;
 @end

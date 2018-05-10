@@ -46,9 +46,14 @@
     Verification.textAlignment=NSTextAlignmentLeft ;
     Verification.enabled=YES;
     additionabtn= [UIButton buttonWithType:UIButtonTypeSystem];
+    UIView*ek=[[UIView alloc]initWithFrame:CGRectMake(WIDTH-108, 2, 1, 40)];
+    ek.backgroundColor=[UIColor blackColor];
+    [Verification addSubview:ek];
     additionabtn.frame = CGRectMake(WIDTH-100, 0, 100, 44);
     [additionabtn setTitle:@"获取验证码" forState:(UIControlStateNormal )];
-    additionabtn.backgroundColor=[UIColor blackColor];
+    additionabtn.backgroundColor=[UIColor whiteColor];
+    [additionabtn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+
     [Verification addSubview:additionabtn];
     [self.view addSubview:Verification];
     pwd=[self createTextFielfFrame:CGRectMake(0, 152, WIDTH, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入密码"];

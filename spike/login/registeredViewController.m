@@ -33,7 +33,7 @@
     _topLAB.textAlignment =NSTextAlignmentCenter;
     [self.view addSubview:_topLAB];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"20140517014348962"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景"]];
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tapGesturRecognizer];
     
@@ -49,7 +49,7 @@
     user.enabled=YES;
     [self.view addSubview:user];
     additionallab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
-    additionallab.backgroundColor=[UIColor lightGrayColor];
+    additionallab.backgroundColor=[UIColor lightTextColor];
     additionallab.text=@"+86";
     additionallab.textColor=[UIColor darkGrayColor];
     additionallab.textAlignment= NSTextAlignmentCenter;
@@ -247,5 +247,22 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)viewWillAppear:(BOOL)animated{
+    
+    //设置导航栏背景图片为一个空的image，这样就透明了
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = item;
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+   
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //去掉透明后导航栏下边的黑边
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    
+    //    如果不想让其他页面的导航栏变为透明 需要重置
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+}
 @end

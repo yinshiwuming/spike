@@ -35,7 +35,7 @@
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
    
     mytabview.scrollEnabled =NO;
-    
+    mytabview.rowHeight=160;
     //这里设置顶部间距
     CGRect frame=CGRectMake(0, 0, 0, 4);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];

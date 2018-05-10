@@ -7,7 +7,8 @@
 //
 
 #import "successViewController.h"
-
+#define HEIGHT    [[UIScreen mainScreen] bounds].size.height
+#define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface successViewController (){
     
     
@@ -27,17 +28,17 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     
-    img=[[UIImageView alloc]initWithFrame:CGRectMake(173, 120, 37, 37)];
+    img=[[UIImageView alloc]initWithFrame:CGRectMake(WIDTH*0.46, 120, 37, 37)];
     img.image=[UIImage imageNamed:@"支付成功"];
     [self.view addSubview:img];
-    farbtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 274, 335, 44)];
+    farbtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 274, WIDTH*0.89, 44)];
     farbtn.backgroundColor=[UIColor yellowColor];
     [farbtn setTitle:@"去分享" forState:UIControlStateNormal ];
-    tslab=[[UILabel alloc]initWithFrame:CGRectMake(161, 179, 88, 15)];
+    tslab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.43, 179, 88, 15)];
     tslab.text=@"支付成功";
     
     
-    gobtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 350, 335, 44)];
+    gobtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 350, WIDTH*0.89, 44)];
     //返回首页
     gobtn.backgroundColor=[UIColor lightGrayColor];
     [gobtn setTitle:@"去分享" forState:UIControlStateNormal];

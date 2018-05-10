@@ -57,7 +57,7 @@
     
     self.navigationItem.title = @"课程选择";
     self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
-    topview=[[UIView alloc]initWithFrame:CGRectMake(0, 84, WIDTH, 180)];
+    topview=[[UIView alloc]initWithFrame:CGRectMake(0, 84, WIDTH, HEIGHT*0.27)];
     topview.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:topview];
     toplab=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH, 80)];
@@ -65,13 +65,13 @@
     toplab.backgroundColor=[UIColor whiteColor];
     [toplab setNumberOfLines:0];
     [topview addSubview:toplab];
-    UIView*viow=[[UIView alloc]initWithFrame:CGRectMake(0, 110, WIDTH, 2)];
-    viow.backgroundColor=[UIColor lightGrayColor];
-    [topview addSubview:viow];
+//    UIView*viow=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.165, WIDTH, 2)];
+//    viow.backgroundColor=[UIColor lightGrayColor];
+//    [topview addSubview:viow];
     leftlab=[[UILabel alloc]initWithFrame:CGRectMake(10, 130, WIDTH/4, 12)];
     leftlab.font=[UIFont fontWithName:@"PingFang-SC-Medium" size:12];
     leftlab.text=@"雪场选择";
-    [topview addSubview:leftlab];
+//    [topview addSubview:leftlab];
     self.pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, 50, self.view.bounds.size.width, 200)];
     
     
@@ -84,7 +84,7 @@
     rigtex.text=@"北京奥森→";
     rigtex.textAlignment=NSTextAlignmentRight;
     rigtex.font=[UIFont fontWithName:@"PingFang-SC-Medium" size:12];
-    [topview addSubview:rigtex];
+//    [topview addSubview:rigtex];
     twoview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.41, WIDTH,HEIGHT*0.59)];
     twoview.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:twoview];
@@ -119,7 +119,7 @@
     
     
     confirm=[[UIButton alloc]initWithFrame:CGRectMake(30, HEIGHT-66, WIDTH-60, 44)];
-    confirm.backgroundColor=[UIColor yellowColor];
+    confirm.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
     [confirm addTarget:self action:@selector(ysClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirm];
@@ -185,7 +185,7 @@
 //    timelab2.text= @"小班5次课250";
     
     timelab2.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
-    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-20, 10, 20, 20)];
+    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-32, 8, 20, 20)];
     [pickbtn1 setImage:[UIImage imageNamed:@"椭圆 1 拷贝"] forState:UIControlStateNormal];
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];

@@ -40,14 +40,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
+    [self.navigationItem setTitle:@"购买"];
     view1=[[UIButton alloc]initWithFrame:CGRectMake(41, HEIGHT*0.18, WIDTH*0.3, 62)];
     view2=[[UIButton alloc]initWithFrame:CGRectMake(41+WIDTH*0.17+WIDTH*0.3, HEIGHT*0.18, WIDTH*0.3, 62)];
      view3=[[UIButton alloc]initWithFrame:CGRectMake(41, HEIGHT*0.18+HEIGHT*0.16, WIDTH*0.3, 62)];
      view4=[[UIButton alloc]initWithFrame:CGRectMake(41+WIDTH*0.17+WIDTH*0.3, HEIGHT*0.18+HEIGHT*0.16, WIDTH*0.3, 62)];
-    [view1 setBackgroundColor:[UIColor yellowColor]];
-    [view2 setBackgroundColor:[UIColor yellowColor]];
-    [view3 setBackgroundColor:[UIColor yellowColor]];
-    [view4 setBackgroundColor:[UIColor yellowColor]];
+    [view1 setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
+    [view2 setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
+    [view3 setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
+    [view4 setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
     [self.view addSubview:view1];
     [self.view addSubview:view2];
     [self.view addSubview:view3];
@@ -104,7 +105,7 @@
     buybtn=[UIButton buttonWithType:UIButtonTypeCustom];
     buybtn.frame= CGRectMake(40, HEIGHT*0.61, WIDTH-80, 44);
     [buybtn setTitle:@"立即购买" forState:UIControlStateNormal ];
-    [buybtn setBackgroundColor:[UIColor yellowColor]];
+    [buybtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
      [buybtn addTarget:self action:@selector(buy:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buybtn];
     // Do any additional setup after loading the view.

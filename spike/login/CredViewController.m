@@ -51,8 +51,8 @@
     
     HavViewController * vc=[[HavViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
-    UIBarButtonItem *barbuttonitm=[[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
-    self.navigationItem.backBarButtonItem=barbuttonitm;
+//    UIBarButtonItem *barbuttonitm=[[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+//    self.navigationItem.backBarButtonItem=barbuttonitm;
     
     
     

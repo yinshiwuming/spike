@@ -109,7 +109,7 @@
         [fileManager removeItemAtPath:filePath error:&error];
         if (error) {
             message = [NSString stringWithFormat:@"%@这个路径的文件夹删除失败了，请检查后重新再试",filePath];
-            return NO;
+           // return NO;
 
         }else {
             message = @"成功了";

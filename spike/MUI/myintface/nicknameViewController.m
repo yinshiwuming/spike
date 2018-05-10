@@ -7,7 +7,8 @@
 //
 
 #import "nicknameViewController.h"
-
+#define HEIGHT    [[UIScreen mainScreen] bounds].size.height
+#define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface nicknameViewController ()
 
 @end
@@ -17,8 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
-     UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 88,375 , 30)];
-      text.borderStyle = UITextBorderStyleRoundedRect;
+     UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 30)];
+    text.borderStyle = UITextBorderStyleRoundedRect;
      text.backgroundColor = [UIColor whiteColor];
      text.placeholder = @"   请输入昵称";
     text.clearButtonMode = UITextFieldViewModeAlways;
@@ -32,6 +33,7 @@
     btn.backgroundColor=[UIColor yellowColor];
     [btn setTitle:@"提交" forState:UIControlStateNormal];
     [self.view addSubview:btn];
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -12,7 +12,7 @@
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface BalanceViewController (){
     
-    UILabel * toplab;
+   UIButton * toplab;
     UIButton *topbtn;
     UIButton *onebtn;
     UIButton *twotbtn;
@@ -29,15 +29,18 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"我的余额"];
     self.view.backgroundColor=[UIColor whiteColor];
-    toplab=[[UILabel alloc]initWithFrame:CGRectMake(23, HEIGHT*0.14, 120, 11)];
-    toplab.text=@"当前余额:";
+    toplab=[[UIButton alloc]initWithFrame:CGRectMake(23, HEIGHT*0.14, 88, 33)];
+     [toplab setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+    [toplab setTitle:@"当前余额" forState:UIControlStateNormal];
     [self.view addSubview:toplab];
-     topbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-143,HEIGHT*0.14, 120, 11)];
+     topbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-90,HEIGHT*0.14, 88, 33)];
     [topbtn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    [topbtn setTitle:@"交易明细" forState:(UIControlStateNormal )];
+    [topbtn setTitle:@"交易明细:" forState:(UIControlStateNormal )];
+    //[topbtn addTarget:self action:@selector(ys) forControlEvents:UIControlEventTouchUpInside];
+//    [topbtn addTarget:self action:@selector(ys) forControlEvents:UIControlEventTouchUpInside];
     [topbtn addTarget:self action:@selector(ys) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:topbtn];
-    image=[[UIImageView alloc]initWithFrame:CGRectMake(WIDTH/2-30, HEIGHT*0.19, 40, 47)];
+    image=[[UIImageView alloc]initWithFrame:CGRectMake(WIDTH/2-20, HEIGHT*0.19, 40, 47)];
     image.image=[UIImage imageNamed:@"钱袋"];
     [self.view addSubview:image];
     balance=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-30, HEIGHT*0.30, 70, 15)];
@@ -51,7 +54,7 @@
     [self.view addSubview:onebtn];
     twotbtn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.45, WIDTH-40, 34)];
     [twotbtn setTitle:@"充值" forState:(UIControlStateNormal )];
-    [twotbtn setBackgroundColor:[UIColor yellowColor]];
+    [twotbtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
     [self.view addSubview:twotbtn];
     // Do any additional setup after loading the view.
 }

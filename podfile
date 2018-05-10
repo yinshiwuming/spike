@@ -4,5 +4,6 @@ pod 'AFNetworking'
 pod 'KSGuaidView'
 pod 'MBProgressHUD'
  pod 'MJExtension'
+pod 'MJRefresh'
 pod 'SDCycleScrollView','~> 1.75'  
 end

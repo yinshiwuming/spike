@@ -36,7 +36,7 @@
    
     imageView = [[UIView alloc] init];
     imageView.frame = CGRectMake(0,0,WIDTH,HEIGHT);
-    imageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"20140517014348962"]];
+    imageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景"]];
      UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
      [imageView addGestureRecognizer:tapGesturRecognizer];
     [self.view addSubview:imageView];
@@ -71,10 +71,20 @@
     lookinglab.userInteractionEnabled=YES;
     UITapGestureRecognizer *look = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(look)];
     [lookinglab addGestureRecognizer:look];
+    
+    UIView*clview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.758, WIDTH*0.37, 1)];
+    clview.backgroundColor=[UIColor whiteColor];
+    
+    [imageView addSubview:clview];
+    
+    UIView*elview=[[UIView alloc]initWithFrame:CGRectMake(WIDTH*0.64, HEIGHT*0.758, WIDTH*0.35, 1)];
+    elview.backgroundColor=[UIColor whiteColor];
+    [imageView addSubview:elview];
+    
     third=[[UILabel alloc]init];
-    third.frame=CGRectMake(WIDTH/2-33, HEIGHT*0.75, 76, 13);
+    third.frame=CGRectMake(WIDTH*0.38, HEIGHT*0.75, WIDTH*0.5, 13);
                  
-    third.text=@"其他登录";
+    third.text=@"其他方式登录";
     third.font=[UIFont fontWithName:@"PingFang-SC-Medium" size:13];
     third.textColor= [UIColor colorWithRed:255/255 green:255/255 blue:255/255 alpha:1];
     [imageView addSubview:third];
@@ -175,7 +185,7 @@
     user.textAlignment=NSTextAlignmentCenter ;
     user.enabled=YES;
     additionallab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
-    additionallab.backgroundColor=[UIColor lightGrayColor];
+    additionallab.backgroundColor=[UIColor colorWithRed:234.0f/255.0f green:234.0f/255.0f blue:234.0f/255.0f alpha:0.5];
     additionallab.text=@"+86";
     additionallab.textColor=[UIColor darkGrayColor];
     additionallab.textAlignment= NSTextAlignmentCenter;
@@ -311,6 +321,11 @@
     registeredViewController * regis=[[registeredViewController alloc]init];
    // [ self presentViewController:regis animated: YES completion:nil];
     [self.navigationController pushViewController:regis animated:YES];
+    
+    UIBarButtonItem *barbuttonitm=[[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+    self.navigationItem.backBarButtonItem=barbuttonitm;
+    
+    
 }
 
 -(void)look{

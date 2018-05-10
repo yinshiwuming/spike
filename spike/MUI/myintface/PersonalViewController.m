@@ -23,10 +23,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor whiteColor];
+    self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [self.navigationItem setTitle:@"个人信息"];
+    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
     
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(20, 0, WIDTH-40,  266) style: UITableViewStylePlain ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(-10, 66, WIDTH+10,266) style: UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
@@ -35,6 +36,7 @@
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
     mytabview.rowHeight = 44;
     mytabview.scrollEnabled =NO;
+    mytabview.backgroundColor=[UIColor groupTableViewBackgroundColor];
     
     //这里设置顶部间距
     CGRect frame=CGRectMake(0, 0, 0, 4);
@@ -73,7 +75,7 @@
         cell.textLabel.text=@"头像";
         //这里添加cell的头像
         imageView = [[UIImageView alloc] init];
-        imageView.frame = CGRectMake(WIDTH-118,3,38,38);
+        imageView.frame = CGRectMake(WIDTH-64,3,38,38);
         imageView.image=[UIImage imageNamed:@"Home_Scroll_03"];
         imageView.layer.cornerRadius=imageView.frame.size.width/2;//裁成圆角
         imageView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
@@ -99,7 +101,7 @@
     
     
     cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -155,8 +157,6 @@
     //选择图片的最大数
     WphotoVC.selectPhotoOfMax = 1;
     [WphotoVC setSelectPhotosBack:^(NSMutableArray *phostsArr) {
-        
-        
         _photosArr = phostsArr;
         NSLog(@"++++++%@++++",[[_photosArr objectAtIndex:0] objectForKey:@"image"]);
         

@@ -27,7 +27,8 @@
     self.view.backgroundColor=[UIColor whiteColor];
     imm=[[UIButton alloc]initWithFrame:CGRectMake(0.3*WIDTH, HEIGHT*0.42, WIDTH*0.38, 44)];
     [imm setTitle:@"立即邀请" forState:UIControlStateNormal ];
-    imm.backgroundColor=[UIColor yellowColor];
+    [imm setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    imm.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [imm addTarget:self action:@selector(now) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:imm];

@@ -32,7 +32,7 @@
     mytabview.delegate = self;
     // 设置tableView的背景图
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-   
+    mytabview.rowHeight=88;
    
     [self.view addSubview:mytabview];
     

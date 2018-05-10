@@ -20,6 +20,7 @@
 #import "WebViewController.h"
 #import "invitationMianViewController.h"
 #import "PersonalViewController.h"
+#import "SkiViewController.h"
 @interface MyintViewController ()
 {
     UIView *topvew;
@@ -33,7 +34,7 @@
 }
 @property(nonatomic, strong) UILabel*titlab;
 @property(nonatomic, strong) UILabel*agelab;
-
+@property(nonatomic,strong)  UILabel*namelab;
 @end
 
 @implementation MyintViewController
@@ -42,11 +43,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
+     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     topvew=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.35)];
     topvew.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"20140517014348962"]];
     
     imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(WIDTH/2-40,100,75,75);
+    imageView.frame = CGRectMake(WIDTH*0.40,HEIGHT*0.12,WIDTH*0.2,HEIGHT*0.112);
     imageView.image=[UIImage imageNamed:@"Home_Scroll_03"];
     imageView.layer.cornerRadius=imageView.frame.size.width/2;//裁成圆角
     imageView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
@@ -54,16 +56,27 @@
     [imageView addGestureRecognizer:tapGesture];
     imageView.userInteractionEnabled = YES;
     [topvew addSubview:imageView];
-    _titlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-30, 50, 75, 75)];
+    _titlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.4, HEIGHT*0.045, WIDTH*0.2, HEIGHT*0.112)];
     _titlab.text=@"雪飞扬";
+    _titlab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
+    _titlab.textAlignment= NSTextAlignmentCenter;
+    _titlab.textColor=[UIColor whiteColor];
     [topvew addSubview:_titlab];
-    _agelab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-39, 180, 68, 17)];
+    _agelab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.4, HEIGHT*0.24, WIDTH*0.2, 17)];
     _agelab.text=@"6年雪龄";
+    _agelab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:9.3];
+    _agelab.textAlignment= NSTextAlignmentCenter;
     _agelab.backgroundColor=[UIColor yellowColor];
+    _agelab.layer.cornerRadius = 5;
+    
+    _agelab.clipsToBounds = YES;
     [topvew addSubview:_agelab];
-    
-    
-    
+    _namelab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.32, HEIGHT*0.24, WIDTH*0.38, HEIGHT*0.112)];
+    _namelab.text=@"称谓 滑雪指导员";
+    _namelab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+    _namelab.textColor=[UIColor whiteColor];
+    _namelab.textAlignment=NSTextAlignmentCenter;
+    [topvew addSubview:_namelab];
     
     
     
@@ -130,15 +143,16 @@
     mytabview.delegate = self;
     // 设置tableView的背景图
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-    mytabview.rowHeight = HEIGHT*0.05;
-    mytabview.scrollEnabled =NO;
+    mytabview.rowHeight = HEIGHT*0.065;
+//    mytabview.scrollEnabled =NO;
     
     //这里设置顶部间距
        CGRect frame=CGRectMake(0, 0, 0, 4);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
     [self.view addSubview:mytabview];
-   
-    
+    mytabview.sectionHeaderHeight=14;
+    mytabview.sectionFooterHeight=0;
+    mytabview.contentInset=UIEdgeInsetsMake(0+6, 0, 0, 0);
     
     
     // Do any additional setup after loading the view.
@@ -170,7 +184,7 @@
 }- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // 设置每个section的row数量(都是从0下标开始)
     if (section == 0) {
-        return 3;
+        return 4;
     }else if (section == 1)
     {
         return 3;
@@ -190,13 +204,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellIdentifier];
     }
     
-    if (indexPath.section==0&&indexPath.row==0) {
+    if (indexPath.section==0&&indexPath.row==1) {
         cell.textLabel.text = @"个人信息";
-    } if (indexPath.section==0&&indexPath.row==1) {
-        cell.textLabel.text = @"课程选择";
     } if (indexPath.section==0&&indexPath.row==2) {
+        cell.textLabel.text = @"课程选择";
+    } if (indexPath.section==0&&indexPath.row==3) {
         cell.textLabel.text = @"邀请教练";
-    } if (indexPath.section==1&&indexPath.row==0) {
+    }if (indexPath.section==0&&indexPath.row==0) {
+        cell.textLabel.text = @"雪场选择";
+    }
+    if (indexPath.section==1&&indexPath.row==0) {
         cell.textLabel.text = @"预约时间";
     } if (indexPath.section==1&&indexPath.row==1) {
         cell.textLabel.text = @"购买";
@@ -242,8 +259,10 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (indexPath.section==0&&indexPath.row==2) {
-        invitationMianViewController *vc=[[invitationMianViewController alloc]init];
-       
+//        invitationMianViewController *vc=[[invitationMianViewController alloc]init];
+//
+//        [self.navigationController pushViewController:vc animated:YES];
+        CourseViewController *vc=[[CourseViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
     
@@ -253,7 +272,9 @@
         
     }
     if (indexPath.section==0&&indexPath.row==1) {
-        CourseViewController *vc=[[CourseViewController alloc]init];
+//        CourseViewController *vc=[[CourseViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
+        PersonalViewController *vc=[[PersonalViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
     if (indexPath.section==1&&indexPath.row==1) {
@@ -265,13 +286,22 @@
         
     }
     
-    
+   //个人信息
     if (indexPath.section==0&&indexPath.row==0) {
-        PersonalViewController *vc=[[PersonalViewController alloc]init];
+//        PersonalViewController *vc=[[PersonalViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
+        
+        SkiViewController *vc=[[SkiViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        
+    }
+    if (indexPath.section==0&&indexPath.row==3) {
+//        PersonalViewController *vc=[[PersonalViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
+        invitationMianViewController *vc=[[invitationMianViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    
-    
+     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 -(void)leftbuttonClick{
     
