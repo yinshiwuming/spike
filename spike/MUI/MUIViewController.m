@@ -35,7 +35,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
-    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
     UIScrollView *demoContainerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.45)];
     demoContainerView.contentSize = CGSizeMake(self.view.frame.size.width, 0);
     [self.view addSubview:demoContainerView];
@@ -65,11 +72,12 @@
     //topbtn1.backgroundColor=[UIColor whiteColor];
     topbtn1.backgroundColor=[UIColor whiteColor];
     [topbtn1 setTitle: @"已支付订单" forState: UIControlStateNormal];
-    topbtn1.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
-    [topbtn1 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    view = [[UIView alloc] init];
-    view.frame = CGRectMake(WIDTH/6,43,WIDTH/6,3);
-    view.backgroundColor = [UIColor yellowColor];
+//    topbtn1.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    [topbtn1 setTitleColor:[UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1]forState:UIControlStateNormal];
+    topbtn1.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    view=[[UIView alloc]init];
+    view.frame = CGRectMake(WIDTH/7,43,WIDTH/4.7,3);
+    view.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:214.0f/255.0f blue:0.0f/255.0f alpha:1];
     [topbtn1 addSubview:view];
     [topbtn1 addTarget:self action:@selector(topbtn1) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:topbtn1];
@@ -79,11 +87,12 @@
     //topbtn1.backgroundColor=[UIColor whiteColor];
     topbtn2.backgroundColor=[UIColor whiteColor];
     [topbtn2 setTitle: @"已完成订单" forState: UIControlStateNormal];
-    [topbtn2 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    topbtn2.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    [topbtn2 setTitleColor:[UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1]forState:UIControlStateNormal];
+//    topbtn2.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    topbtn2.titleLabel.font = [UIFont systemFontOfSize: 14.0];
     view2 = [[UIView alloc] init];
-    view2.frame = CGRectMake(WIDTH/6,43,WIDTH/6,3);
-    view2.backgroundColor = [UIColor yellowColor];
+    view2.frame = CGRectMake(WIDTH/7,43,WIDTH/4.7,3);
+    view2.backgroundColor = [UIColor colorWithRed:255.0f/255.0f green:214.0f/255.0f blue:0.0f/255.0f alpha:1];
     view2.hidden=YES;
     [topbtn2 addSubview:view2];
     [topbtn2 addTarget:self action:@selector(topbtn2) forControlEvents:UIControlEventTouchUpInside];
@@ -94,8 +103,9 @@
     downleft.backgroundColor=[UIColor whiteColor];
     [downleft setTitle: @"订单" forState: UIControlStateNormal];
     [downleft setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+    downleft.titleLabel.font=[UIFont systemFontOfSize:12.0f];
     [downleft setImage:[UIImage imageNamed:@"选中订单"] forState:UIControlStateNormal];
-     CGFloat offset = 20.0f;
+     CGFloat offset = 4.0f;
     downleft.titleEdgeInsets = UIEdgeInsetsMake(0, -downleft.imageView.frame.size.width, -downleft.imageView.frame.size.height-offset/2, 0);
     // button.imageEdgeInsets = UIEdgeInsetsMake(-button.titleLabel.frame.size.height-offset/2, 0, 0, -button.titleLabel.frame.size.width);
     // 由于iOS8中titleLabel的size为0，用上面这样设置有问题，修改一下即可
@@ -114,7 +124,7 @@
     downright.backgroundColor=[UIColor whiteColor];
     [downright setTitle: @"我的" forState: UIControlStateNormal];
     [downright setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-  
+     downright.titleLabel.font=[UIFont systemFontOfSize:12.0f];
     [downright setImage:[UIImage imageNamed:@"我的(2)"] forState: UIControlStateNormal];
     
     
@@ -134,7 +144,7 @@
     
     [downright addTarget:self action:@selector(rightbuttonClick) forControlEvents:UIControlEventTouchUpInside];
      [self.view addSubview:downright];
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(8, HEIGHT*0.41, WIDTH-16,  HEIGHT*0.5) style:UITableViewStylePlain ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT*0.405, WIDTH,  HEIGHT*0.51) style:UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
@@ -142,12 +152,13 @@
     // 设置tableView的背景图
 //    mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
     mytabview.backgroundColor=[UIColor groupTableViewBackgroundColor];
-    mytabview.rowHeight = HEIGHT*0.16;
+//    mytabview.rowHeight = HEIGHT*0.16;
     //mytabview.scrollEnabled =NO;
     
     //这里设置顶部间距
-    CGRect frame=CGRectMake(0, 0, 0, 4);
+    CGRect frame=CGRectMake(0, 0, 0, 2);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
+    mytabview.showsVerticalScrollIndicator = NO;
     [self.view addSubview:mytabview];
     
     
@@ -195,6 +206,9 @@
 -(void)topbtn1{
     
     view2.hidden=YES;
+       [topbtn1 setTitleColor:[UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1]forState:UIControlStateNormal];
+     [topbtn2 setTitleColor:[UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1]forState:UIControlStateNormal];
+    
     view.hidden=NO;
     
     
@@ -206,6 +220,8 @@
 -(void)topbtn2{
     
     view2.hidden=NO;
+     [topbtn2 setTitleColor:[UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1]forState:UIControlStateNormal];
+     [topbtn1 setTitleColor:[UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1]forState:UIControlStateNormal];
     view.hidden=YES;
 }
 
@@ -232,6 +248,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
     
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //在设置高度的回调中获取当前indexpath的cell 然后返回给他的frame的高度即可。在创建cell的时候记得最后把cell.frame.size.height 等于你内容的高。
+    
+    UITableViewCell *cell=[self tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    /*此写法会导致循环引用。引起崩溃
+     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+     */
+    
+    return cell.frame.size.height;
 }
 /*
 #pragma mark - Navigation

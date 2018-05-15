@@ -116,6 +116,7 @@
     UIButton *btnlik=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT*0.92, WIDTH, 49)];
     btnlik.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [btnlik setTitle:@"确认" forState:UIControlStateNormal];
+    [btnlik setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
     [self.view addSubview:textField];
     [self.view addSubview:btnlik];
     

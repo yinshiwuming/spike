@@ -26,6 +26,12 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"雪场选择";
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:15],
+       
+       NSForegroundColorAttributeName:[UIColor blackColor]}];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     self.view.backgroundColor=[UIColor whiteColor];
     
     ary=[NSMutableArray arrayWithObjects:@"奥森雪场",@"张北雪场", nil];
@@ -51,7 +57,7 @@
     [buybtn setTitle:@"确定" forState:UIControlStateNormal ];
      [buybtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [buybtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
-    
+    buybtn.layer.cornerRadius = 4.0;
     [self.view addSubview:buybtn];
     // Do any additional setup after loading the view.
 }

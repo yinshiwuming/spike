@@ -29,7 +29,7 @@
     self.view.backgroundColor=[UIColor whiteColor];
     [[self navigationItem] setTitle:@"成为教练"];
     
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(8, 0, WIDTH,  260) style:UITableViewStylePlain ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(8, 0, WIDTH,  HEIGHT*0.38) style:UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托

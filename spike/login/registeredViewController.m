@@ -5,10 +5,11 @@
 //  Created by 泽联教育 on 2018/3/22.
 //  Copyright © 2018年 泽联教育. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "registeredViewController.h"
 #import "MBProgressHUD.h"
 #import "LoginViewController.h"
+#import "AFNetworking.h"
 @interface registeredViewController ()
 {   MBProgressHUD *HUD;
     UITextField *pwd;
@@ -16,6 +17,7 @@
     UILabel * additionallab;
     UITextField *code;
     UIButton *checkBox;
+    UIButton *landBtn;
 }
 @property (nonatomic,strong)UILabel *topLAB;
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
@@ -27,18 +29,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _topLAB=[[UILabel alloc]initWithFrame:CGRectMake(40, 90, WIDTH-80, 44)];
+    _topLAB=[[UILabel alloc]initWithFrame:CGRectMake(40, HEIGHT*0.135, WIDTH-80, 44)];
     _topLAB.text=@"为了你的帐号安全，请绑定手机号";
-    _topLAB.backgroundColor=[UIColor whiteColor];
+    [_topLAB setTextColor:[UIColor whiteColor]];
+    _topLAB.font=[UIFont systemFontOfSize:14.0f];
+    _topLAB.backgroundColor=[UIColor colorWithRed:0/255.0 green:0/255.0 blue:0/255.0 alpha:0.3];
     _topLAB.textAlignment =NSTextAlignmentCenter;
+  _topLAB.layer.cornerRadius = 3.0;
+   _topLAB.clipsToBounds = YES;
     [self.view addSubview:_topLAB];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景图"]];
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tapGesturRecognizer];
     
     
-    user=[self createTextFielfFrame:CGRectMake(40, 158, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入你的手机号"];
+    user=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.24, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入你的手机号"];
     //user.text=@"13419693608";
     //user.keyboardType=UIKeyboardTypeNumberPad;
     user.delegate = self;
@@ -46,37 +52,48 @@
     user.backgroundColor=[UIColor whiteColor];
     user.borderStyle=UITextBorderStyleRoundedRect;
     user.textAlignment=NSTextAlignmentCenter ;
+    user.keyboardType = UIKeyboardTypeNumberPad;
     user.enabled=YES;
+    user.layer.cornerRadius = 1;
     [self.view addSubview:user];
-    additionallab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
-    additionallab.backgroundColor=[UIColor lightTextColor];
+    additionallab=[[UILabel alloc]initWithFrame:CGRectMake(2, 0, 50, 44)];
+    additionallab.backgroundColor=[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:235.0f/255.0f alpha:0.5];
     additionallab.text=@"+86";
     additionallab.textColor=[UIColor darkGrayColor];
     additionallab.textAlignment= NSTextAlignmentCenter;
+    additionallab.layer.cornerRadius = 3.0;
+    additionallab.clipsToBounds = YES;
     [user addSubview:additionallab];
-    
-     code=[self createTextFielfFrame:CGRectMake(40, 238, WIDTH-80, 44) font:[UIFont systemFontOfSize:8] placeholder:@""];
+    [user addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+     code=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.35, WIDTH-80, 44) font:[UIFont systemFontOfSize:13] placeholder:@""];
     code.delegate = self;
     code.clearButtonMode = UITextFieldViewModeWhileEditing;
     code.backgroundColor=[UIColor whiteColor];
     code.borderStyle=UITextBorderStyleRoundedRect;
     code.textAlignment=NSTextAlignmentCenter ;
     code.enabled=YES;
+    code.layer.cornerRadius = 3.0 ;
+    code.layer.masksToBounds = YES;
+    code.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:user];
+    
     //后期这里换成bottun
     additionallab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 55, 44)];
-    additionallab.backgroundColor=[UIColor lightGrayColor];
+    additionallab.backgroundColor=[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:235.0f/255.0f alpha:0.5];
     additionallab.text=@"获取验证码";
     additionallab.font= [UIFont fontWithName:@"PingFang-SC-Regular" size:10];
     additionallab.textColor=[UIColor darkGrayColor];
     additionallab.textAlignment= NSTextAlignmentCenter;
+    additionallab.layer.cornerRadius = 3.0;
+    additionallab.layer.masksToBounds = YES;
+    additionallab.clipsToBounds = YES;
     [code addSubview:additionallab];
     [self.view addSubview:code];
     
     
     
     
-    pwd=[self createTextFielfFrame:CGRectMake(40, 309, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入8位密码区分大小写" ];
+    pwd=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.46, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入6至12位密码区分大小写" ];
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwd.keyboardType=UIKeyboardTypeWebSearch;
@@ -87,6 +104,10 @@
     pwd.borderStyle=UITextBorderStyleRoundedRect;
     pwd.textAlignment=NSTextAlignmentCenter ;
     pwd.enabled=YES;
+    
+    [pwd addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+   
+    
     [self.view addSubview:pwd];
    //选中按钮
     
@@ -94,15 +115,25 @@
    
     
     checkBox=[UIButton buttonWithType:UIButtonTypeCustom];
-    checkBox.frame=CGRectMake(40, HEIGHT*0.8, 20, 20);
-    checkBox.backgroundColor=[UIColor whiteColor];
-    [checkBox setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    [checkBox setImage:[UIImage imageNamed:@"check"] forState:UIControlStateSelected];
+    checkBox.frame=CGRectMake(40, HEIGHT*0.54, 20, 20);
+    
+    [checkBox setImage:[UIImage imageNamed:@"同意  选中"] forState:UIControlStateNormal];
+   
     [checkBox addTarget:self action:@selector(check:) forControlEvents:UIControlEventTouchUpInside];
     checkBox.layer.cornerRadius=5;
     checkBox.layer.masksToBounds=YES;
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(70, HEIGHT*0.8, 166, 20)];
-    label.text=@"点击完成则同意《用户协议》";
+    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(60, HEIGHT*0.54, 166, 20)];
+    label.text=@"点击完成则同意";
+    label.textColor=[UIColor whiteColor];
+    UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(93, HEIGHT*0.54, 166, 20)];
+    [self.view addSubview:btn];
+    
+    [btn setTitle:@"《用户协议》" forState:UIControlStateNormal];
+    btn.titleLabel.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+    [btn setTitleColor:[UIColor colorWithRed:14.0f/255.0f green:93.0f/255.0f blue:233.0f/255.0f alpha:1] forState:UIControlStateNormal];
+    
+    
+    
     label.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:12];
     label.textAlignment=NSTextAlignmentLeft;
     [self.view addSubview:label];
@@ -135,9 +166,9 @@
 }
 -(void)createLoginButtons
 {
-    UIButton *landBtn=[self createButtonFrame:CGRectMake(40, HEIGHT*0.7, WIDTH-80, 44) backImageName:nil title:@"完成" titleColor:[UIColor colorWithRed:153/255 green:153/255 blue:153/255 alpha:1]  font:[UIFont systemFontOfSize:19] target:self action:@selector(loginButtonClick)];
+    landBtn=[self createButtonFrame:CGRectMake(40, HEIGHT*0.7, WIDTH-80, 44) backImageName:nil title:@"登录" titleColor:[UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1]  font:[UIFont systemFontOfSize:19] target:self action:@selector(loginButtonClick)];
     landBtn.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
-    landBtn.layer.cornerRadius=5.0f;
+    landBtn.layer.cornerRadius=3.0f;
     
     //fogotPwdBtn.backgroundColor=[UIColor lightGrayColor];
     
@@ -156,18 +187,12 @@
     
     [user resignFirstResponder];
     [pwd resignFirstResponder];
-    //[SVProgressHUD showWithStatus:@"正在验证..."];
-    // [SVProgressHUD showInfoWithStatus:@"正在验证..."];
-    // [self mbProgressHUDUntil:@"正在登录"];
     
-    //[SVProgressHUD   showSuccessWithStatus:@"正在验证..."];
     if ([user.text isEqualToString:@""])
     {
         [self mbProgressHUDUntil:@"请输入账号"];
         [HUD hideAnimated:YES afterDelay:2];
         LoginViewController * vc=[[LoginViewController alloc]init];
-        
-        
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
@@ -224,7 +249,8 @@
     HUD.label.text = title;}
 - (void)check:(UIButton *)btn{
     
-    checkBox.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.jpg"]];
+    //切换按钮选中状态
+    checkBox.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@""]];
    
     }
 //- (void)viewWillAppear:(BOOL)animated {
@@ -247,6 +273,28 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+-(void)textFieldDidChange:(UITextField *)textField {
+    if (textField == user || textField == pwd) {
+        if (user.text.length >= 11 && pwd.text.length >= 6) {
+            //_loginBtn.selected = YES;
+            landBtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
+            
+            
+            
+        }
+        if (user.text.length >= 11) {
+             additionallab.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
+        }
+        
+        
+        
+        
+        
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     
     //设置导航栏背景图片为一个空的image，这样就透明了
@@ -265,4 +313,89 @@
     [self.navigationController.navigationBar setShadowImage:nil];
      self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 }
+
+-(void)loadNewData{
+  //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+//    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+//    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+//    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+//    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+//    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+//    if([xieyi isEqualToString:@"http"]){
+    NSString *pone=@"15011218654";
+        NSString *str = [NSString stringWithFormat:@"http://192.168.2.115:9191/coach/sendCode?%@",pone];
+        NSLog(@"%@",str);
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        //AFN 2.5.4
+        /**
+         manager.securityPolicy.allowInvalidCertificates = YES;
+         **/
+        //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+        manager.securityPolicy.validatesDomainName = NO;
+        [manager GET:str
+          parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+              //反序列化成字符串
+              // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+              NSNumber *status_range = responseObject[@"status"];//状态
+              NSLog(@"%@",status_range);
+//              NSString *status_msg   = responseObject[@"msg"];//msg
+//              if([status_range isEqual:@1]){
+//                  NSArray * ary =  responseObject[@"data"][@"data"];
+//                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
+//                  //[dd setObject:ary forKey:@"dataary"];
+//                  //  [dd synchronize];
+//                  _tgArry =  [myrang  tgWitharry:ary];
+//                  [_rtableView setHidden:NO];
+//                  NSLog(@"%@",_tgArry);
+//                  [self.rtableView reloadData];
+//                  [self.rtableView.header endRefreshing];
+//
+              }
+           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"==========%@",error);
+          }];
+    }
+    
+    
+    
+//}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == user) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 11) return NO;
+    }
+    
+    
+    
+    if (textField == pwd) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 12) return NO;
+    }
+    
+    
+    if (textField == code) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 6) return NO;
+    }
+    
+    
+    
+    
+    
+    
+    return YES;
+}
+
 @end

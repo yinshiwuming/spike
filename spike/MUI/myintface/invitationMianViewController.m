@@ -25,6 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
+    //邀请朋友
+    self.navigationItem.title = @"邀请朋友";
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:14],
+       
+       NSForegroundColorAttributeName:[UIColor blackColor]}];
+    
     imm=[[UIButton alloc]initWithFrame:CGRectMake(0.3*WIDTH, HEIGHT*0.42, WIDTH*0.38, 44)];
     [imm setTitle:@"立即邀请" forState:UIControlStateNormal ];
     [imm setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

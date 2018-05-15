@@ -14,6 +14,7 @@
     UITableView*mytabview;
     UIImageView *imageView;
     NSMutableArray *_photosArr;
+    UIButton *submitbtn;
     
 }
 
@@ -25,25 +26,33 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [self.navigationItem setTitle:@"个人信息"];
-    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+
+  @{NSFontAttributeName:[UIFont systemFontOfSize:15],
+
+    NSForegroundColorAttributeName:[UIColor blackColor]}];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(-10, 66, WIDTH+10,266) style: UITableViewStylePlain ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(-10,HEIGHT*0.115 , WIDTH+10,HEIGHT*0.4) style: UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
     mytabview.delegate = self;
     // 设置tableView的背景图
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-    mytabview.rowHeight = 44;
+    mytabview.rowHeight = 54;
     mytabview.scrollEnabled =NO;
     mytabview.backgroundColor=[UIColor groupTableViewBackgroundColor];
-    
+     self.automaticallyAdjustsScrollViewInsets = NO;
     //这里设置顶部间距
     CGRect frame=CGRectMake(0, 0, 0, 4);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
     [self.view addSubview:mytabview];
-    
-    
+    submitbtn=[[UIButton alloc]initWithFrame:CGRectMake(44, HEIGHT-60, WIDTH-88, 40)];
+    [submitbtn setTitle:@"提交" forState:UIControlStateNormal ];
+    submitbtn.backgroundColor=[UIColor yellowColor];
+    [submitbtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+    [self.view addSubview:submitbtn];
     
     
     // Do any additional setup after loading the view.
@@ -75,7 +84,7 @@
         cell.textLabel.text=@"头像";
         //这里添加cell的头像
         imageView = [[UIImageView alloc] init];
-        imageView.frame = CGRectMake(WIDTH-64,3,38,38);
+        imageView.frame = CGRectMake(WIDTH-64,10,38,38);
         imageView.image=[UIImage imageNamed:@"Home_Scroll_03"];
         imageView.layer.cornerRadius=imageView.frame.size.width/2;//裁成圆角
         imageView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
@@ -83,25 +92,35 @@
         [imageView addGestureRecognizer:tapGesture];
         imageView.userInteractionEnabled = YES;
         [cell addSubview:imageView];
-        
+         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         
         
     }
     if (indexPath.row==1) {
         cell.textLabel.text=@"昵称";
+         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
     
     if (indexPath.row==2) {
         cell.textLabel.text=@"性别";
+         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     }
     
     if (indexPath.row==3) {
         cell.textLabel.text=@"称谓";
+        
+        UILabel *textlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.8, 16, HEIGHT*0.266, 14)];
+        textlab.text=@"滑雪专家";
+          textlab.font = [UIFont systemFontOfSize:14];
+        [cell addSubview:textlab];
+        cell.accessoryType=UITableViewCellAccessoryNone;
+        
     }
     
     
-    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+//    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -174,5 +193,10 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row == 0) {
+        return 64;
+    }
+    return 52;
+}
 @end

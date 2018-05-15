@@ -7,6 +7,8 @@
 //
 
 #import "LookViewController.h"
+#import "AFNetworking.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface LookViewController (){
@@ -24,48 +26,82 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+      [self.navigationItem setTitle:@"找回密码"];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:17],
+       
+       NSForegroundColorAttributeName:[UIColor blackColor]}];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    //    self.navigationController.navigationBar.tintColor =
+    //    [UIColor colorWithRed:0.99 green:0.50 blue:0.09 alpha:1.00];
+    //主要是以下两个图片设置
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tapGesturRecognizer];
-     user=[self createTextFielfFrame:CGRectMake(0, 64, WIDTH, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入手机号"];
+     user=[self createTextFielfFrame:CGRectMake(-5, 64, WIDTH+10, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入手机号"];
     user.delegate = self;
-    user.clearButtonMode = UITextFieldViewModeWhileEditing;
+    user.clearButtonMode = UITextFieldViewModeNever;
     user.backgroundColor=[UIColor whiteColor];
     user.borderStyle=UITextBorderStyleRoundedRect;
     user.textAlignment=NSTextAlignmentLeft ;
     user.enabled=YES;
+      user.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:user];
-    additionabtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    additionabtn.frame=CGRectMake(40, HEIGHT*0.8, 20, 20);
+    //additionabtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    //additionabtn.frame=CGRectMake(40, HEIGHT*0.8, 20, 20);
     self.view.backgroundColor=[UIColor whiteColor];
     
-   Verification=[self createTextFielfFrame:CGRectMake(0, 108, WIDTH, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输验证码"];
+   Verification=[self createTextFielfFrame:CGRectMake(-5, 108, WIDTH+10, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输验证码"];
     Verification.delegate = self;
-    Verification.clearButtonMode = UITextFieldViewModeWhileEditing;
+    Verification.clearButtonMode = UITextFieldViewModeNever;
     Verification.backgroundColor=[UIColor whiteColor];
     Verification.borderStyle=UITextBorderStyleRoundedRect;
     Verification.textAlignment=NSTextAlignmentLeft ;
     Verification.enabled=YES;
-    additionabtn= [UIButton buttonWithType:UIButtonTypeSystem];
-    UIView*ek=[[UIView alloc]initWithFrame:CGRectMake(WIDTH-108, 2, 1, 40)];
-    ek.backgroundColor=[UIColor blackColor];
+    Verification.keyboardType = UIKeyboardTypeNumberPad;
+    additionabtn= [[UIButton alloc]initWithFrame:CGRectMake(WIDTH-100, 109, 100, 42)];
+    UIView*ek=[[UIView alloc]initWithFrame:CGRectMake(WIDTH-108, 6, 1, 30)];
+    ek.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [Verification addSubview:ek];
-    additionabtn.frame = CGRectMake(WIDTH-100, 0, 100, 44);
+    
     [additionabtn setTitle:@"获取验证码" forState:(UIControlStateNormal )];
     additionabtn.backgroundColor=[UIColor whiteColor];
+    additionabtn.titleLabel.font=[UIFont systemFontOfSize:14.0f];
+    
     [additionabtn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
 
-    [Verification addSubview:additionabtn];
+    [additionabtn addTarget:self action:@selector(dateChanged)  forControlEvents:UIControlEventTouchUpInside];
+    //[button addTarget:self action:@selector(buttonClick/*方法名*/) forControlEvents:UIControlEventTouchUpInside];
+    
+    //[Verification addSubview:additionabtn];
     [self.view addSubview:Verification];
-    pwd=[self createTextFielfFrame:CGRectMake(0, 152, WIDTH, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入密码"];
+    [self.view addSubview:additionabtn];
+    pwd=[self createTextFielfFrame:CGRectMake(-5, 152, WIDTH+10, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入6至12位密码区分大小写"];
     pwd.delegate = self;
-    pwd.clearButtonMode = UITextFieldViewModeWhileEditing;
+    pwd.clearButtonMode = UITextFieldViewModeNever;
     pwd.backgroundColor=[UIColor whiteColor];
     pwd.borderStyle=UITextBorderStyleRoundedRect;
+    pwd.layer.cornerRadius = 0.01;
     pwd.textAlignment=NSTextAlignmentLeft ;
+    //pwd.keyboardType=UIKeyboardTypeWebSearch;
     pwd.enabled=YES;
     [self.view addSubview:pwd];
     
-    
+    UIButton *look=[[UIButton alloc]initWithFrame:CGRectMake(44, 338, WIDTH-88, 44)];
+    [look setTitle:@"登录" forState:UIControlStateNormal];
+   
+    [look setTitleColor:[UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1] forState:UIControlStateNormal ];
+    look.backgroundColor=[UIColor colorWithRed:241.0f/255.0f green:241.0f/255.0f blue:241.0f/255.0f alpha:1];
+    [self.view addSubview:look];
     
     // Do any additional setup after loading the view.
 }
@@ -95,6 +131,70 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)dateChanged{
+    
+    //验证码接口请求
+    [self loadNewData];
+    NSLog(@"点击了");
+    
+    
+    
+    
+    
+}
+
+
+
+
+-(void)loadNewData{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    //    if([xieyi isEqualToString:@"http"]){
+    NSString *pone=@"15011218654";
+    NSString *str = [NSString stringWithFormat:@"http://192.168.2.115:9191/coach/sendCode?%@",pone];
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          
+          
+          NSLog(@"+++++%@",status_range);
+          
+          
+          
+          //              NSString *status_msg   = responseObject[@"msg"];//msg
+          //              if([status_range isEqual:@1]){
+          //                  NSArray * ary =  responseObject[@"data"][@"data"];
+          //                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
+          //                  //[dd setObject:ary forKey:@"dataary"];
+          //                  //  [dd synchronize];
+          //                  _tgArry =  [myrang  tgWitharry:ary];
+          //                  [_rtableView setHidden:NO];
+          //                  NSLog(@"%@",_tgArry);
+          //                  [self.rtableView reloadData];
+          //                  [self.rtableView.header endRefreshing];
+          //
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
+
 
 /*
 #pragma mark - Navigation
@@ -105,5 +205,40 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == user) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 11) return NO;
+    }
+    
+    
+    
+    if (textField == pwd) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 12) return NO;
+    }
+    
+    
+    if (textField == Verification) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 6) return NO;
+    }
+    
+    
+    
+    
+    
+    
+    return YES;
+}
 @end

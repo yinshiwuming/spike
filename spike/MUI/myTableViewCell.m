@@ -18,7 +18,7 @@
    self.hedaimage.layer.cornerRadius=self.hedaimage.frame.size.width/2;
    self.hedaimage.layer.masksToBounds=YES;
     
-    _staview = [[WQLStarView alloc]initWithFrame:CGRectMake(110, 44, self.frame.size.width-123, 13) withTotalStar:5 withTotalPoint:10 starSpace:10];
+    _staview = [[WQLStarView alloc]initWithFrame:CGRectMake(110, 60, self.frame.size.width-123, 13) withTotalStar:5 withTotalPoint:10 starSpace:10];
     _staview.starAliment = StarAlimentCenter;
     _staview.commentPoint = 6;
     

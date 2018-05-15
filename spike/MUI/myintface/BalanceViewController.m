@@ -33,7 +33,7 @@
      [toplab setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     [toplab setTitle:@"当前余额" forState:UIControlStateNormal];
     [self.view addSubview:toplab];
-     topbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-90,HEIGHT*0.14, 88, 33)];
+     topbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-110,HEIGHT*0.14, 88, 33)];
     [topbtn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     [topbtn setTitle:@"交易明细:" forState:(UIControlStateNormal )];
     //[topbtn addTarget:self action:@selector(ys) forControlEvents:UIControlEventTouchUpInside];

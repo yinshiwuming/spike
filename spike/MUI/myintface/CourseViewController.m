@@ -56,6 +56,11 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"课程选择";
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(addItemmmClick)];
+    
+    self.navigationItem.rightBarButtonItem = rightBarItem;
+    
+    [self.navigationItem.rightBarButtonItem setImage:[[UIImage imageNamed:@"帮助与反馈"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
     topview=[[UIView alloc]initWithFrame:CGRectMake(0, 84, WIDTH, HEIGHT*0.27)];
     topview.backgroundColor=[UIColor whiteColor];
@@ -121,7 +126,7 @@
     confirm=[[UIButton alloc]initWithFrame:CGRectMake(30, HEIGHT-66, WIDTH-60, 44)];
     confirm.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
-    [confirm addTarget:self action:@selector(ysClick:) forControlEvents:UIControlEventTouchUpInside];
+    [confirm addTarget:self action:@selector(ysClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirm];
     
     dict = @{
@@ -166,7 +171,15 @@
     
     
 }
-
+-(void)addItemmmClick{
+    
+    //帮助按钮实现
+    
+    
+    
+    
+    
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
@@ -194,7 +207,7 @@
 courdata *myuse = [courdata objectWithKeyValues:arry[indexPath.row]];
     cell.cour=myuse;
     
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 
@@ -283,7 +296,14 @@ else{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)ysClick{
+    
+    
+    
+    
+    
+    
+}
 /*
 #pragma mark - Navigation
 

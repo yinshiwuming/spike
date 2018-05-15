@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    [self.navigationItem setTitle:@"帮助与反馈"];
     labv=[[UILabel alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 46)];
     labv.text=@"    常见问题";
         labv.backgroundColor=[UIColor whiteColor];
@@ -48,9 +49,10 @@
     [self.view addSubview:mytabview];
     mytabview.tableFooterView=[[UIView alloc]initWithFrame:frame];
     
-    btn=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT*0.92, WIDTH, 44)];
+    btn=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-44, WIDTH, 44)];
     btn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [btn setTitle:@"意见反馈" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
     [btn setTintColor:[UIColor blackColor]];
     [btn addTarget:self action:@selector(opin) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];

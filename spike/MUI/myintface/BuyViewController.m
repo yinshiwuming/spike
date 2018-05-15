@@ -56,29 +56,37 @@
     
     time1=[[UILabel alloc]initWithFrame:CGRectMake(0, 10, WIDTH*0.3, 14)];
     time1.text=@"30小时";
+    
     pick1=[[UILabel alloc]initWithFrame:CGRectMake(0, 28, WIDTH*0.3, 14)];
     pick1.text=@"75元";
     pick1.textAlignment =UITextAlignmentCenter;
     time1.textAlignment =UITextAlignmentCenter;
-    
+    time1.font=[UIFont systemFontOfSize:15.0f];
+   pick1.font=[UIFont systemFontOfSize:15.0f];
     time2=[[UILabel alloc]initWithFrame:CGRectMake(0, 10, WIDTH*0.3, 14)];
-    time2.text=@"30小时";
+    time2.text=@"60小时";
     pick2=[[UILabel alloc]initWithFrame:CGRectMake(0, 28, WIDTH*0.3, 14)];
-    pick2.text=@"75元";
+    pick2.text=@"300元";
     pick2.textAlignment = UITextAlignmentCenter;
     time2.textAlignment = UITextAlignmentCenter;
+    time2.font=[UIFont systemFontOfSize:15.0f];
+    pick2.font=[UIFont systemFontOfSize:15.0f];
     time3=[[UILabel alloc]initWithFrame:CGRectMake(0, 10, WIDTH*0.3, 14)];
-    time3.text=@"30小时";
+    time3.text=@"90小时";
     pick3=[[UILabel alloc]initWithFrame:CGRectMake(0, 28, WIDTH*0.3, 14)];
-    pick3.text=@"75元";
+    pick3.text=@"600元";
     pick3.textAlignment = UITextAlignmentCenter;
     time3.textAlignment = UITextAlignmentCenter;
+    time3.font=[UIFont systemFontOfSize:15.0f];
+    pick3.font=[UIFont systemFontOfSize:15.0f];
     time4=[[UILabel alloc]initWithFrame:CGRectMake(0, 10, WIDTH*0.3, 14)];
-    time4.text=@"30小时";
+    time4.text=@"120小时";
     pick4=[[UILabel alloc]initWithFrame:CGRectMake(0, 28, WIDTH*0.3, 14)];
-    pick4.text=@"75元";
+    pick4.text=@"1200元";
     pick4.textAlignment = UITextAlignmentCenter;
     time4.textAlignment = UITextAlignmentCenter;
+    time4.font=[UIFont systemFontOfSize:15.0f];
+    pick4.font=[UIFont systemFontOfSize:15.0f];
     [view1 addSubview:time1];
     [view1 addSubview:pick1];
     [view2 addSubview:time2];
@@ -88,25 +96,42 @@
     [view4 addSubview:time4];
     [view4 addSubview:pick4];
     
-    checkBox=[UIButton buttonWithType:UIButtonTypeCustom];
-    checkBox.frame=CGRectMake(88, HEIGHT*0.5, 20, 20);
-    checkBox.backgroundColor=[UIColor whiteColor];
-    [checkBox setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
-    [checkBox setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
-    [checkBox addTarget:self action:@selector(check:) forControlEvents:UIControlEventTouchUpInside];
-    checkBox.layer.cornerRadius=5;
-    checkBox.layer.masksToBounds=YES;
-    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(110, HEIGHT*0.5, 166, 20)];
-    label.text=@"点击完成则同意《用户协议》";
-    label.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:12];
-    label.textAlignment=NSTextAlignmentLeft;
-    [self.view addSubview:label];
-    [self.view addSubview:checkBox];
+//    checkBox=[UIButton buttonWithType:UIButtonTypeCustom];
+//    checkBox.frame=CGRectMake(88, HEIGHT*0.5, 20, 20);
+//    checkBox.backgroundColor=[UIColor whiteColor];
+//    [checkBox setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+//    [checkBox setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
+//    [checkBox addTarget:self action:@selector(check:) forControlEvents:UIControlEventTouchUpInside];
+//    checkBox.layer.cornerRadius=5;
+//    checkBox.layer.masksToBounds=YES;
+//    UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(110, HEIGHT*0.5, 166, 20)];
+//    label.text=@"点击完成则同意《用户协议》";
+//    label.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+//    label.textAlignment=NSTextAlignmentLeft;
+//    [self.view addSubview:label];
+//    [self.view addSubview:checkBox];
     buybtn=[UIButton buttonWithType:UIButtonTypeCustom];
     buybtn.frame= CGRectMake(40, HEIGHT*0.61, WIDTH-80, 44);
-    [buybtn setTitle:@"立即购买" forState:UIControlStateNormal ];
-    [buybtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
+    [buybtn setTitle:@"立即购买" forState:UIControlStateNormal];
+    [buybtn setTintColor:[UIColor blackColor]];
+    [buybtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal ];
+   // [buybtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
      [buybtn addTarget:self action:@selector(buy:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [buybtn.layer setMasksToBounds:YES];
+    [buybtn.layer setCornerRadius:10.0]; //设置矩形四个圆角半径
+    //边框宽度
+    [buybtn.layer setBorderWidth:1.0];
+    //设置边框颜色有两种方法：第一种如下:
+    //        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    //        CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 0, 0, 0, 1 });
+    //        [btn.layer setBorderColor:colorref];//边框颜色
+    //第二种方法如下:
+   
+[buybtn.layer setBorderColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1].CGColor];
+    
+    
+    
     [self.view addSubview:buybtn];
     // Do any additional setup after loading the view.
 }

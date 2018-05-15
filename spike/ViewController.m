@@ -24,7 +24,7 @@
     UILabel *lookinglab;
     UILabel * additionallab;
     UILabel *third;
-    
+    UIButton *landBtn;
     
 }
 @end
@@ -34,9 +34,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    //    self.navigationController.navigationBar.tintColor =
+    //    [UIColor colorWithRed:0.99 green:0.50 blue:0.09 alpha:1.00];
+    //主要是以下两个图片设置
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
     imageView = [[UIView alloc] init];
     imageView.frame = CGRectMake(0,0,WIDTH,HEIGHT);
+    //这里有问题6p的屏幕
     imageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景"]];
+    //imageView.backgroundColor=[UIColor blueColor];
      UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
      [imageView addGestureRecognizer:tapGesturRecognizer];
     [self.view addSubview:imageView];
@@ -44,7 +58,7 @@
     [self createLoginButtons];
     //注册账号的lab在这里添加触摸事件
     registeredlab = [[UILabel alloc] init];
-    registeredlab.frame = CGRectMake(40, 291, 60, 44);
+    registeredlab.frame = CGRectMake(40, HEIGHT*0.436, 60, 44);
     registeredlab.text = @"注册帐号";
     registeredlab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
     registeredlab.textColor = [UIColor colorWithRed:255/255 green:255/255 blue:255/255 alpha:1];
@@ -63,7 +77,7 @@
     //找回密码的lab在这里添加触摸
     
     lookinglab = [[UILabel alloc] init];
-    lookinglab.frame = CGRectMake( WIDTH-107, 291, 60, 44);
+    lookinglab.frame = CGRectMake( WIDTH-107, HEIGHT*0.436, 60, 44);
     lookinglab.text = @"找回密码";
     lookinglab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
     lookinglab.textColor = [UIColor colorWithRed:255/255 green:255/255 blue:255/255 alpha:1];
@@ -72,12 +86,12 @@
     UITapGestureRecognizer *look = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(look)];
     [lookinglab addGestureRecognizer:look];
     
-    UIView*clview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.758, WIDTH*0.37, 1)];
+    UIView*clview=[[UIView alloc]initWithFrame:CGRectMake(WIDTH*0.13, HEIGHT*0.758, WIDTH*0.24, 1)];
     clview.backgroundColor=[UIColor whiteColor];
     
     [imageView addSubview:clview];
     
-    UIView*elview=[[UIView alloc]initWithFrame:CGRectMake(WIDTH*0.64, HEIGHT*0.758, WIDTH*0.35, 1)];
+    UIView*elview=[[UIView alloc]initWithFrame:CGRectMake(WIDTH*0.63, HEIGHT*0.758, WIDTH*0.25, 1)];
     elview.backgroundColor=[UIColor whiteColor];
     [imageView addSubview:elview];
     
@@ -175,27 +189,30 @@
     
    
     
-    user=[self createTextFielfFrame:CGRectMake(40, 158, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"  请输入你的手机号"];
+    user=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.236, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"  请输入你的手机号"];
     //user.text=@"13419693608";
-    //user.keyboardType=UIKeyboardTypeNumberPad;
+    user.keyboardType=UIKeyboardTypeNumberPad;
     user.delegate = self;
     user.clearButtonMode = UITextFieldViewModeWhileEditing;
     user.backgroundColor=[UIColor whiteColor];
     user.borderStyle=UITextBorderStyleRoundedRect;
     user.textAlignment=NSTextAlignmentCenter ;
     user.enabled=YES;
-    additionallab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, 44)];
-    additionallab.backgroundColor=[UIColor colorWithRed:234.0f/255.0f green:234.0f/255.0f blue:234.0f/255.0f alpha:0.5];
+    additionallab=[[UILabel alloc]initWithFrame:CGRectMake(1, 0, 50, 44)];
+    additionallab.backgroundColor=[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:235.0f/255.0f alpha:0.5];
     additionallab.text=@"+86";
     additionallab.textColor=[UIColor darkGrayColor];
     additionallab.textAlignment= NSTextAlignmentCenter;
+   additionallab.layer.cornerRadius = 3.0;
+    additionallab.clipsToBounds = YES;
     [user addSubview:additionallab];
     
     
-    pwd=[self createTextFielfFrame:CGRectMake(40, 250, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入8位密码区分大小写" ];
+    pwd=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.37, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入6至12位密码区分大小写" ];
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwd.keyboardType=UIKeyboardTypeWebSearch;
+    pwd.layer.cornerRadius = 5.0 ;
     //pwd.text=@"123456";
     //密文样式
     pwd.secureTextEntry=YES;
@@ -206,7 +223,8 @@
     [imageView addSubview:user];
     [imageView addSubview:pwd];
     
-    
+    [user addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [pwd addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
    
     
     [HUD hideAnimated:YES afterDelay:2];
@@ -229,9 +247,11 @@
 }
 -(void)createLoginButtons
 {
-    UIButton *landBtn=[self createButtonFrame:CGRectMake(40, HEIGHT*0.6, WIDTH-80, 44) backImageName:nil title:@"登录" titleColor:[UIColor colorWithRed:153/255 green:153/255 blue:153/255 alpha:1]  font:[UIFont systemFontOfSize:19] target:self action:@selector(loginButtonClick)];
+    
+  
+    landBtn=[self createButtonFrame:CGRectMake(40, HEIGHT*0.6, WIDTH-80, 44) backImageName:nil title:@"登  录" titleColor:[UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1]  font:[UIFont systemFontOfSize:19] target:self action:@selector(loginButtonClick)];
     landBtn.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
-    landBtn.layer.cornerRadius=5.0f;
+    landBtn.layer.cornerRadius=3.0f;
     
     //fogotPwdBtn.backgroundColor=[UIColor lightGrayColor];
     
@@ -295,10 +315,12 @@
         
         return;
     }
-    else if (user.text.length <1)
+    else if (user.text.length <6)
     {
         //[SVProgressHUD showInfoWithStatus:@"亲,帐号长度至少3位"];
         //[SVProgressHUD dismissWithDelay:2];
+        [self mbProgressHUDUntil:@"密码最少6位"];
+        [HUD hideAnimated:YES afterDelay:2];
         return;
     }
     else if ([pwd.text isEqualToString:@""])
@@ -308,7 +330,7 @@
         return;
     }
     
-   
+    
     MUIViewController *vc=[[MUIViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -331,7 +353,7 @@
 -(void)look{
     
     LookViewController *look=[[LookViewController alloc]init];
-    [self.navigationController pushViewController:look animated:YES];
+    [self.navigationController pushViewController:look animated:NO];
     
     
     
@@ -352,6 +374,47 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
+-(void)textFieldDidChange:(UITextField *)textField {
+    if (textField == user || textField == pwd) {
+        if (user.text.length >= 11 && pwd.text.length >= 6) {
+            //_loginBtn.selected = YES;
+            
+            landBtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
+            
+            
+            
+        } else {
+           // _loginBtn.selected = NO;
+        }
+    }
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == user) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 11) return NO;
+    }
+    
+    
+    
+    if (textField == pwd) {
+        if (string.length == 0) return YES;
+        
+        NSMutableString *newtxt = [NSMutableString stringWithString:textField.text];
+        [newtxt replaceCharactersInRange:range withString:string];
+        if (newtxt.length > 12) return NO;
+    }
+    
+    
+   
+    
+    
+    
+    
+    
+    return YES;
+}
 @end

@@ -17,7 +17,7 @@
 @interface SETViewController (){
      UITableView *mytabview;
     MBProgressHUD *HUD;
-    
+    UIButton *exit;
 }
 
 @end
@@ -39,15 +39,40 @@
     mytabview.scrollEnabled =NO;
     
     //这里设置顶部间距
+  
     CGRect frame=CGRectMake(0, 0, 0, 4);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
     [self.view addSubview:mytabview];
+    mytabview.sectionHeaderHeight=8;
+    mytabview.sectionFooterHeight=0;
+    mytabview.contentInset=UIEdgeInsetsMake(0+4, 0, 0, 0);
+    [self.view addSubview:mytabview];
+ 
+    
+    
+    
+    exit=[[UIButton alloc]initWithFrame:CGRectMake(44, HEIGHT-60, WIDTH-88, 40)];
+    exit.backgroundColor= [UIColor colorWithRed:255./256. green:214./256. blue:0./256. alpha:1.];
+    [exit setTitle:@"退出登录" forState:UIControlStateNormal];
+    [exit setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.view addSubview:exit];
+   
+    
     
     // Do any additional setup after loading the view.
-}- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+}
+
+
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
     return 0;
 }
+
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // 总共有多少个section，默认是1个

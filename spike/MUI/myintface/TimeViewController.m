@@ -79,8 +79,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"预约时间";
-    self.navigationController.navigationBar.tintColor = [UIColor lightGrayColor];
-   
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(addItemmmClick)];
+    
+    self.navigationItem.rightBarButtonItem = rightBarItem;
+    
+    [self.navigationItem.rightBarButtonItem setImage:[[UIImage imageNamed:@"帮助与反馈"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+//    self.navigationController.navigationBar.tintColor =
+//    [UIColor colorWithRed:0.99 green:0.50 blue:0.09 alpha:1.00];
+    //主要是以下两个图片设置
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
+    
+    
+    
+    
+    
+    
+    
+    
+    
 //    self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
     self.view.backgroundColor=[UIColor whiteColor];
     topview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.125, WIDTH, HEIGHT*0.33)];
@@ -88,7 +111,8 @@
     [self.view addSubview:topview];
     toplab=[[UILabel alloc]initWithFrame:CGRectMake(0, 10, WIDTH, HEIGHT*0.06)];
     toplab.text=@"   以下为您当前月授课时间";
-    toplab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+//    toplab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+    toplab.font = [UIFont systemFontOfSize: 12.0];
     toplab.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
     
     UIView* vklab=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.058, WIDTH, 1)];
@@ -121,7 +145,8 @@
     
     prompt=[[UILabel alloc]initWithFrame:CGRectMake(0, HEIGHT*0.202, WIDTH, HEIGHT*0.062)];
     prompt.text= @"   请选择可接受时间 ";
-    prompt.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+    prompt.font  = [UIFont systemFontOfSize: 12.0];
+    
     prompt.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
     prompt.textColor=[UIColor blackColor];
     prompt.backgroundColor=[UIColor whiteColor];
@@ -435,7 +460,7 @@
     [cell addSubview:pickbtn1];
    celldata *myuse = [celldata objectWithKeyValues:arry[indexPath.row]];
    cell.celldata=myuse;
-    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 - (void)onClick:(UIButton *)sender
@@ -659,7 +684,13 @@
     
     
 }
-
+-(void)addItemmmClick{
+    
+    
+    //帮助界面
+    
+    
+}
 
 
 @end

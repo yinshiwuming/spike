@@ -32,16 +32,18 @@
     img.image=[UIImage imageNamed:@"支付成功"];
     [self.view addSubview:img];
     farbtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 274, WIDTH*0.89, 44)];
-    farbtn.backgroundColor=[UIColor yellowColor];
+    farbtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [farbtn setTitle:@"去分享" forState:UIControlStateNormal ];
-    tslab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.43, 179, 88, 15)];
+    [farbtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal ];
+    tslab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.42, 176, 88, 15)];
     tslab.text=@"支付成功";
     
     
     gobtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 350, WIDTH*0.89, 44)];
     //返回首页
-    gobtn.backgroundColor=[UIColor lightGrayColor];
-    [gobtn setTitle:@"去分享" forState:UIControlStateNormal];
+    gobtn.backgroundColor=[UIColor colorWithRed:194/255.0 green:193/255.0 blue:193/255.0 alpha:1];
+    [gobtn setTitle:@"返回首页" forState:UIControlStateNormal];
+    [gobtn setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1] forState: UIControlStateNormal ];
     
     [self.view addSubview:farbtn];
     [self.view addSubview:gobtn];
