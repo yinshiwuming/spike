@@ -17,21 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationItem setTitle:@"修改昵称"];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
-     UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 30)];
-    text.borderStyle = UITextBorderStyleRoundedRect;
+     UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 44)];
+//    text.borderStyle = UITextBorderStyleRoundedRect;
      text.backgroundColor = [UIColor whiteColor];
      text.placeholder = @"   请输入昵称";
     text.clearButtonMode = UITextFieldViewModeAlways;
     [self.view addSubview:text];
-    UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(20, 130, 200, 20)];
+    UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(20, 140, 200, 20)];
     lab.text = @"2-10个字符，只能输入中英文或数字 ";
     lab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9];
-    lab.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
+    lab.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     [self.view addSubview:lab];
-    UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, 618, 375, 49)];
-    btn.backgroundColor=[UIColor yellowColor];
+    UIButton *btn=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-49, WIDTH, 49)];
+    btn.backgroundColor= [UIColor colorWithRed:229/255.f green:229/255.f blue:229/255.f alpha:1];
+    //[UIColor colorWithRed:30/255.f green:140/255.f blue:220/255.f alpha:1];
+    
     [btn setTitle:@"提交" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:btn];
     
 }

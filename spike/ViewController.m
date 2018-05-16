@@ -189,7 +189,7 @@
     
    
     
-    user=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.236, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"  请输入你的手机号"];
+    user=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.236, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@" 请输入你的手机号"];
     //user.text=@"13419693608";
     user.keyboardType=UIKeyboardTypeNumberPad;
     user.delegate = self;
@@ -198,7 +198,7 @@
     user.borderStyle=UITextBorderStyleRoundedRect;
     user.textAlignment=NSTextAlignmentCenter ;
     user.enabled=YES;
-    additionallab=[[UILabel alloc]initWithFrame:CGRectMake(1, 0, 50, 44)];
+    additionallab=[[UILabel alloc]initWithFrame:CGRectMake(1, 0, 45, 44)];
     additionallab.backgroundColor=[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:235.0f/255.0f alpha:0.5];
     additionallab.text=@"+86";
     additionallab.textColor=[UIColor darkGrayColor];

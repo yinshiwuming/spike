@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //self.view.backgroundColor
       [self.navigationItem setTitle:@"找回密码"];
     [self.navigationController.navigationBar setTitleTextAttributes:
      
@@ -51,7 +52,7 @@
     user.delegate = self;
     user.clearButtonMode = UITextFieldViewModeNever;
     user.backgroundColor=[UIColor whiteColor];
-    user.borderStyle=UITextBorderStyleRoundedRect;
+    //user.borderStyle=UITextBorderStyleRoundedRect;
     user.textAlignment=NSTextAlignmentLeft ;
     user.enabled=YES;
       user.keyboardType = UIKeyboardTypeNumberPad;
@@ -64,7 +65,7 @@
     Verification.delegate = self;
     Verification.clearButtonMode = UITextFieldViewModeNever;
     Verification.backgroundColor=[UIColor whiteColor];
-    Verification.borderStyle=UITextBorderStyleRoundedRect;
+    Verification.borderStyle= UITextBorderStyleNone;
     Verification.textAlignment=NSTextAlignmentLeft ;
     Verification.enabled=YES;
     Verification.keyboardType = UIKeyboardTypeNumberPad;
@@ -89,7 +90,7 @@
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeNever;
     pwd.backgroundColor=[UIColor whiteColor];
-    pwd.borderStyle=UITextBorderStyleRoundedRect;
+   // pwd.borderStyle=UITextBorderStyleRoundedRect;
     pwd.layer.cornerRadius = 0.01;
     pwd.textAlignment=NSTextAlignmentLeft ;
     //pwd.keyboardType=UIKeyboardTypeWebSearch;

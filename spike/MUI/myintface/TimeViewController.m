@@ -18,9 +18,9 @@
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 // 宽度(自定义)
-#define PIC_WIDTH 156
+#define PIC_WIDTH 130
 // 高度(自定义)
-#define PIC_HEIGHT 48
+#define PIC_HEIGHT 44
 // 列数(自定义)
 #define COL_COUNT 2
 
@@ -103,6 +103,9 @@
     
     
     
+    UIView*dcvie=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.125)];
+    dcvie.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    [self.view addSubview:dcvie];
     
 //    self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
     self.view.backgroundColor=[UIColor whiteColor];
@@ -113,10 +116,10 @@
     toplab.text=@"   以下为您当前月授课时间";
 //    toplab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
     toplab.font = [UIFont systemFontOfSize: 12.0];
-    toplab.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
+    toplab.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     
-    UIView* vklab=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.058, WIDTH, 1)];
-    vklab.backgroundColor=[UIColor colorWithRed:234.0f/255.0f green:234.0f/255.0f blue:234.0f/255.0f alpha:0.5];
+    UIView* vklab=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.058, WIDTH, 2)];
+    vklab.backgroundColor=[UIColor groupTableViewBackgroundColor];
     toplab.backgroundColor=[UIColor whiteColor];
     [toplab setNumberOfLines:0];
     [toplab addSubview:vklab];
@@ -131,25 +134,45 @@
     
     lebt=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT*0.075, WIDTH/2, HEIGHT*0.064)];
     ribt=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH/2, HEIGHT*0.075, WIDTH/2, HEIGHT*0.064)];
+    UIView *seview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.139, WIDTH, 2)];
+    seview.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    UIView *let=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, HEIGHT*0.075, 1, HEIGHT*0.06)];
+    let.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    
+    [topview addSubview:let];
     [topview addSubview:lebt];
     [topview addSubview:ribt];
+    [topview addSubview:seview];
+    lebt.layer.borderColor=[UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1].CGColor;
+     ribt.layer.borderColor=[UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1].CGColor;
     //外面嵌套scoview
     [lebt setTitle:@"平日班" forState:UIControlStateNormal];
     [ribt setTitle:@"周末班" forState:UIControlStateNormal];
-    [ribt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [lebt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [ribt.layer setMasksToBounds:YES];
-    [lebt.layer setMasksToBounds:YES];
-    [ribt.layer setBorderWidth:0.3];
-    [lebt.layer setBorderWidth:0.3];
+    [ribt setTitleColor:[UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1] forState:UIControlStateNormal];
+    [lebt setTitleColor:[UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1] forState:UIControlStateNormal];
+    lebt.titleLabel.font=[UIFont systemFontOfSize:13];
+    ribt.titleLabel.font=[UIFont systemFontOfSize:13];
     
-    prompt=[[UILabel alloc]initWithFrame:CGRectMake(0, HEIGHT*0.202, WIDTH, HEIGHT*0.062)];
+    
+    
+//    [ribt.layer setMasksToBounds:YES];
+//    [lebt.layer setMasksToBounds:YES];
+//    [ribt.layer setBorderWidth:0.2];
+//    [lebt.layer setBorderWidth:0.2];
+    
+    prompt=[[UILabel alloc]initWithFrame:CGRectMake(0, HEIGHT*0.206, WIDTH, HEIGHT*0.060)];
     prompt.text= @"   请选择可接受时间 ";
     prompt.font  = [UIFont systemFontOfSize: 12.0];
     
-    prompt.textColor = [UIColor colorWithRed:51/255 green:51/255 blue:51/255 alpha:1];
-    prompt.textColor=[UIColor blackColor];
+    prompt.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+  
     prompt.backgroundColor=[UIColor whiteColor];
+   
+    
+    
+    
+    
+    
     UIView* kelikview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.058, WIDTH, 2)];
     kelikview.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [prompt addSubview:kelikview];
@@ -169,17 +192,25 @@
     twoview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.265, WIDTH,HEIGHT*0.59)];
     twoview.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:twoview];
-    topbtn1=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 44)];
+    
+    UIView*entview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 8)];
+    entview.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    [twoview addSubview:entview];
+    
+    topbtn1=[[UIButton alloc]initWithFrame:CGRectMake(0, 8, WIDTH/2, 40)];
     topbtn1.backgroundColor=[UIColor whiteColor];
     [topbtn1 setTitle: @"平日班" forState: UIControlStateNormal];
-    [topbtn1 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+    topbtn1.titleLabel.font=[UIFont systemFontOfSize:15];
+    
+    [topbtn1 setTitleColor:[UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1]forState:UIControlStateNormal];
     topbtn1.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [topbtn1 addTarget:self action:@selector(topbtn1) forControlEvents:UIControlEventTouchUpInside];
     [twoview addSubview:topbtn1];
-    topbtn2=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH/2, 0, WIDTH/2, 44)];
+    topbtn2=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH/2, 8, WIDTH/2, 38)];
     topbtn2.backgroundColor=[UIColor whiteColor];
     [topbtn2 setTitle: @"周末班" forState: UIControlStateNormal];
-    [topbtn2 setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+    topbtn2.titleLabel.font=[UIFont systemFontOfSize:15];
+    [topbtn2 setTitleColor:[UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1]forState:UIControlStateNormal];
    
     [topbtn2 addTarget:self action:@selector(topbtn2) forControlEvents:UIControlEventTouchUpInside];
     [twoview addSubview:topbtn2];
@@ -190,10 +221,10 @@
     // 设置tableView的委托
     mytabview.delegate = self;
     // 设置tableView的背景图
-    mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-    mytabview.rowHeight = HEIGHT*0.05;
+    mytabview.backgroundColor=[UIColor whiteColor];
+        mytabview.rowHeight = HEIGHT*0.05;
 //    mytabview.scrollEnabled =NO;
-    CGRect frame=CGRectMake(0, 0, 0, 4);
+    CGRect frame=CGRectMake(0, 0, 0, 0.2);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
    
     [twoview addSubview:mytabview];
@@ -201,11 +232,19 @@
 
     //这里赋值请假时间的数组
     Askarry=[NSMutableArray arrayWithObjects:@"2018-01-04" ,@"2018-01-04",nil];
-    restbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH*0.234, HEIGHT*0.3, WIDTH*0.49, HEIGHT*0.065)];
+    restbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH*0.12, HEIGHT*0.3, WIDTH*0.76, HEIGHT*0.065)];
     [restbtn setTitle:@"休息时间选择" forState:UIControlStateNormal];
+    [restbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+    [restbtn.layer setMasksToBounds:YES];
+    [restbtn.layer setCornerRadius:3.0]; //设置矩形四个圆角半径
+    //边框宽度
+    [restbtn.layer setBorderWidth:1.0];
+    //设置边框颜色有两种方法：第一种如下:1
+    
+    
     [restbtn addTarget:self action:@selector(choos) forControlEvents:UIControlEventTouchUpInside];
-    restbtn.layer.borderColor=[UIColor yellowColor].CGColor;
-    restbtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
+    restbtn.layer.borderColor=[UIColor colorWithRed:255/255.f green:214/255.f blue:0/255.f alpha:1].CGColor;
+    restbtn.backgroundColor=[UIColor whiteColor];
     [twoview addSubview:restbtn];
     
 
@@ -391,6 +430,7 @@
     yesbtn.backgroundColor=[UIColor yellowColor];
     
     [yesbtn setTitle:@"确定" forState:UIControlStateNormal];
+    
     [yesbtn addTarget:self action:@selector(right) forControlEvents:UIControlEventTouchUpInside];
     [picview addSubview:yesbtn];
 
@@ -461,6 +501,8 @@
    celldata *myuse = [celldata objectWithKeyValues:arry[indexPath.row]];
    cell.celldata=myuse;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.textLabel.font=[UIFont systemFontOfSize:15];
+    cell.textLabel.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     return cell;
 }
 - (void)onClick:(UIButton *)sender
@@ -492,7 +534,7 @@
 -(void)btnallok{
     _newview =[[UIScrollView alloc]init];
     //依次为它的x y位置，长和宽
-    _newview .frame =CGRectMake(0, HEIGHT*0.78, WIDTH,HEIGHT*0.125);
+    _newview .frame =CGRectMake(WIDTH*0.1, HEIGHT*0.78, WIDTH*0.76,HEIGHT*0.125);
     _newview .backgroundColor=[UIColor whiteColor];
     [_newview  setContentSize:CGSizeMake(320, 420)];
     //把这个对象加到view中去。显示出来
@@ -525,7 +567,7 @@
         // 图片所在列
         NSInteger col = i % COL_COUNT;
         // 间距
-        CGFloat margin = (self.view.bounds.size.width - (PIC_WIDTH * COL_COUNT)) / (COL_COUNT + 1);
+        CGFloat margin = (self.view.bounds.size.width*0.76 - (PIC_WIDTH * COL_COUNT)) / (COL_COUNT + 1);
         // PointX
         CGFloat picX = margin + (PIC_WIDTH + margin) * col;
         // PointY
@@ -533,16 +575,18 @@
         
         // 图片的frame
         UIButton *btn=[[UIButton alloc]initWithFrame: CGRectMake(picX, picY, PIC_WIDTH, PIC_HEIGHT)];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -btn.imageView.frame.size.width, 0, btn.imageView.frame.size.width)];
-        [btn setImageEdgeInsets:UIEdgeInsetsMake(0,0, btn.titleLabel.bounds.size.width,btn.titleLabel.bounds.size.width)];
+        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -btn.imageView.frame.size.width+4, 0, btn.imageView.frame.size.width)];
+        [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.titleLabel.bounds.size.width, 0, -btn.titleLabel.bounds.size.width)];
         
         [btn setTitle:myarry[i] forState: UIControlStateNormal];
+        btn.titleLabel.font=[UIFont systemFontOfSize:13];
+        
         //btn.titleLabel.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:10];
         [btn setImage:[UIImage imageNamed:@"日历、日期 拷贝"]forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-        [btn.layer setCornerRadius:10];
+        [btn.layer setCornerRadius:3];
         
-        [btn.layer setBorderWidth:2];//设置边界的宽度
+        [btn.layer setBorderWidth:1];//设置边界的宽度
         //设置按钮的边界颜色
         CGColorRef cgColor = [UIColor groupTableViewBackgroundColor].CGColor;
         [btn.layer setBorderColor:cgColor];
@@ -637,7 +681,7 @@
 - (void)lettime {
     
     
-    for (int i = 1; i < 4; i++){
+    for (int i = 1; i < 3; i++){
         
         int x=WIDTH/2;
         int y=i*11;
@@ -663,7 +707,7 @@
 - (void)righttime {
     
     
-    for (int i = 1; i < 4; i++){
+    for (int i = 1; i < 2; i++){
         
         int x=WIDTH/2;
         int y=i*11;

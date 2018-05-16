@@ -119,6 +119,7 @@
 		0237D150206B94E2004240B5 /* CZHDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14A206B94E2004240B5 /* CZHDatePickerView.m */; };
 		0237D151206B94E2004240B5 /* UIButton+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14D206B94E2004240B5 /* UIButton+CZHExtension.m */; };
 		0237D152206B94E2004240B5 /* UIView+CZHExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0237D14F206B94E2004240B5 /* UIView+CZHExtension.m */; };
+		023B8A6F20AA6C2300246E2D /* WithdrawalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 023B8A6E20AA6C2300246E2D /* WithdrawalViewController.m */; };
 		0250A4F0206D193A00A91B52 /* SETViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0250A4EF206D193A00A91B52 /* SETViewController.m */; };
 		02A7C08720633EB700D356FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C08620633EB700D356FA /* AppDelegate.m */; };
 		02A7C08A20633EB700D356FA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C08920633EB700D356FA /* ViewController.m */; };
@@ -444,6 +445,8 @@
 		0237D14D206B94E2004240B5 /* UIButton+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CZHExtension.m"; sourceTree = "<group>"; };
 		0237D14E206B94E2004240B5 /* UIView+CZHExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CZHExtension.h"; sourceTree = "<group>"; };
 		0237D14F206B94E2004240B5 /* UIView+CZHExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CZHExtension.m"; sourceTree = "<group>"; };
+		023B8A6D20AA6C2300246E2D /* WithdrawalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawalViewController.h; sourceTree = "<group>"; };
+		023B8A6E20AA6C2300246E2D /* WithdrawalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawalViewController.m; sourceTree = "<group>"; };
 		0250A4EE206D193A00A91B52 /* SETViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SETViewController.h; sourceTree = "<group>"; };
 		0250A4EF206D193A00A91B52 /* SETViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SETViewController.m; sourceTree = "<group>"; };
 		02A7C08220633EB700D356FA /* spike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spike.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1116,6 +1119,8 @@
 				02B50426207C682500E7C5DF /* LBClearCacheTool.m */,
 				02041F7D206DE06E00A9D0EF /* BalanceViewController.h */,
 				02041F7E206DE06E00A9D0EF /* BalanceViewController.m */,
+				023B8A6D20AA6C2300246E2D /* WithdrawalViewController.h */,
+				023B8A6E20AA6C2300246E2D /* WithdrawalViewController.m */,
 				02360127207F3CA4009CFC11 /* YsViewController.h */,
 				02360128207F3CA4009CFC11 /* YsViewController.m */,
 				0236012A207F3EAC009CFC11 /* ysv.xib */,
@@ -1468,6 +1473,7 @@
 				02FB05B1208D7B8C00CA0BF6 /* courdata.m in Sources */,
 				02F47948208083810027D459 /* PersonalViewController.m in Sources */,
 				021770C220932E8A00B45CB7 /* SkiViewController.m in Sources */,
+				023B8A6F20AA6C2300246E2D /* WithdrawalViewController.m in Sources */,
 				0237D150206B94E2004240B5 /* CZHDatePickerView.m in Sources */,
 				0232949F2073A12E004AAA24 /* UIView+CCUtil.m in Sources */,
 				0232944A20734571004AAA24 /* TimeViewController.m in Sources */,

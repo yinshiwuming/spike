@@ -62,13 +62,36 @@
     
     [self.navigationItem.rightBarButtonItem setImage:[[UIImage imageNamed:@"帮助与反馈"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
-    topview=[[UIView alloc]initWithFrame:CGRectMake(0, 84, WIDTH, HEIGHT*0.27)];
+    topview=[[UIView alloc]initWithFrame:CGRectMake(0, 74, WIDTH, HEIGHT*0.20)];
     topview.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:topview];
-    toplab=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH, 80)];
-    toplab.text=@"请选择可接受时间\n预约教练选择须知:......";
+    toplab=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, WIDTH, 13)];
+    toplab.text=@"选课须知:";
+    
+   toplab.font= [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
+    toplab.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+    
+    
+    
+    
+    
+    
     toplab.backgroundColor=[UIColor whiteColor];
     [toplab setNumberOfLines:0];
+    UILabel *minlab=[[UILabel alloc]initWithFrame:CGRectMake(10, 15, WIDTH, 44)];
+    minlab.text=@"请注意请注意请注意";
+    minlab.backgroundColor=[UIColor whiteColor];
+    minlab.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+    minlab.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+    [minlab setNumberOfLines:0];
+    
+    
+    
+    
+    
+    
+    
+    [topview addSubview:minlab];
     [topview addSubview:toplab];
 //    UIView*viow=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.165, WIDTH, 2)];
 //    viow.backgroundColor=[UIColor lightGrayColor];
@@ -103,7 +126,7 @@
     [twoview addSubview:topbtn1];
     
 
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT*0.35, WIDTH,  HEIGHT*0.56) style:UITableViewStyleGrouped ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT*0.2+82, WIDTH,  HEIGHT*0.65) style:UITableViewStyleGrouped ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
@@ -112,7 +135,9 @@
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
     mytabview.rowHeight = HEIGHT*0.05;
     mytabview.scrollEnabled =NO;
+    mytabview.separatorInset=UIEdgeInsetsZero;
     
+    mytabview.layoutMargins=UIEdgeInsetsZero;
     //这里设置顶部间距
     CGRect frame=CGRectMake(0, 0, 0, 4);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
@@ -126,6 +151,7 @@
     confirm=[[UIButton alloc]initWithFrame:CGRectMake(30, HEIGHT-66, WIDTH-60, 44)];
     confirm.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
+    [confirm setTitleColor:[UIColor blackColor] forState: UIControlStateNormal ];
     [confirm addTarget:self action:@selector(ysClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirm];
     
@@ -198,16 +224,21 @@
 //    timelab2.text= @"小班5次课250";
     
     timelab2.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
-    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-32, 8, 20, 20)];
+    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 6, 27, 20)];
     [pickbtn1 setImage:[UIImage imageNamed:@"椭圆 1 拷贝"] forState:UIControlStateNormal];
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell addSubview:timelab2];
     [cell addSubview:pickbtn1];
-courdata *myuse = [courdata objectWithKeyValues:arry[indexPath.row]];
+    courdata *myuse = [courdata objectWithKeyValues:arry[indexPath.row]];
     cell.cour=myuse;
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    cell.separatorInset=UIEdgeInsetsZero;
+    
+    cell.layoutMargins=UIEdgeInsetsZero;
+    cell.textLabel.font= [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
+    cell.textLabel.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
     return cell;
 }
 

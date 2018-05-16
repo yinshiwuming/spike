@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *hedaimage;
 @property (weak, nonatomic) IBOutlet UIView *commentslab;
 @property (nullable,strong) WQLStarView*staview;
+@property(nonatomic, strong)UIImageView *hedview;
 @end

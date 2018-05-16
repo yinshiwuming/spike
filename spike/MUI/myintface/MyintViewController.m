@@ -42,6 +42,12 @@
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     
+     @{NSFontAttributeName:[UIFont systemFontOfSize:15],
+       
+       NSForegroundColorAttributeName:[UIColor blackColor]}];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
      self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
@@ -89,7 +95,7 @@
     _agelab.text=@"6年雪龄";
     _agelab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:9.3];
     _agelab.textAlignment= NSTextAlignmentCenter;
-    _agelab.backgroundColor=[UIColor yellowColor];
+    _agelab.backgroundColor=[UIColor colorWithRed:255/255.f green:214/255.f blue:0/255.f alpha:1];
     _agelab.layer.cornerRadius = 5;
     
     _agelab.clipsToBounds = YES;
@@ -153,6 +159,9 @@
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
     mytabview.rowHeight = HEIGHT*0.065;
 //    mytabview.scrollEnabled =NO;
+    mytabview.separatorInset=UIEdgeInsetsZero;
+    
+    mytabview.layoutMargins=UIEdgeInsetsZero;
    mytabview.showsVerticalScrollIndicator = NO; 
     //这里设置顶部间距
        CGRect frame=CGRectMake(0, 0, 0, 4);
@@ -235,6 +244,9 @@
     }
     cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize: 14.0];
+    cell.separatorInset=UIEdgeInsetsZero;
+    
+    cell.layoutMargins=UIEdgeInsetsZero;
     return cell;
 }- (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
@@ -316,7 +328,7 @@
     
     
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
     
     
     NSLog(@"++++%@+++++",self.navigationController.viewControllers);

@@ -26,6 +26,12 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [self.navigationItem setTitle:@"个人信息"];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+
     [self.navigationController.navigationBar setTitleTextAttributes:
 
   @{NSFontAttributeName:[UIFont systemFontOfSize:15],
@@ -33,7 +39,7 @@
     NSForegroundColorAttributeName:[UIColor blackColor]}];
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(-10,HEIGHT*0.115 , WIDTH+10,HEIGHT*0.4) style: UITableViewStylePlain ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0,HEIGHT*0.115 , WIDTH,HEIGHT*0.4) style: UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
@@ -47,6 +53,9 @@
     //这里设置顶部间距
     CGRect frame=CGRectMake(0, 0, 0, 4);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
+   mytabview.separatorInset=UIEdgeInsetsZero;
+    
+    mytabview.layoutMargins=UIEdgeInsetsZero;
     [self.view addSubview:mytabview];
     submitbtn=[[UIButton alloc]initWithFrame:CGRectMake(44, HEIGHT-60, WIDTH-88, 40)];
     [submitbtn setTitle:@"提交" forState:UIControlStateNormal ];
@@ -84,7 +93,7 @@
         cell.textLabel.text=@"头像";
         //这里添加cell的头像
         imageView = [[UIImageView alloc] init];
-        imageView.frame = CGRectMake(WIDTH-64,10,38,38);
+        imageView.frame = CGRectMake(WIDTH-74,10,38,38);
         imageView.image=[UIImage imageNamed:@"Home_Scroll_03"];
         imageView.layer.cornerRadius=imageView.frame.size.width/2;//裁成圆角
         imageView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
@@ -112,15 +121,19 @@
         UILabel *textlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.8, 16, HEIGHT*0.266, 14)];
         textlab.text=@"滑雪专家";
           textlab.font = [UIFont systemFontOfSize:14];
+        textlab.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
         [cell addSubview:textlab];
         cell.accessoryType=UITableViewCellAccessoryNone;
         
     }
-    
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.separatorInset = UIEdgeInsetsZero;
     
 //    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.font = [UIFont systemFontOfSize:14];
+    
+   
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

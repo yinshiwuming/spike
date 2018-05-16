@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     //邀请朋友
-    self.navigationItem.title = @"邀请朋友";
+    self.navigationItem.title = @"邀请教练";
     [self.navigationController.navigationBar setTitleTextAttributes:
      
      @{NSFontAttributeName:[UIFont systemFontOfSize:14],

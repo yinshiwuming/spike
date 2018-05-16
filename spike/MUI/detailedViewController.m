@@ -46,7 +46,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 30;
+    return 44;
     
 }
 
@@ -144,12 +144,12 @@
     
     label.font = [UIFont systemFontOfSize:13];
     
-    label.frame = CGRectMake(15, 5, 100, 20);
+    label.frame = CGRectMake(15, 13, 100, 20);
     
     
     [headerView addSubview:label];
     //这里是订单详情页箭头
-    sbt=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 6, 20, 20)];
+    sbt=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 10, 20, 20)];
     
     [sbt setImage:[UIImage imageNamed:@"更多"] forState:UIControlStateSelected];
     
@@ -253,6 +253,5 @@
        }
     
 }
-
 
 @end

@@ -8,6 +8,7 @@
 
 #import "BalanceViewController.h"
 #import "YsViewController.h"
+#import "WithdrawalViewController.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface BalanceViewController (){
@@ -29,13 +30,25 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"我的余额"];
     self.view.backgroundColor=[UIColor whiteColor];
-    toplab=[[UIButton alloc]initWithFrame:CGRectMake(23, HEIGHT*0.14, 88, 33)];
+    toplab=[[UIButton alloc]initWithFrame:CGRectMake(23, HEIGHT*0.14, 60, 33)];
      [toplab setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
     [toplab setTitle:@"当前余额" forState:UIControlStateNormal];
+    toplab.titleLabel.font=[UIFont systemFontOfSize:14];
+    //toplab.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    toplab.titleLabel.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+    
+    
+    
+    
     [self.view addSubview:toplab];
-     topbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-110,HEIGHT*0.14, 88, 33)];
+     topbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-80,HEIGHT*0.14, 60, 33)];
     [topbtn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-    [topbtn setTitle:@"交易明细:" forState:(UIControlStateNormal )];
+    [topbtn setTitle:@"交易明细" forState:(UIControlStateNormal )];
+    topbtn.titleLabel.font=[UIFont systemFontOfSize:14];
+   // topbtn.titleLabel.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:14];
+    topbtn.titleLabel.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+    
+    
     //[topbtn addTarget:self action:@selector(ys) forControlEvents:UIControlEventTouchUpInside];
 //    [topbtn addTarget:self action:@selector(ys) forControlEvents:UIControlEventTouchUpInside];
     [topbtn addTarget:self action:@selector(ys) forControlEvents:UIControlEventTouchUpInside];
@@ -50,10 +63,16 @@
     [self.view addSubview:balance];
     onebtn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.35, WIDTH-40, 34)];
     [onebtn setTitle:@"提现" forState:(UIControlStateNormal )];
+    onebtn.titleLabel.font=[UIFont systemFontOfSize:15];
+    [onebtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal ];
+      [onebtn addTarget:self action:@selector(actionBtn) forControlEvents:UIControlEventTouchUpInside];
+    
     [onebtn setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100]];
     [self.view addSubview:onebtn];
     twotbtn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.45, WIDTH-40, 34)];
     [twotbtn setTitle:@"充值" forState:(UIControlStateNormal )];
+    twotbtn.titleLabel.font=[UIFont systemFontOfSize:15];
+    [twotbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
     [twotbtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
     [self.view addSubview:twotbtn];
     // Do any additional setup after loading the view.
@@ -81,5 +100,16 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)actionBtn{
+    
+    WithdrawalViewController *vc=[[WithdrawalViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    
+    
+}
+
 
 @end

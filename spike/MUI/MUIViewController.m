@@ -154,7 +154,9 @@
     mytabview.backgroundColor=[UIColor groupTableViewBackgroundColor];
 //    mytabview.rowHeight = HEIGHT*0.16;
     //mytabview.scrollEnabled =NO;
+    mytabview.separatorInset=UIEdgeInsetsZero;
     
+    mytabview.layoutMargins=UIEdgeInsetsZero;
     //这里设置顶部间距
     CGRect frame=CGRectMake(0, 0, 0, 2);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
@@ -182,7 +184,8 @@
     // 如果没有,则创建(解释:一般刚进入界面的时候,是不需要重用的,当时显示的是能够映入界面的足够的cell,只有拖动的时候,才需要)
     
     cell = [[[NSBundle mainBundle] loadNibNamed:@"MUIUEmpty" owner:nil options:nil] lastObject];
-    
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.separatorInset = UIEdgeInsetsZero;
     return cell;
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -197,7 +200,7 @@
     
     //跳转我的
     MyintViewController *vc=[[MyintViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
     
     
     
