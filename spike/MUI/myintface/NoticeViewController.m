@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor lightGrayColor];
     [self.navigationItem setTitle:@"我的通知"];
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(2, 0, WIDTH-4,  HEIGHT) style: UITableViewStylePlain ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH,  HEIGHT) style: UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
@@ -57,7 +57,7 @@
     if (!cell) {
         cell =  [[[NSBundle mainBundle] loadNibNamed:@"Notice" owner:nil options:nil] lastObject];
     }
-   
+   [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
 }
 - (void)didReceiveMemoryWarning {

@@ -164,10 +164,10 @@
     mytabview.layoutMargins=UIEdgeInsetsZero;
    mytabview.showsVerticalScrollIndicator = NO; 
     //这里设置顶部间距
-       CGRect frame=CGRectMake(0, 0, 0, 4);
+       CGRect frame=CGRectMake(0, 0, 0, 2);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
     [self.view addSubview:mytabview];
-    mytabview.sectionHeaderHeight=14;
+    mytabview.sectionHeaderHeight=6;
     mytabview.sectionFooterHeight=0;
     mytabview.contentInset=UIEdgeInsetsMake(0+6, 0, 0, 0);
     

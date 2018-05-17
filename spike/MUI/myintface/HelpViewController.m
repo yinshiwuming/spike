@@ -29,6 +29,7 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [self.navigationItem setTitle:@"帮助与反馈"];
+     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     labv=[[UILabel alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 46)];
     labv.text=@"    常见问题";
         labv.backgroundColor=[UIColor whiteColor];

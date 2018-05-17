@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+      self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     [self.navigationItem setTitle:@"我的余额"];
     self.view.backgroundColor=[UIColor whiteColor];
     toplab=[[UIButton alloc]initWithFrame:CGRectMake(23, HEIGHT*0.14, 60, 33)];
@@ -61,15 +62,17 @@
     
     
     [self.view addSubview:balance];
-    onebtn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.35, WIDTH-40, 34)];
+    onebtn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.35, WIDTH-40, 40)];
     [onebtn setTitle:@"提现" forState:(UIControlStateNormal )];
+    [onebtn.layer setMasksToBounds:YES];
+    [onebtn.layer setCornerRadius:3.0];
     onebtn.titleLabel.font=[UIFont systemFontOfSize:15];
     [onebtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal ];
       [onebtn addTarget:self action:@selector(actionBtn) forControlEvents:UIControlEventTouchUpInside];
     
     [onebtn setBackgroundColor:[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100]];
     [self.view addSubview:onebtn];
-    twotbtn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.45, WIDTH-40, 34)];
+    twotbtn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.35+55, WIDTH-40, 40)];
     [twotbtn setTitle:@"充值" forState:(UIControlStateNormal )];
     twotbtn.titleLabel.font=[UIFont systemFontOfSize:15];
     [twotbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];

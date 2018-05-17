@@ -18,9 +18,9 @@
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 // 宽度(自定义)
-#define PIC_WIDTH 130
+#define PIC_WIDTH 125
 // 高度(自定义)
-#define PIC_HEIGHT 44
+#define PIC_HEIGHT 37
 // 列数(自定义)
 #define COL_COUNT 2
 
@@ -66,6 +66,7 @@
      NSMutableArray*myarry;
     UILabel *prompt;
     UIView *lefttimeview;
+    UIView *righttimeview;
 }
 @property (nonatomic,strong)UIPickerView * pickerViewtime;
 @property (nonatomic,strong)UIPickerView *pickerView;
@@ -109,10 +110,10 @@
     
 //    self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
     self.view.backgroundColor=[UIColor whiteColor];
-    topview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.125, WIDTH, HEIGHT*0.33)];
+    topview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.125, WIDTH, 210)];
     
     [self.view addSubview:topview];
-    toplab=[[UILabel alloc]initWithFrame:CGRectMake(0, 10, WIDTH, HEIGHT*0.06)];
+    toplab=[[UILabel alloc]initWithFrame:CGRectMake(5, 5, WIDTH, HEIGHT*0.06)];
     toplab.text=@"   以下为您当前月授课时间";
 //    toplab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
     toplab.font = [UIFont systemFontOfSize: 12.0];
@@ -134,8 +135,8 @@
     
     lebt=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT*0.075, WIDTH/2, HEIGHT*0.064)];
     ribt=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH/2, HEIGHT*0.075, WIDTH/2, HEIGHT*0.064)];
-    UIView *seview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.139, WIDTH, 2)];
-    seview.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    UIView *seview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.139, WIDTH, 1)];
+    seview.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
     UIView *let=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, HEIGHT*0.075, 1, HEIGHT*0.06)];
     let.backgroundColor=[UIColor groupTableViewBackgroundColor];
     
@@ -160,7 +161,7 @@
 //    [ribt.layer setBorderWidth:0.2];
 //    [lebt.layer setBorderWidth:0.2];
     
-    prompt=[[UILabel alloc]initWithFrame:CGRectMake(0, HEIGHT*0.206, WIDTH, HEIGHT*0.060)];
+    prompt=[[UILabel alloc]initWithFrame:CGRectMake(5, HEIGHT*0.20, WIDTH, HEIGHT*0.0606+2)];
     prompt.text= @"   请选择可接受时间 ";
     prompt.font  = [UIFont systemFontOfSize: 12.0];
     
@@ -177,13 +178,13 @@
     kelikview.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [prompt addSubview:kelikview];
      [self.view addSubview:prompt];
-    
+  //左右view
   lefttimeview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.14, WIDTH/2, HEIGHT*0.088)];
     
     
     [topview addSubview:lefttimeview];
     
-   UIView *righttimeview=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, HEIGHT*0.14, WIDTH/2, HEIGHT*0.088)];
+  righttimeview=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, HEIGHT*0.14, WIDTH/2, HEIGHT*0.088)];
     
     [topview addSubview:righttimeview];
     
@@ -222,17 +223,23 @@
     mytabview.delegate = self;
     // 设置tableView的背景图
     mytabview.backgroundColor=[UIColor whiteColor];
-        mytabview.rowHeight = HEIGHT*0.05;
-//    mytabview.scrollEnabled =NO;
+        mytabview.rowHeight = 42;
+  mytabview.scrollEnabled =NO;
     CGRect frame=CGRectMake(0, 0, 0, 0.2);
     mytabview.tableHeaderView=[[UIView alloc]initWithFrame:frame];
-   
+    mytabview.separatorInset=UIEdgeInsetsZero;
+    
+    
+    
+    mytabview.layoutMargins=UIEdgeInsetsZero;
+    
+    
     [twoview addSubview:mytabview];
     
 
     //这里赋值请假时间的数组
     Askarry=[NSMutableArray arrayWithObjects:@"2018-01-04" ,@"2018-01-04",nil];
-    restbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH*0.12, HEIGHT*0.3, WIDTH*0.76, HEIGHT*0.065)];
+    restbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH*0.12, HEIGHT*0.36, WIDTH*0.76, HEIGHT*0.065)];
     [restbtn setTitle:@"休息时间选择" forState:UIControlStateNormal];
     [restbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
     [restbtn.layer setMasksToBounds:YES];
@@ -249,8 +256,9 @@
     
 
     confirm=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-44, WIDTH, 44)];
-    confirm.backgroundColor=[UIColor lightGrayColor];
-    [confirm setTitle:@"确认" forState:UIControlStateNormal];
+    confirm.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
+    [confirm setTitle:@"确定" forState:UIControlStateNormal];
+    [confirm setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:confirm];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(walkVCClick:)name:@"buttonLoseResponse" object:nil];
     
@@ -390,9 +398,9 @@
         NSLog(@"选择的日期：%@",dateString);
        
     }];
-    datepicker.dateLabelColor = randomColor;//年-月-日-时-分 颜色
-    datepicker.datePickerColor = randomColor;//滚轮日期颜色
-    datepicker.doneButtonColor = randomColor;//确定按钮的颜色
+    datepicker.dateLabelColor = [UIColor blackColor];//年-月-日-时-分 颜色
+    datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
+    datepicker.doneButtonColor = [UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];//确定按钮的颜色
     [datepicker show];
     
     
@@ -414,12 +422,13 @@
     self.pickerViewtime.delegate = self;
     self.pickerViewtime.dataSource = self;
     self.pickerViewtime.tag=100;
-    self.pickerViewtime.backgroundColor=[UIColor yellowColor];
+    self.pickerViewtime.backgroundColor=[UIColor whiteColor];
     //取消按钮和确认按钮
     
     ybtn=[[UIButton alloc]initWithFrame:CGRectMake(20, 8, 60, 20)];
-    ybtn.backgroundColor=[UIColor lightGrayColor];
+   // ybtn.backgroundColor=[UIColor lightGrayColor];
     [ybtn setTitle:@"取消" forState:UIControlStateNormal];
+    [ybtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
     [ybtn addTarget:self action:@selector(leftbuttonClick) forControlEvents:UIControlEventTouchUpInside];
     
     [picview addSubview:ybtn];
@@ -427,10 +436,10 @@
     
     yesbtn=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-80, 8, 60, 20)];
     
-    yesbtn.backgroundColor=[UIColor yellowColor];
+    //yesbtn.backgroundColor=[UIColor yellowColor];
     
     [yesbtn setTitle:@"确定" forState:UIControlStateNormal];
-    
+     [yesbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
     [yesbtn addTarget:self action:@selector(right) forControlEvents:UIControlEventTouchUpInside];
     [picview addSubview:yesbtn];
 
@@ -493,7 +502,7 @@
     
     cell = [[timeTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellIdentifier];
 
-    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-32, 8, 20, 20)];
+    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 12, 27, 20)];
     [pickbtn1 setImage:[UIImage imageNamed:@"椭圆 1 拷贝"] forState:UIControlStateNormal];
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -503,6 +512,11 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     cell.textLabel.font=[UIFont systemFontOfSize:15];
     cell.textLabel.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+   
+    
+    cell.separatorInset=UIEdgeInsetsZero;
+    
+    cell.layoutMargins=UIEdgeInsetsZero;
     return cell;
 }
 - (void)onClick:(UIButton *)sender
@@ -534,11 +548,12 @@
 -(void)btnallok{
     _newview =[[UIScrollView alloc]init];
     //依次为它的x y位置，长和宽
-    _newview .frame =CGRectMake(WIDTH*0.1, HEIGHT*0.78, WIDTH*0.76,HEIGHT*0.125);
+    
+    _newview .frame =CGRectMake(WIDTH*0.09, HEIGHT*0.5, WIDTH*0.9,HEIGHT*0.125);
     _newview .backgroundColor=[UIColor whiteColor];
-    [_newview  setContentSize:CGSizeMake(320, 420)];
+    [_newview  setContentSize:CGSizeMake(WIDTH*0.9, 380)];
     //把这个对象加到view中去。显示出来
-    [self.view addSubview:_newview ];
+    [twoview addSubview:_newview ];
    
     myarry=[NSMutableArray arrayWithObjects:@"9:00-12:00",@"9:00-12:00", nil];
     myarry=(NSMutableArray *)[[myarry reverseObjectEnumerator] allObjects];
@@ -567,33 +582,51 @@
         // 图片所在列
         NSInteger col = i % COL_COUNT;
         // 间距
-        CGFloat margin = (self.view.bounds.size.width*0.76 - (PIC_WIDTH * COL_COUNT)) / (COL_COUNT + 1);
+        CGFloat margin = (self.view.bounds.size.width*0.85 - (PIC_WIDTH * COL_COUNT)) / (COL_COUNT + 1);
         // PointX
         CGFloat picX = margin + (PIC_WIDTH + margin) * col;
         // PointY
         CGFloat picY = margin + (PIC_HEIGHT + margin) * row;
         
         // 图片的frame
-        UIButton *btn=[[UIButton alloc]initWithFrame: CGRectMake(picX, picY, PIC_WIDTH, PIC_HEIGHT)];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -btn.imageView.frame.size.width+4, 0, btn.imageView.frame.size.width)];
-        [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.titleLabel.bounds.size.width, 0, -btn.titleLabel.bounds.size.width)];
+       UIView *btn=[[UIView alloc]initWithFrame: CGRectMake(picX+2, picY+2, PIC_WIDTH, PIC_HEIGHT)];
+        btn.layer.borderWidth = 1;
         
-        [btn setTitle:myarry[i] forState: UIControlStateNormal];
-        btn.titleLabel.font=[UIFont systemFontOfSize:13];
+        btn.layer.borderColor = [[UIColor colorWithRed:194/255.0 green:193.2/255.0 blue:193.2/255.0 alpha:1] CGColor];
         
-        //btn.titleLabel.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:10];
-        [btn setImage:[UIImage imageNamed:@"日历、日期 拷贝"]forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-        [btn.layer setCornerRadius:3];
+
+//        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, btn.imageView.frame.size.width+4, 0, btn.imageView.frame.size.width)];
+//        [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -btn.titleLabel.bounds.size.width, 0, -btn.titleLabel.bounds.size.width)];
+//
+//        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, -btn.imageView.frame.size.width, 0, btn.imageView.frame.size.width)];
+//        [btn setImageEdgeInsets:UIEdgeInsetsMake(0, btn.titleLabel.frame.size.width, 0, -btn.titleLabel.frame.size.width)];
         
-        [btn.layer setBorderWidth:1];//设置边界的宽度
-        //设置按钮的边界颜色
-        CGColorRef cgColor = [UIColor groupTableViewBackgroundColor].CGColor;
-        [btn.layer setBorderColor:cgColor];
-        
-        
-        
-        
+//        [btn setTitle:myarry[i] forState: UIControlStateNormal];
+//        btn.titleLabel.font=[UIFont systemFontOfSize:13];
+//
+//        //btn.titleLabel.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:10];
+//        [btn setImage:[UIImage imageNamed:@"日历、日期 拷贝"]forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
+//        [btn.layer setCornerRadius:3];
+//
+//        [btn.layer setBorderWidth:1];//设置边界的宽度
+//        //设置按钮的边界颜色
+//        CGColorRef cgColor = [UIColor groupTableViewBackgroundColor].CGColor;
+//        [btn.layer setBorderColor:cgColor];
+//
+//
+         self.automaticallyAdjustsScrollViewInsets=NO;
+        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(6, 0, PIC_WIDTH*0.7, PIC_HEIGHT)];
+        lab.text=@" 04-01-2018";
+        lab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:11];
+        lab.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        [btn addSubview:lab];
+        UIView *el1=[[UIView alloc]initWithFrame:CGRectMake(PIC_WIDTH*0.7, 6, 1, PIC_HEIGHT*0.7)];
+        el1.backgroundColor=[UIColor colorWithRed:194/255.0 green:193.2/255.0 blue:193.2/255.0 alpha:1];
+        [btn addSubview:el1];
+        UIImageView *ima=[[UIImageView alloc]initWithFrame:CGRectMake(PIC_WIDTH*0.78, PIC_HEIGHT*0.25, PIC_WIDTH*0.15, PIC_HEIGHT*0.5)];
+        ima.image=[UIImage imageNamed:@"日历、日期 拷贝"];
+        [btn addSubview:ima];
         
         
         
@@ -633,12 +666,12 @@
 //    twoview.frame = frame;
     if(((UIButton *)sender).selected==NO){
             CGRect frame = twoview.frame;
-          frame.origin.y=HEIGHT*0.41;
+          frame.origin.y=HEIGHT*0.41+44;
         
            twoview.frame = frame;
         
         CGRect frame1 = prompt.frame;
-        frame1.origin.y=HEIGHT*0.35;
+        frame1.origin.y=HEIGHT*0.35+44;
         
         prompt.frame = frame1;
         
@@ -665,7 +698,7 @@
         twoview.frame = frame;
         
         CGRect frame2 = prompt.frame;
-        frame2.origin.y=HEIGHT*0.202;
+        frame2.origin.y=HEIGHT*0.20;
         
         prompt.frame = frame2;
         
@@ -681,48 +714,88 @@
 - (void)lettime {
     
     
-    for (int i = 1; i < 3; i++){
-        
-        int x=WIDTH/2;
-        int y=i*11;
-        
-        int hy=(i-1)*3;
-        
-        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(0, y+hy, x, 12)];
-        lab.text=@"9:00-10:00";
-        lab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
-       lab.textAlignment = NSTextAlignmentCenter;
-        [lefttimeview addSubview:lab];
-        
-    }
+//    for (int i = 1; i < 3; i++){
+//
+//        int x=WIDTH/2;
+//        int y=i*11;
+//
+//        int hy=(i-1)*3;
+//
+//        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(0, y+hy, x, 12)];
+//        lab.text=@"9:00-10:00";
+//        lab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+//       lab.textAlignment = NSTextAlignmentCenter;
+//        [lefttimeview addSubview:lab];
+    
+  //  }
+    
+    UILabel *lab1=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 43)];
+    lab1.text = @"9：00-12：00";
+    lab1.textAlignment=NSTextAlignmentCenter;
+    lab1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+    lab1.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+    [lefttimeview addSubview:lab1];
+    UIView *vil1=[[UIView alloc]initWithFrame:CGRectMake(0, 43, WIDTH, 1)];
+    vil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+    [lefttimeview addSubview:vil1];
+    
+    UIView*kil1=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, 0, 1, 44)];
+    kil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+    [lefttimeview addSubview:kil1];
     
     
-    
-    
-    
+     UILabel *lab2=[[UILabel alloc]initWithFrame:CGRectMake(0, 44, WIDTH/2, 43)];
+    lab2.text = @"14：00-17：00";
+    lab2.textAlignment=NSTextAlignmentCenter;
+    lab2.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+    lab2.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+    [lefttimeview addSubview:lab2];
+    UIView *vi2=[[UIView alloc]initWithFrame:CGRectMake(0, 87, WIDTH, 1)];
+    vi2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+    [lefttimeview addSubview:vi2];
+    UIView*kil2=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2,44, 1, 44)];
+    kil2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+    [lefttimeview addSubview:kil2];
     
 }
 
 
 - (void)righttime {
     
+//
+//    for (int i = 1; i < 2; i++){
+//
+//        int x=WIDTH/2;
+//        int y=i*11;
+//
+//        int hy=(i-1)*3;
+//
+//        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, y+hy, x, 11)];
+//        lab.text=@"9:00-10:00";
+//        lab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+//        lab.textAlignment = NSTextAlignmentCenter;
+//        [lefttimeview addSubview:lab];
     
-    for (int i = 1; i < 2; i++){
-        
-        int x=WIDTH/2;
-        int y=i*11;
-        
-        int hy=(i-1)*3;
-        
-        UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2, y+hy, x, 11)];
-        lab.text=@"9:00-10:00";
-        lab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
-        lab.textAlignment = NSTextAlignmentCenter;
-        [lefttimeview addSubview:lab];
-        
-    }
+   // }
     
-    
+    UILabel *lab1=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 44)];
+    lab1.text = @"9：00-12：00";
+    lab1.textAlignment=NSTextAlignmentCenter;
+    lab1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+    lab1.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+    [righttimeview addSubview:lab1];
+//    UIView *vil1=[[UIView alloc]initWithFrame:CGRectMake(0, 44, WIDTH, 1)];
+//    vil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+//    [righttimeview addSubview:vil1];
+    UILabel *lab2=[[UILabel alloc]initWithFrame:CGRectMake(0, 45, WIDTH/2, 44)];
+    lab2.text = @"14：00-17：00";
+    lab2.textAlignment=NSTextAlignmentCenter;
+    lab2.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+    lab2.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+    [righttimeview addSubview:lab2];
+//    UIView *vi2=[[UIView alloc]initWithFrame:CGRectMake(0, 90, WIDTH, 1)];
+//    vi2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+//    [righttimeview addSubview:vi2];
     
     
     

@@ -35,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    [self.navigationItem setTitle:@"意见反馈"];
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tapGesturRecognizer];
 //    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(2, 76, 375, 111)];
@@ -64,13 +65,13 @@
 //
 //    [self.view addSubview: self.textView];
     
-    self.ccTextView = [[CCTextView alloc]initWithFrame:CGRectMake(2, 76, WIDTH, HEIGHT*0.166)];
+    self.ccTextView = [[CCTextView alloc]initWithFrame:CGRectMake(0, 76, WIDTH, HEIGHT*0.166)];
     self.ccTextView.layer.borderWidth = .2;
     self.ccTextView.layer.borderColor = [UIColor blackColor].CGColor;
     self.ccTextView.layer.cornerRadius = 2;
     self.ccTextView.placeholder = @"请输入10字以上小于200字";
     [self.ccTextView setPlaceholderOpacity:.5];
-    [self.ccTextView setPlaceholderColor:[UIColor groupTableViewBackgroundColor]];
+    [self.ccTextView setPlaceholderColor:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1]];
     [self.ccTextView setPlaceholderFont:[UIFont boldSystemFontOfSize:15]];
     [self.ccTextView setFont:[UIFont systemFontOfSize:15]];
     self.ccTextView.shouldAutoUpdateHeight = YES;
@@ -100,24 +101,28 @@
     [vie addSubview:btn];
     UILabel *titlab=[[UILabel alloc]initWithFrame:CGRectMake(13, 76, 375, 10)];
     titlab.text = @"请上传图片，有助于客服审核 ";
+    titlab.backgroundColor=[UIColor redColor];
+    
     titlab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:10];
     titlab.textColor = [UIColor colorWithRed:153/255 green:153/255 blue:153/255 alpha:1];
     [self.pickerCollectionView addSubview:titlab];
-    UILabel *toplab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.75, 13, 84, 10)];
+    UILabel *toplab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.68, 13, 84, 10)];
     toplab.text = @"上传凭证 最多3张 ";
     toplab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:10];
-    toplab.textColor = [UIColor colorWithRed:153/255 green:153/255 blue:153/255 alpha:1];
+    toplab.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
     [self.pickerCollectionView addSubview:toplab];
-    
-    UITextField*textField=[[UITextField alloc]initWithFrame:CGRectMake(0, 331, 375, 40)];
-    textField.borderStyle = UITextBorderStyleRoundedRect;//圆角
+    UIView * ke=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT*0.57, WIDTH, 40)];
+    ke.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:ke];
+    UITextField*textField=[[UITextField alloc]initWithFrame:CGRectMake(6, 0, WIDTH-6, 40)];
+    //textField.borderStyle = UITextBorderStyleRoundedRect;//圆角
     textField.placeholder = @"请输入手机号";
     textField.keyboardType = UIKeyboardTypeNumberPad;
-    UIButton *btnlik=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT*0.92, WIDTH, 49)];
+    UIButton *btnlik=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-49, WIDTH, 49)];
     btnlik.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [btnlik setTitle:@"确认" forState:UIControlStateNormal];
     [btnlik setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
-    [self.view addSubview:textField];
+    [ke addSubview:textField];
     [self.view addSubview:btnlik];
     
     _showActionSheetViewController = self;
@@ -143,8 +148,9 @@
     _pickerCollectionView.scrollEnabled = NO;
     
     //添加图片提示
-    addImageStrLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 50, 200, 20)];
-    addImageStrLabel.text = @"请添加图片，有助审核";
+    addImageStrLabel = [[UILabel alloc]initWithFrame:CGRectMake(13, HEIGHT*0.148, WIDTH, 10)];
+    addImageStrLabel.text = @"请上传图片，有助于客服审核 ";
+    addImageStrLabel.font=[UIFont systemFontOfSize:10];
     addImageStrLabel.textColor = [UIColor colorWithRed:153.0/255.0 green:153.0/255.0 blue:153.0/255.0 alpha:1.0];
     [self.pickerCollectionView addSubview:addImageStrLabel];
     

@@ -48,11 +48,15 @@
     self.navigationItem.backBarButtonItem = backItem;
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tapGesturRecognizer];
-     user=[self createTextFielfFrame:CGRectMake(-5, 64, WIDTH+10, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入手机号"];
+     user=[self createTextFielfFrame:CGRectMake(10, 64, WIDTH-5, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入手机号"];
+    UIView *avi=[[UIView alloc]initWithFrame:CGRectMake(0, 108, WIDTH, 1)];
+    avi.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1];
+    [self.view addSubview:avi];
+    
     user.delegate = self;
     user.clearButtonMode = UITextFieldViewModeNever;
     user.backgroundColor=[UIColor whiteColor];
-    //user.borderStyle=UITextBorderStyleRoundedRect;
+   // user.borderStyle=UITextBorderStyleLine;
     user.textAlignment=NSTextAlignmentLeft ;
     user.enabled=YES;
       user.keyboardType = UIKeyboardTypeNumberPad;
@@ -61,7 +65,7 @@
     //additionabtn.frame=CGRectMake(40, HEIGHT*0.8, 20, 20);
     self.view.backgroundColor=[UIColor whiteColor];
     
-   Verification=[self createTextFielfFrame:CGRectMake(-5, 108, WIDTH+10, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输验证码"];
+   Verification=[self createTextFielfFrame:CGRectMake(10, 109, WIDTH-10, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输验证码"];
     Verification.delegate = self;
     Verification.clearButtonMode = UITextFieldViewModeNever;
     Verification.backgroundColor=[UIColor whiteColor];
@@ -69,7 +73,12 @@
     Verification.textAlignment=NSTextAlignmentLeft ;
     Verification.enabled=YES;
     Verification.keyboardType = UIKeyboardTypeNumberPad;
-    additionabtn= [[UIButton alloc]initWithFrame:CGRectMake(WIDTH-100, 109, 100, 42)];
+    UIView *bvi=[[UIView alloc]initWithFrame:CGRectMake(0, 154, WIDTH, 1)];
+    bvi.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1];
+    [self.view addSubview:bvi];
+    
+    
+    additionabtn= [[UIButton alloc]initWithFrame:CGRectMake(WIDTH-100, 200, 100, 42)];
     UIView*ek=[[UIView alloc]initWithFrame:CGRectMake(WIDTH-108, 6, 1, 30)];
     ek.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [Verification addSubview:ek];
@@ -86,7 +95,7 @@
     //[Verification addSubview:additionabtn];
     [self.view addSubview:Verification];
     [self.view addSubview:additionabtn];
-    pwd=[self createTextFielfFrame:CGRectMake(-5, 152, WIDTH+10, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入6至12位密码区分大小写"];
+    pwd=[self createTextFielfFrame:CGRectMake(0, 155, WIDTH, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入6至12位密码区分大小写"];
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeNever;
     pwd.backgroundColor=[UIColor whiteColor];
@@ -95,6 +104,10 @@
     pwd.textAlignment=NSTextAlignmentLeft ;
     //pwd.keyboardType=UIKeyboardTypeWebSearch;
     pwd.enabled=YES;
+    
+    UIView *cvi=[[UIView alloc]initWithFrame:CGRectMake(0, 199, WIDTH, 1)];
+    cvi.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1];
+    [self.view addSubview:cvi];
     [self.view addSubview:pwd];
     
     UIButton *look=[[UIButton alloc]initWithFrame:CGRectMake(44, 338, WIDTH-88, 44)];

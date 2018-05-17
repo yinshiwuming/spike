@@ -20,36 +20,36 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预约教练" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uri-fN-Whq">
-                        <rect key="frame" x="16" y="17" width="70" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-4-3 10：00：39" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgl-GM-MKh">
-                        <rect key="frame" x="16" y="58" width="227" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="46" y="15" width="57.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+180" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAX-Rx-uR0">
-                        <rect key="frame" x="285" y="58" width="42" height="21"/>
+                        <rect key="frame" x="285" y="58" width="42" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="42" id="hdv-zP-Pno"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018-4-3 10：00：39" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bgl-GM-MKh">
+                        <rect key="frame" x="46" y="58" width="190" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="bgl-GM-MKh" firstAttribute="top" secondItem="uri-fN-Whq" secondAttribute="bottom" constant="20" id="2oy-d3-7lc"/>
+                    <constraint firstItem="bgl-GM-MKh" firstAttribute="top" secondItem="uri-fN-Whq" secondAttribute="bottom" constant="26" id="2oy-d3-7lc"/>
                     <constraint firstAttribute="trailingMargin" secondItem="aAX-Rx-uR0" secondAttribute="trailing" constant="24" id="Ffv-zK-Yvw"/>
                     <constraint firstItem="bgl-GM-MKh" firstAttribute="bottom" secondItem="1Et-qx-hng" secondAttribute="bottomMargin" id="abF-kF-g6N"/>
                     <constraint firstItem="bgl-GM-MKh" firstAttribute="top" secondItem="aAX-Rx-uR0" secondAttribute="top" id="jtL-yR-2Zy"/>
                     <constraint firstItem="uri-fN-Whq" firstAttribute="leading" secondItem="bgl-GM-MKh" secondAttribute="leading" id="qjQ-Ia-Ru9"/>
                     <constraint firstItem="bgl-GM-MKh" firstAttribute="baseline" secondItem="aAX-Rx-uR0" secondAttribute="baseline" id="rgv-hn-HEr"/>
-                    <constraint firstItem="aAX-Rx-uR0" firstAttribute="leading" secondItem="bgl-GM-MKh" secondAttribute="trailing" constant="42" id="t5J-Xn-HTl"/>
-                    <constraint firstItem="uri-fN-Whq" firstAttribute="leading" secondItem="1Et-qx-hng" secondAttribute="leadingMargin" id="tv9-5c-FvL"/>
+                    <constraint firstItem="aAX-Rx-uR0" firstAttribute="leading" secondItem="bgl-GM-MKh" secondAttribute="trailing" constant="49" id="t5J-Xn-HTl"/>
+                    <constraint firstItem="uri-fN-Whq" firstAttribute="leading" secondItem="1Et-qx-hng" secondAttribute="leadingMargin" constant="30" id="tv9-5c-FvL"/>
                     <constraint firstItem="aAX-Rx-uR0" firstAttribute="top" secondItem="1Et-qx-hng" secondAttribute="topMargin" constant="47" id="upe-f8-tqP"/>
                 </constraints>
             </tableViewCellContentView>

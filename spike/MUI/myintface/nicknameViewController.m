@@ -17,14 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+    [self.view addGestureRecognizer:tapGesturRecognizer];
+    
+    
+    
     [self.navigationItem setTitle:@"修改昵称"];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
-     UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 44)];
+    
+    UIView *vie=[[UIView alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 44)];
+    vie.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:vie];
+     UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(7, 0,WIDTH-7, 44)];
 //    text.borderStyle = UITextBorderStyleRoundedRect;
      text.backgroundColor = [UIColor whiteColor];
      text.placeholder = @"   请输入昵称";
     text.clearButtonMode = UITextFieldViewModeAlways;
-    [self.view addSubview:text];
+    [vie addSubview:text];
     UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(20, 140, 200, 20)];
     lab.text = @"2-10个字符，只能输入中英文或数字 ";
     lab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9];
@@ -44,7 +55,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)tapAction:(id)tap
 
+{
+    
+    [self.view endEditing:YES];
+    
+}
 /*
 #pragma mark - Navigation
 

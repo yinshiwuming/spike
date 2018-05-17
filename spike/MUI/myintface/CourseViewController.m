@@ -133,7 +133,7 @@
     mytabview.delegate = self;
     // 设置tableView的背景图
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-    mytabview.rowHeight = HEIGHT*0.05;
+    mytabview.rowHeight = 44;
     mytabview.scrollEnabled =NO;
     mytabview.separatorInset=UIEdgeInsetsZero;
     
@@ -224,7 +224,7 @@
 //    timelab2.text= @"小班5次课250";
     
     timelab2.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
-    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 6, 27, 20)];
+    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 12, 27, 20)];
     [pickbtn1 setImage:[UIImage imageNamed:@"椭圆 1 拷贝"] forState:UIControlStateNormal];
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];

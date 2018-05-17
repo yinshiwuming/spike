@@ -59,7 +59,7 @@
     [self.view addSubview:mytabview];
     submitbtn=[[UIButton alloc]initWithFrame:CGRectMake(44, HEIGHT-60, WIDTH-88, 40)];
     [submitbtn setTitle:@"提交" forState:UIControlStateNormal ];
-    submitbtn.backgroundColor=[UIColor yellowColor];
+    submitbtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]; 
     [submitbtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
     [self.view addSubview:submitbtn];
     

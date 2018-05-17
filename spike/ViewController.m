@@ -188,15 +188,21 @@
     
     
    
+    UIView*userview=[[UIView alloc]initWithFrame:CGRectMake(40, HEIGHT*0.236, WIDTH-80, 44)];
+    userview.backgroundColor=[UIColor whiteColor];
+    userview.layer.cornerRadius = 3;
     
-    user=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.236, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@" 请输入你的手机号"];
+   userview.layer.masksToBounds = YES;
+    [imageView addSubview:userview];
+
+    user=[self createTextFielfFrame:CGRectMake(52, 0, WIDTH-130, 44) font:[UIFont systemFontOfSize:16] placeholder:@" 请输入你的手机号"];
     //user.text=@"13419693608";
     user.keyboardType=UIKeyboardTypeNumberPad;
     user.delegate = self;
     user.clearButtonMode = UITextFieldViewModeWhileEditing;
     user.backgroundColor=[UIColor whiteColor];
-    user.borderStyle=UITextBorderStyleRoundedRect;
-    user.textAlignment=NSTextAlignmentCenter ;
+   // user.borderStyle=UITextBorderStyleRoundedRect;
+    //user.textAlignment=NSTextAlignmentCenter ;
     user.enabled=YES;
     additionallab=[[UILabel alloc]initWithFrame:CGRectMake(1, 0, 45, 44)];
     additionallab.backgroundColor=[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:235.0f/255.0f alpha:0.5];
@@ -205,7 +211,8 @@
     additionallab.textAlignment= NSTextAlignmentCenter;
    additionallab.layer.cornerRadius = 3.0;
     additionallab.clipsToBounds = YES;
-    [user addSubview:additionallab];
+    [userview addSubview:additionallab];
+    [userview addSubview:user];
     
     
     pwd=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.37, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入6至12位密码区分大小写" ];
@@ -218,9 +225,9 @@
     pwd.secureTextEntry=YES;
     pwd.backgroundColor=[UIColor whiteColor];
     pwd.borderStyle=UITextBorderStyleRoundedRect;
-    pwd.textAlignment=NSTextAlignmentCenter ;
+    //pwd.textAlignment=NSTextAlignmentCenter ;
     pwd.enabled=YES;
-    [imageView addSubview:user];
+    //[imageView addSubview:user];
     [imageView addSubview:pwd];
     
     [user addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

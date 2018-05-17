@@ -43,19 +43,26 @@
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tapGesturRecognizer];
     
+    UIView *vie=[[UIView alloc]initWithFrame:CGRectMake(40, HEIGHT*0.24, WIDTH-80, 44)];
+    vie.backgroundColor=[UIColor whiteColor];
+    vie.layer.cornerRadius = 3;
     
-    user=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.24, WIDTH-80, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入你的手机号"];
+    vie.layer.masksToBounds = YES;
+    
+    
+    [self.view addSubview:vie];
+    user=[self createTextFielfFrame:CGRectMake(58, 0, WIDTH-150, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入你的手机号"];
     //user.text=@"13419693608";
     //user.keyboardType=UIKeyboardTypeNumberPad;
     user.delegate = self;
     user.clearButtonMode = UITextFieldViewModeWhileEditing;
     user.backgroundColor=[UIColor whiteColor];
-    user.borderStyle=UITextBorderStyleRoundedRect;
-    user.textAlignment=NSTextAlignmentCenter ;
+    //user.borderStyle=UITextBorderStyleRoundedRect;
+   // user.textAlignment=NSTextAlignmentCenter ;
     user.keyboardType = UIKeyboardTypeNumberPad;
     user.enabled=YES;
-    user.layer.cornerRadius = 1;
-    [self.view addSubview:user];
+   // user.layer.cornerRadius = 1;
+    [vie addSubview:user];
     additionallab=[[UILabel alloc]initWithFrame:CGRectMake(2, 0, 50, 44)];
     additionallab.backgroundColor=[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:235.0f/255.0f alpha:0.5];
     additionallab.text=@"+86";
@@ -63,19 +70,28 @@
     additionallab.textAlignment= NSTextAlignmentCenter;
     additionallab.layer.cornerRadius = 3.0;
     additionallab.clipsToBounds = YES;
-    [user addSubview:additionallab];
+    [vie addSubview:additionallab];
     [user addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-     code=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.35, WIDTH-80, 44) font:[UIFont systemFontOfSize:13] placeholder:@""];
+    
+    
+    
+    UIView *kl=[[UIView alloc]initWithFrame:CGRectMake(40, HEIGHT*0.35, WIDTH-80, 44)];
+    kl.backgroundColor=[UIColor whiteColor];
+    kl.layer.cornerRadius = 3;
+    
+    kl.layer.masksToBounds = YES;
+    [self.view addSubview:kl];
+     code=[self createTextFielfFrame:CGRectMake(60, 0, WIDTH-146, 44) font:[UIFont systemFontOfSize:13] placeholder:@""];
     code.delegate = self;
     code.clearButtonMode = UITextFieldViewModeWhileEditing;
     code.backgroundColor=[UIColor whiteColor];
-    code.borderStyle=UITextBorderStyleRoundedRect;
-    code.textAlignment=NSTextAlignmentCenter ;
+   // code.borderStyle=UITextBorderStyleRoundedRect;
+   // code.textAlignment=NSTextAlignmentCenter ;
     code.enabled=YES;
-    code.layer.cornerRadius = 3.0 ;
-    code.layer.masksToBounds = YES;
+   //code.layer.cornerRadius = 3.0 ;
+    //code.layer.masksToBounds = YES;
     code.keyboardType = UIKeyboardTypeNumberPad;
-    [self.view addSubview:user];
+    //[self.view addSubview:user];
     
     //后期这里换成bottun
     additionallab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 55, 44)];
@@ -87,8 +103,8 @@
     additionallab.layer.cornerRadius = 3.0;
     additionallab.layer.masksToBounds = YES;
     additionallab.clipsToBounds = YES;
-    [code addSubview:additionallab];
-    [self.view addSubview:code];
+    [kl addSubview:additionallab];
+    [kl addSubview:code];
     
     
     
@@ -102,7 +118,7 @@
     pwd.secureTextEntry=YES;
     pwd.backgroundColor=[UIColor whiteColor];
     pwd.borderStyle=UITextBorderStyleRoundedRect;
-    pwd.textAlignment=NSTextAlignmentCenter ;
+   // pwd.textAlignment=NSTextAlignmentCenter ;
     pwd.enabled=YES;
     
     [pwd addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

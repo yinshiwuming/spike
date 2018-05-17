@@ -32,7 +32,13 @@
     mytabview.delegate = self;
     // 设置tableView的背景图
     mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-    mytabview.rowHeight=88;
+    mytabview.rowHeight=85;
+    mytabview.separatorInset=UIEdgeInsetsZero;
+    
+    
+    
+    mytabview.layoutMargins=UIEdgeInsetsZero;
+    
    
     [self.view addSubview:mytabview];
     
@@ -58,7 +64,10 @@
 //        timelab2.text= arry[i];
 //
     
+  
+    cell.separatorInset=UIEdgeInsetsZero;
     
+    cell.layoutMargins=UIEdgeInsetsZero;
     return cell;
 }
 - (void)didReceiveMemoryWarning {

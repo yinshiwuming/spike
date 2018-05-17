@@ -227,7 +227,7 @@
     [self.view addSubview:figure];
     
     //确定和取消按钮添加
-    cancel=[[UIButton alloc]initWithFrame:CGRectMake(20, 18, 66, 14)];
+    cancel=[[UIButton alloc]initWithFrame:CGRectMake(10, 12, 66, 14)];
     [cancel setTitle:@"取消" forState:UIControlStateNormal];
     cancel.titleLabel.font=[UIFont systemFontOfSize:14];
     
@@ -236,7 +236,7 @@
     
     
     
-    determine=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-95, 18, 66, 14)];
+    determine=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-85, 12, 66, 14)];
     [determine setTitle:@"确定" forState:UIControlStateNormal];
     determine.titleLabel.font=[UIFont systemFontOfSize:14];
     

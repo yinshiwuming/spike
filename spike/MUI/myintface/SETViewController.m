@@ -27,15 +27,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      [self.navigationItem setTitle:@"设置"];
+     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
+    
+    
     self.view.backgroundColor=[UIColor colorWithRed:237.0/255.0 green:237.0/255.0 blue:237.0/255.0 alpha:100];
-    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH,  HEIGHT-300) style:UITableViewStyleGrouped ];
+    mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH,  HEIGHT) style:UITableViewStyleGrouped ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
     // 设置tableView的委托
     mytabview.delegate = self;
     // 设置tableView的背景图
-    mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
-    mytabview.rowHeight = 33;
+    //mytabview.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"47994"]];
+    mytabview.rowHeight = 44;
     mytabview.scrollEnabled =NO;
     
     //这里设置顶部间距
@@ -51,7 +54,7 @@
     
     
     
-    exit=[[UIButton alloc]initWithFrame:CGRectMake(44, HEIGHT-60, WIDTH-88, 40)];
+    exit=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-40, WIDTH, 40)];
     exit.backgroundColor= [UIColor colorWithRed:255./256. green:214./256. blue:0./256. alpha:1.];
     [exit setTitle:@"退出登录" forState:UIControlStateNormal];
     [exit setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -117,7 +120,9 @@
         cell.textLabel.text = @"关于我们";
     }
     cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-    
+    cell.textLabel.font= [UIFont systemFontOfSize:14];
+    cell.textLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 - (void)didReceiveMemoryWarning {
