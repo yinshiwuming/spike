@@ -12,6 +12,7 @@
 #import "MUIViewController.h"
 #import "LookViewController.h"
 #import "MUIViewController.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface ViewController ()<UITextFieldDelegate>
@@ -338,6 +339,11 @@
     }
     
     
+    [self loadNewData];
+    
+    
+    
+    
     MUIViewController *vc=[[MUIViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -424,4 +430,50 @@
     
     return YES;
 }
+-(void)loadNewData{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    //    if([xieyi isEqualToString:@"http"]){
+    NSString *pone=user.text;
+    
+    NSString*mima=pwd.text;
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/userLogin?mobile=%@&pwd=%@",pone,mima];
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          NSLog(@"%@",status_range);
+          //              NSString *status_msg   = responseObject[@"msg"];//msg
+          //              if([status_range isEqual:@1]){
+          //                  NSArray * ary =  responseObject[@"data"][@"data"];
+          //                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
+          //                  //[dd setObject:ary forKey:@"dataary"];
+          //                  //  [dd synchronize];
+          //                  _tgArry =  [myrang  tgWitharry:ary];
+          //                  [_rtableView setHidden:NO];
+          //                  NSLog(@"%@",_tgArry);
+          //                  [self.rtableView reloadData];
+          //                  [self.rtableView.header endRefreshing];
+          //
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
+
 @end

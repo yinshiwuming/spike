@@ -52,13 +52,11 @@
     
     [self.view addSubview:vie];
     user=[self createTextFielfFrame:CGRectMake(58, 0, WIDTH-150, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入你的手机号"];
-    //user.text=@"13419693608";
-    //user.keyboardType=UIKeyboardTypeNumberPad;
+    
     user.delegate = self;
     user.clearButtonMode = UITextFieldViewModeWhileEditing;
     user.backgroundColor=[UIColor whiteColor];
-    //user.borderStyle=UITextBorderStyleRoundedRect;
-   // user.textAlignment=NSTextAlignmentCenter ;
+   
     user.keyboardType = UIKeyboardTypeNumberPad;
     user.enabled=YES;
    // user.layer.cornerRadius = 1;
@@ -81,18 +79,16 @@
     
     kl.layer.masksToBounds = YES;
     [self.view addSubview:kl];
-     code=[self createTextFielfFrame:CGRectMake(60, 0, WIDTH-146, 44) font:[UIFont systemFontOfSize:13] placeholder:@""];
+     code=[self createTextFielfFrame:CGRectMake(60, 0, WIDTH-146, 44) font:[UIFont systemFontOfSize:13] placeholder:@" "];
     code.delegate = self;
     code.clearButtonMode = UITextFieldViewModeWhileEditing;
     code.backgroundColor=[UIColor whiteColor];
-   // code.borderStyle=UITextBorderStyleRoundedRect;
-   // code.textAlignment=NSTextAlignmentCenter ;
+   
     code.enabled=YES;
-   //code.layer.cornerRadius = 3.0 ;
-    //code.layer.masksToBounds = YES;
+  
     code.keyboardType = UIKeyboardTypeNumberPad;
     //[self.view addSubview:user];
-    
+    [code addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     //后期这里换成bottun
     additionallab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 55, 44)];
     additionallab.backgroundColor=[UIColor colorWithRed:235.0f/255.0f green:235.0f/255.0f blue:235.0f/255.0f alpha:0.5];
@@ -103,6 +99,14 @@
     additionallab.layer.cornerRadius = 3.0;
     additionallab.layer.masksToBounds = YES;
     additionallab.clipsToBounds = YES;
+    additionallab.userInteractionEnabled=YES;
+    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(labelTouchUpInside:)];
+    
+    [additionallab addGestureRecognizer:labelTapGestureRecognizer];
+    
+    
+  
+    
     [kl addSubview:additionallab];
     [kl addSubview:code];
     
@@ -223,7 +227,12 @@
         [self mbProgressHUDUntil:@"请输入密码"];
         [HUD hideAnimated:YES afterDelay:2];
         return;
-    }}
+    }
+    
+    [self loadNewData];
+    
+    
+}
 -(UIButton *)createButtonFrame:(CGRect)frame backImageName:(NSString *)imageName title:(NSString *)title titleColor:(UIColor *)color font:(UIFont *)font target:(id)target action:(SEL)action
 {
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -292,8 +301,8 @@
 
 
 -(void)textFieldDidChange:(UITextField *)textField {
-    if (textField == user || textField == pwd) {
-        if (user.text.length >= 11 && pwd.text.length >= 6) {
+    if (textField == user || textField == pwd||textField == code) {
+        if (user.text.length >= 11 && pwd.text.length >= 6&&code.text.length>=6) {
             //_loginBtn.selected = YES;
             landBtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
             
@@ -304,7 +313,19 @@
              additionallab.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
         }
         
+        if (user.text.length < 11) {
+            additionallab.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
+            
+        }
         
+        
+        if (user.text.length <11 || pwd.text.length <6 || code.text.length<6) {
+            //_loginBtn.selected = YES;
+            landBtn.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
+            NSLog(@"要变天了");
+            
+            
+        }
         
         
         
@@ -339,8 +360,11 @@
 //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
     
 //    if([xieyi isEqualToString:@"http"]){
-    NSString *pone=@"15011218654";
-        NSString *str = [NSString stringWithFormat:@"http://192.168.2.115:9191/coach/sendCode?%@",pone];
+    NSString *pone=user.text;
+    NSString*yanzheng=code.text;
+    NSString*mima=pwd.text;
+    //http://192.168.1.123:9191/coach/regAccount?mobile=15011218654&pwd=123456&regCode=836766
+        NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/regAccount?mobile=%@&pwd=%@&regCode=%@",pone,mima,yanzheng];
         NSLog(@"%@",str);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         //AFN 2.5.4
@@ -412,6 +436,63 @@
     
     
     return YES;
+}
+-(void) labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
+    
+    UILabel *label=(UILabel*)recognizer.view;
+    
+    NSLog(@"%@被点击了",label.text);
+    
+    NSString *pone=user.text;
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/sendCode?mobile=%@",pone];
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          
+          
+          NSLog(@"+++++%@",status_range);
+          
+          
+          
+          //              NSString *status_msg   = responseObject[@"msg"];//msg
+          //              if([status_range isEqual:@1]){
+          //                  NSArray * ary =  responseObject[@"data"][@"data"];
+          //                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
+          //                  //[dd setObject:ary forKey:@"dataary"];
+          //                  //  [dd synchronize];
+          //                  _tgArry =  [myrang  tgWitharry:ary];
+          //                  [_rtableView setHidden:NO];
+          //                  NSLog(@"%@",_tgArry);
+          //                  [self.rtableView reloadData];
+          //                  [self.rtableView.header endRefreshing];
+          //
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 @end

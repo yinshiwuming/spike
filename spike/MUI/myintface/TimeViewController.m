@@ -11,6 +11,7 @@
 #import "WSDatePickerView.h"
 #import "MJExtension.h"
 #import "timeTableViewCell.h"
+#import "AFNetworking.h"
 #define RGB(x,y,z) [UIColor colorWithRed:x/255.0 green:y/255.0 blue:z/255.0 alpha:1.0]
 
 #define randomColor [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1]
@@ -67,6 +68,13 @@
     UILabel *prompt;
     UIView *lefttimeview;
     UIView *righttimeview;
+    NSArray * rightarry;
+    NSArray *leftarry;
+    NSMutableArray*dayary;
+    NSMutableArray *weekarry;
+    NSString *dateString;
+    NSArray *levarry;
+    
 }
 @property (nonatomic,strong)UIPickerView * pickerViewtime;
 @property (nonatomic,strong)UIPickerView *pickerView;
@@ -79,6 +87,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadData];
     self.navigationItem.title = @"预约时间";
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(addItemmmClick)];
@@ -259,6 +268,7 @@
     confirm.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
     [confirm setTitle:@"确定" forState:UIControlStateNormal];
     [confirm setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [confirm addTarget:self action:@selector(working) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirm];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(walkVCClick:)name:@"buttonLoseResponse" object:nil];
     
@@ -295,7 +305,8 @@
               
               };
     
-    arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
+   
+    //arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
     
   //这里是scoview
     
@@ -341,7 +352,7 @@
     if (pickerView.tag==100) {
         NSString * title = nil;
         
-        title = self.letter[row];
+       title = self.letter[row][@"period"];
         return title;
     } else {
         
@@ -376,15 +387,18 @@
     
 }
 -(void)topbtn1{
-    
+    arry=dayary;
     [mytabview reloadData];
     topbtn1.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     topbtn2.backgroundColor=[UIColor whiteColor];
     
 }
 -(void)topbtn2{
-    
+    arry=weekarry;
     [mytabview reloadData];
+    
+    
+    
     topbtn2.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     topbtn1.backgroundColor=[UIColor whiteColor];
     
@@ -394,8 +408,17 @@
     NSLog(@"hhhhh");
     WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
         
-        NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
+        dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
         NSLog(@"选择的日期：%@",dateString);
+        
+        
+        //请假时件
+        
+        
+        [self levav];
+        
+        
+        
        
     }];
     datepicker.dateLabelColor = [UIColor blackColor];//年-月-日-时-分 颜色
@@ -409,7 +432,12 @@
 - (void)walkVCClick:(NSNotification *)noti
 
 {
-    [self loadData];
+    //[self loadData];
+    NSLog(@"_+_+_+_+_+_+%@",leftarry);
+    self.letter =leftarry;
+    
+    
+    
     picview=[[UIView alloc]initWithFrame:CGRectMake(0, 400, WIDTH, 30)];
     picview.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:picview];
@@ -448,7 +476,65 @@
 -(void)loadData
 {
     //需要展示的数据以数组的形式保存
-    self.letter = @[@"9：00-12：00",@"14：00-17：00",@"19：00-21：00"];
+    
+    
+    NSString *str =@"http://192.168.1.107:9191/coach/working/to/working";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          
+          
+          NSLog(@"+++++%@",status_range);
+          
+           leftarry =responseObject[@"data"][@"dayNTimes"];
+          dayary=responseObject[@"data"][@"dayNTimes"];
+          arry=responseObject[@"data"][@"dayNTimes"];
+          weekarry=responseObject[@"data"][@"endNTimes"];
+          
+          
+          
+          NSLog(@"uuuuuuuuuuuuu%@",arry);
+          
+          [mytabview reloadData];
+          
+          NSLog(@"%@",leftarry);
+          
+          //              NSString *status_msg   = responseObject[@"msg"];//msg
+          //              if([status_range isEqual:@1]){
+          //                  NSArray * ary =  responseObject[@"data"][@"data"];
+          //                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
+          //                  //[dd setObject:ary forKey:@"dataary"];
+          //                  //  [dd synchronize];
+          //                  _tgArry =  [myrang  tgWitharry:ary];
+          //                  [_rtableView setHidden:NO];
+          //                  NSLog(@"%@",_tgArry);
+          //                  [self.rtableView reloadData];
+          //                  [self.rtableView.header endRefreshing];
+          //
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
@@ -473,10 +559,10 @@
     //这里是请假时间段选择时间
     
     NSInteger row=[self.pickerViewtime selectedRowInComponent:0];
-    NSString *str=_letter[row];
-    NSLog(@"++++++++++%@____________",str) ;
+   NSString *str=_letter[row][@"id"];
+   NSLog(@"++++++++++%@____________",str) ;
     
-    
+    [self Ask];
     
     
     [self.pickerViewtime removeFromSuperview];
@@ -507,8 +593,14 @@
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell addSubview:pickbtn1];
-   celldata *myuse = [celldata objectWithKeyValues:arry[indexPath.row]];
-   cell.celldata=myuse;
+//   celldata *myuse = [celldata objectWithKeyValues:arry[indexPath.row]];
+//   cell.celldata=myuse;
+    
+    
+    cell.textLabel.text=arry[indexPath.row][@"period"];
+    
+    
+    
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     cell.textLabel.font=[UIFont systemFontOfSize:15];
     cell.textLabel.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
@@ -528,9 +620,9 @@
         // 获取cell的indexPath
         NSIndexPath *indexPath = [mytabview indexPathForCell:cell];
         NSLog(@"点击的是第%ld行按钮",indexPath.row);
-        NSString *stringInt = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        NSString *stringInt = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
         [_selectIndexs addObject:stringInt];
-        NSLog(@"**********%@",_selectIndexs);
+       NSLog(@"**********%@",_selectIndexs);
         ((UIButton *)sender).selected = YES;
      
     }
@@ -541,7 +633,7 @@
         // 获取cell的indexPath
         NSIndexPath *indexPath = [mytabview indexPathForCell:cell];
         NSLog(@"点击的是第%ld行按钮",indexPath.row);
-        NSString *stringInt = [NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        NSString *stringInt = [NSString stringWithFormat:@"%ld",(long)indexPath.row+1];
         [_selectIndexs removeObject:stringInt];}
     
 }
@@ -665,18 +757,52 @@
 //
 //    twoview.frame = frame;
     if(((UIButton *)sender).selected==NO){
+        
+        
+        if (leftarry.count>=rightarry.count) {
+            
+            if (leftarry.count==0) {
+                
+            }
+            if (leftarry.count==1) {
+                
+            }
+            if (leftarry.count==2) {
+                CGRect frame = twoview.frame;
+                frame.origin.y=HEIGHT*0.41+44;
+                
+                twoview.frame = frame;
+                
+                CGRect frame1 = prompt.frame;
+                frame1.origin.y=HEIGHT*0.35+44;
+                
+                prompt.frame = frame1;
+                
+                [self lettime];
+                [self righttime];
+                
+            }
+            
             CGRect frame = twoview.frame;
-          frame.origin.y=HEIGHT*0.41+44;
+            frame.origin.y=HEIGHT*0.41+89;
+            
+            twoview.frame = frame;
+            
+            CGRect frame1 = prompt.frame;
+            frame1.origin.y=HEIGHT*0.35+89;
+            
+            prompt.frame = frame1;
+            
+            [self lettime];
+            [self righttime];
+            
+            
+            
+            
+        }
         
-           twoview.frame = frame;
         
-        CGRect frame1 = prompt.frame;
-        frame1.origin.y=HEIGHT*0.35+44;
         
-        prompt.frame = frame1;
-        
-         [self lettime];
-        [self righttime];
         
       
         
@@ -729,33 +855,126 @@
     
   //  }
     
-    UILabel *lab1=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 43)];
-    lab1.text = @"9：00-12：00";
-    lab1.textAlignment=NSTextAlignmentCenter;
-    lab1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
-    lab1.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
-    [lefttimeview addSubview:lab1];
-    UIView *vil1=[[UIView alloc]initWithFrame:CGRectMake(0, 43, WIDTH, 1)];
-    vil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
-    [lefttimeview addSubview:vil1];
+    if (leftarry.count==1) {
+        UILabel *lab1=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 43)];
+        lab1.text = @"9：00-12：00";
+        lab1.textAlignment=NSTextAlignmentCenter;
+        lab1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+        lab1.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        [lefttimeview addSubview:lab1];
+        UIView *vil1=[[UIView alloc]initWithFrame:CGRectMake(0, 43, WIDTH, 1)];
+        vil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:vil1];
+        
+        UIView*kil1=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, 0, 1, 44)];
+        kil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:kil1];
+        
+        
+        UILabel *lab2=[[UILabel alloc]initWithFrame:CGRectMake(0, 44, WIDTH/2, 43)];
+        lab2.text = @"14：00-17：00";
+        lab2.textAlignment=NSTextAlignmentCenter;
+        lab2.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+        lab2.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        [lefttimeview addSubview:lab2];
+        UIView *vi2=[[UIView alloc]initWithFrame:CGRectMake(0, 87, WIDTH, 1)];
+        vi2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:vi2];
+        UIView*kil2=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2,44, 1, 44)];
+        kil2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:kil2];
+        
+    }
     
-    UIView*kil1=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, 0, 1, 44)];
-    kil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
-    [lefttimeview addSubview:kil1];
+    
+    if (leftarry.count==2) {
+        
+        UILabel *lab1=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 43)];
+        lab1.text = @"9：00-12：00";
+        lab1.textAlignment=NSTextAlignmentCenter;
+        lab1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+        lab1.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        [lefttimeview addSubview:lab1];
+        UIView *vil1=[[UIView alloc]initWithFrame:CGRectMake(0, 43, WIDTH, 1)];
+        vil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:vil1];
+        
+        UIView*kil1=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, 0, 1, 44)];
+        kil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:kil1];
+        
+        
+        
+        
+        UILabel *lab2=[[UILabel alloc]initWithFrame:CGRectMake(0, 44, WIDTH/2, 43)];
+        lab2.text = @"14：00-17：00";
+        lab2.textAlignment=NSTextAlignmentCenter;
+        lab2.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+        lab2.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        [lefttimeview addSubview:lab2];
+        UIView *vi2=[[UIView alloc]initWithFrame:CGRectMake(0, 87, WIDTH, 1)];
+        vi2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:vi2];
+        UIView*kil2=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2,44, 1, 44)];
+        kil2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+        [lefttimeview addSubview:kil2];
+    }
     
     
-     UILabel *lab2=[[UILabel alloc]initWithFrame:CGRectMake(0, 44, WIDTH/2, 43)];
-    lab2.text = @"14：00-17：00";
-    lab2.textAlignment=NSTextAlignmentCenter;
-    lab2.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
-    lab2.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
-    [lefttimeview addSubview:lab2];
-    UIView *vi2=[[UIView alloc]initWithFrame:CGRectMake(0, 87, WIDTH, 1)];
-    vi2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
-    [lefttimeview addSubview:vi2];
-    UIView*kil2=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2,44, 1, 44)];
-    kil2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
-    [lefttimeview addSubview:kil2];
+     if (leftarry.count==3) {
+    
+         UILabel *lab1=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, WIDTH/2, 43)];
+         lab1.text = @"9：00-12：00";
+         lab1.textAlignment=NSTextAlignmentCenter;
+         lab1.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+         lab1.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+         [lefttimeview addSubview:lab1];
+         UIView *vil1=[[UIView alloc]initWithFrame:CGRectMake(0, 43, WIDTH, 1)];
+         vil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+         [lefttimeview addSubview:vil1];
+         
+         UIView*kil1=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2, 0, 1, 44)];
+         kil1.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+         [lefttimeview addSubview:kil1];
+         
+         
+         
+         
+         UILabel *lab2=[[UILabel alloc]initWithFrame:CGRectMake(0, 44, WIDTH/2, 43)];
+         lab2.text = @"14：00-17：00";
+         lab2.textAlignment=NSTextAlignmentCenter;
+         lab2.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+         lab2.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+         [lefttimeview addSubview:lab2];
+         UIView *vi2=[[UIView alloc]initWithFrame:CGRectMake(0, 87, WIDTH, 1)];
+         vi2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+         [lefttimeview addSubview:vi2];
+         UIView*kil2=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2,44, 1, 44)];
+         kil2.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+         [lefttimeview addSubview:kil2];
+         
+         
+         UILabel *lab3=[[UILabel alloc]initWithFrame:CGRectMake(0, 89, WIDTH/2, 43)];
+         lab3.text = @"14：00-17：00";
+         lab3.textAlignment=NSTextAlignmentCenter;
+         lab3.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:9.3];
+         lab3.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+         [lefttimeview addSubview:lab3];
+         UIView *vi3=[[UIView alloc]initWithFrame:CGRectMake(0, 131, WIDTH, 1)];
+         vi3.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+         [lefttimeview addSubview:vi3];
+         UIView*kil3=[[UIView alloc]initWithFrame:CGRectMake(WIDTH/2,88, 1, 44)];
+         kil3.backgroundColor=[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1];
+         [lefttimeview addSubview:kil3];
+         
+         
+         
+         
+         
+         
+         
+         
+     }
     
 }
 
@@ -801,10 +1020,174 @@
     
     
 }
+
+
+
+
+
+-(void)levav{
+    
+    //请假时间日期上传获取所选日期时间段
+    //http://192.168.1.107:9191/coach/working/to/leaving?date=2018-06-12&snowPackId=1
+   
+    NSString *data=dateString;
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.107:9191/coach/working/to/leaving?date=%@&snowPackId=1",data];
+    NSLog(@"%@",str);
+    
+    
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          levarry =responseObject[@"data"];
+          NSLog(@"************%@",status_range);
+          
+         
+          
+          //              NSString *status_msg   = responseObject[@"msg"];//msg
+          //              if([status_range isEqual:@1]){
+          //                  NSArray * ary =  responseObject[@"data"][@"data"];
+          //                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
+          //                  //[dd setObject:ary forKey:@"dataary"];
+          //                  //  [dd synchronize];
+          //                  _tgArry =  [myrang  tgWitharry:ary];
+          //                  [_rtableView setHidden:NO];
+          //                  NSLog(@"%@",_tgArry);
+          //                  [self.rtableView reloadData];
+          //                  [self.rtableView.header endRefreshing];
+          //
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+     
+     -(void)Ask{
+         
+         
+      
+       //  NSString *str = @"http://192.168.1.107:9191/coach/working/leaving?timesId=2&date=2018-05-22";
+         //NSLog(@"%@",str);
+         
+         
+         
+         
+         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+         //AFN 2.5.4
+         /**
+          manager.securityPolicy.allowInvalidCertificates = YES;
+          **/
+         //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+         manager.securityPolicy.validatesDomainName = NO;
+         
+         NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"timesId"] = @"2";
+            params[@"date"] = @"2018-05-22";
+         
+         
+         
+         
+         
+         
+         [manager POST:@"http://192.168.1.107:9191/coach/working/leaving" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+                  } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                         NSLog(@"请求成功:%@", responseObject);
+                
+                      
+                
+                      
+                 
+                 
+                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                    
+                        
+                     
+                         }];
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+     }
+     
+     
 -(void)addItemmmClick{
     
     
     //帮助界面
+    
+    
+}
+-(void)working{
+    
+    NSLog(@"电器选国美");
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSString *string = [_selectIndexs componentsJoinedByString:@","];
+    
+ 
+    
+        NSString *str = [NSString stringWithFormat:@"%@,",string];
+    NSLog(@"yyyyyyyy%@",str);
+    params[@"timesIds"] =str;
+   
+    
+    
+    
+    
+    
+    
+    [manager POST:@"http://192.168.1.107:9191/coach/working/working" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+        
+        
+        confirm.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
+    
     
     
 }

@@ -8,7 +8,7 @@
 
 #import "LookViewController.h"
 #import "AFNetworking.h"
-#import "AFNetworking.h"
+
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface LookViewController (){
@@ -17,6 +17,7 @@
     UITextField *user;
     UITextField *Verification;
     UIButton *additionabtn;
+    UIButton *look;
     
 }
 
@@ -60,6 +61,7 @@
     user.textAlignment=NSTextAlignmentLeft ;
     user.enabled=YES;
       user.keyboardType = UIKeyboardTypeNumberPad;
+     [user addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:user];
     //additionabtn=[UIButton buttonWithType:UIButtonTypeCustom];
     //additionabtn.frame=CGRectMake(40, HEIGHT*0.8, 20, 20);
@@ -75,10 +77,9 @@
     Verification.keyboardType = UIKeyboardTypeNumberPad;
     UIView *bvi=[[UIView alloc]initWithFrame:CGRectMake(0, 154, WIDTH, 1)];
     bvi.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1];
+    [Verification addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.view addSubview:bvi];
-    
-    
-    additionabtn= [[UIButton alloc]initWithFrame:CGRectMake(WIDTH-100, 200, 100, 42)];
+    additionabtn= [[UIButton alloc]initWithFrame:CGRectMake(WIDTH-100, 109, 100, 44)];
     UIView*ek=[[UIView alloc]initWithFrame:CGRectMake(WIDTH-108, 6, 1, 30)];
     ek.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [Verification addSubview:ek];
@@ -95,7 +96,7 @@
     //[Verification addSubview:additionabtn];
     [self.view addSubview:Verification];
     [self.view addSubview:additionabtn];
-    pwd=[self createTextFielfFrame:CGRectMake(0, 155, WIDTH, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入6至12位密码区分大小写"];
+    pwd=[self createTextFielfFrame:CGRectMake(8, 155, WIDTH-8, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入6至12位密码区分大小写"];
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeNever;
     pwd.backgroundColor=[UIColor whiteColor];
@@ -104,13 +105,13 @@
     pwd.textAlignment=NSTextAlignmentLeft ;
     //pwd.keyboardType=UIKeyboardTypeWebSearch;
     pwd.enabled=YES;
-    
+    [pwd addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     UIView *cvi=[[UIView alloc]initWithFrame:CGRectMake(0, 199, WIDTH, 1)];
     cvi.backgroundColor=[UIColor colorWithRed:225/255.0 green:225/255.0 blue:225/255.0 alpha:1];
     [self.view addSubview:cvi];
     [self.view addSubview:pwd];
     
-    UIButton *look=[[UIButton alloc]initWithFrame:CGRectMake(44, 338, WIDTH-88, 44)];
+    look=[[UIButton alloc]initWithFrame:CGRectMake(44, 338, WIDTH-88, 44)];
     [look setTitle:@"登录" forState:UIControlStateNormal];
    
     [look setTitleColor:[UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1] forState:UIControlStateNormal ];
@@ -170,7 +171,7 @@
     
     //    if([xieyi isEqualToString:@"http"]){
     NSString *pone=@"15011218654";
-    NSString *str = [NSString stringWithFormat:@"http://192.168.2.115:9191/coach/sendCode?%@",pone];
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/sendCode?mobile=%@",pone];
     NSLog(@"%@",str);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //AFN 2.5.4
@@ -248,11 +249,37 @@
         if (newtxt.length > 6) return NO;
     }
     
-    
-    
-    
-    
-    
+
     return YES;
+}-(void)textFieldDidChange:(UITextField *)textField {
+    if (textField == user || textField == pwd||textField == Verification) {
+        if (user.text.length >= 11 && pwd.text.length >= 6&&Verification.text.length>=6) {
+            //_loginBtn.selected = YES;
+            look.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
+            
+            
+            
+        }
+        if (user.text.length >= 11) {
+            additionabtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
+        }
+        
+        if (user.text.length < 11) {
+            additionabtn.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
+            
+        }
+        
+        
+        if (user.text.length <11 || pwd.text.length <6 || Verification.text.length<6) {
+            //_loginBtn.selected = YES;
+            look.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
+            NSLog(@"要变天了");
+            
+            
+        }
+        
+        
+        
+    }
 }
 @end

@@ -10,6 +10,7 @@
 #import "courdata.h"
 #import "courTableViewCell.h"
 #import "MJExtension.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface CourseViewController (){
@@ -54,7 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self loadData];
     self.navigationItem.title = @"课程选择";
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithTitle:nil style:UIBarButtonItemStylePlain target:self action:@selector(addItemmmClick)];
     
@@ -230,9 +231,8 @@
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell addSubview:timelab2];
     [cell addSubview:pickbtn1];
-    courdata *myuse = [courdata objectWithKeyValues:arry[indexPath.row]];
-    cell.cour=myuse;
     
+   cell.textLabel.text=arry[indexPath.row][@"name"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     cell.separatorInset=UIEdgeInsetsZero;
     
@@ -305,8 +305,11 @@
     UITableViewCell *cell = (UITableViewCell *)[sender superview];
     // 获取cell的indexPath
     NSIndexPath *indexPath = [mytabview indexPathForCell:cell];
+        NSString *stringInt = arry[indexPath.row][@"id"];
+        [_selectIndexs addObject:stringInt];
     NSLog(@"点击的是第%ld行按钮",indexPath.row);
-   [_selectIndexs addObject:indexPath];
+        NSLog(@"++++++++%@++++++",_selectIndexs);
+        
     ((UIButton *)sender).selected = YES;
     
 }
@@ -316,8 +319,9 @@ else{
     UITableViewCell *cell = (UITableViewCell *)[sender superview] ;
     // 获取cell的indexPath
     NSIndexPath *indexPath = [mytabview indexPathForCell:cell];
-    
-    [_selectIndexs removeObject:indexPath];
+     NSString *stringInt = arry[indexPath.row][@"id"];
+    [_selectIndexs removeObject:stringInt];
+   
     
 }
     
@@ -334,7 +338,53 @@ else{
     
     
     
+    
+    
+    
+    
 }
+
+
+
+-(void)loadData
+{
+    //需要展示的数据以数组的形式保存
+    
+    
+    NSString *str =@"http://192.168.1.107:9191/coach/course/to/course";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          arry=responseObject[@"data"][@"courses"];
+          
+          NSLog(@"+++++%@",arry);
+          
+         
+          
+          [mytabview reloadData];
+          
+       
+          //
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+    
+    
+    
+}
+    
 /*
 #pragma mark - Navigation
 
