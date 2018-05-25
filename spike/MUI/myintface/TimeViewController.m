@@ -74,7 +74,9 @@
     NSMutableArray *weekarry;
     NSString *dateString;
     NSArray *levarry;
-    
+    NSString *str;
+   NSArray *scoarry;
+    NSString*snowPackId;
 }
 @property (nonatomic,strong)UIPickerView * pickerViewtime;
 @property (nonatomic,strong)UIPickerView *pickerView;
@@ -276,34 +278,34 @@
     //关于传过来的数组
     
      _selectIndexs = [NSMutableArray new];
-    dict = @{
-             @"name" : @"9：00-12：00",
-             
-             };
-    
-    // 将字典转为User模型
-    
-    dict3 = @{
-              @"name" : @"14：00-17：00",
-              
-              
-              };
-    dict1 = @{
-              @"name" : @"19：00-21：00",
-              
-              };
-    dict4= @{
-              @"name" : @"19：00-21：00",
-              
-              };
-    dict5 = @{
-              @"name" : @"19：00-21：00",
-              
-              };
-    dict6 = @{
-              @"name" : @"19：00-21：00",
-              
-              };
+//    dict = @{
+//             @"name" : @"9：00-12：00",
+//
+//             };
+//
+//    // 将字典转为User模型
+//    
+//    dict3 = @{
+//              @"name" : @"14：00-17：00",
+//              
+//              
+//              };
+//    dict1 = @{
+//              @"name" : @"19：00-21：00",
+//
+//              };
+//    dict4= @{
+//              @"name" : @"19：00-21：00",
+//              
+//              };
+//    dict5 = @{
+//              @"name" : @"19：00-21：00",
+//              
+//              };
+//    dict6 = @{
+//              @"name" : @"19：00-21：00",
+//              
+//              };
     
    
     //arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
@@ -493,23 +495,43 @@
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
           
-          
+          if ([status_range isEqual:@"5"]) {
+              dayary=responseObject[@"data"][@"dayNTimes"];
+              if (responseObject[@"data"][@"dayNTimes"]) {
+                  arry=responseObject[@"data"][@"dayNTimes"];
+              }
+              //arry=responseObject[@"data"][@"dayNTimes"];
+              
+              weekarry=responseObject[@"data"][@"endNTimes"];
+              scoarry=responseObject[@"data"][@"leavings"];
+              snowPackId=responseObject[@"data"][@"snowPackId"];
+              
+              NSLog(@"uuuuuuuuuuuuu%@",scoarry);
+              
+              [mytabview reloadData];
+              
+              NSLog(@"%@",leftarry);
+          }
           
           NSLog(@"+++++%@",status_range);
           
-           leftarry =responseObject[@"data"][@"dayNTimes"];
-          dayary=responseObject[@"data"][@"dayNTimes"];
-          arry=responseObject[@"data"][@"dayNTimes"];
-          weekarry=responseObject[@"data"][@"endNTimes"];
-          
-          
-          
-          NSLog(@"uuuuuuuuuuuuu%@",arry);
-          
-          [mytabview reloadData];
-          
-          NSLog(@"%@",leftarry);
-          
+          // leftarry =responseObject[@"data"][@"dayNTimes"];//左边
+//          dayary=responseObject[@"data"][@"dayNTimes"];
+//          if (responseObject[@"data"][@"dayNTimes"]) {
+//              arry=responseObject[@"data"][@"dayNTimes"];
+//          }
+//          //arry=responseObject[@"data"][@"dayNTimes"];
+//          
+//          weekarry=responseObject[@"data"][@"endNTimes"];
+//          scoarry=responseObject[@"data"][@"leavings"];
+//          snowPackId=responseObject[@"data"][@"snowPackId"];
+//          
+//          NSLog(@"uuuuuuuuuuuuu%@",scoarry);
+//          
+//          [mytabview reloadData];
+//          
+//          NSLog(@"%@",leftarry);
+//          
           //              NSString *status_msg   = responseObject[@"msg"];//msg
           //              if([status_range isEqual:@1]){
           //                  NSArray * ary =  responseObject[@"data"][@"data"];
@@ -559,7 +581,7 @@
     //这里是请假时间段选择时间
     
     NSInteger row=[self.pickerViewtime selectedRowInComponent:0];
-   NSString *str=_letter[row][@"id"];
+ str=_letter[row][@"id"];
    NSLog(@"++++++++++%@____________",str) ;
     
     [self Ask];
@@ -598,6 +620,19 @@
     
     
     cell.textLabel.text=arry[indexPath.row][@"period"];
+    
+    if ([arry[indexPath.row][@"explain"]isEqual:@"1"]) {
+        
+        pickbtn1.selected=YES;
+        
+        
+        
+        
+    }
+    
+    
+    
+    
     
     
     
@@ -647,12 +682,14 @@
     //把这个对象加到view中去。显示出来
     [twoview addSubview:_newview ];
    
-    myarry=[NSMutableArray arrayWithObjects:@"9:00-12:00",@"9:00-12:00", nil];
-    myarry=(NSMutableArray *)[[myarry reverseObjectEnumerator] allObjects];
-    
-    // [self loadImage];
-    
-    [self addPictures];
+    if (scoarry.count>0) {
+        myarry=scoarry;
+        myarry=(NSMutableArray *)[[myarry reverseObjectEnumerator] allObjects];
+        
+        // [self loadImage];
+        
+        [self addPictures];
+    }
     //设置数组读取获得i值遍历数组后九宫格创建btn
     
 
@@ -782,6 +819,8 @@
                 [self righttime];
                 
             }
+            if (leftarry.count==3) {
+                
             
             CGRect frame = twoview.frame;
             frame.origin.y=HEIGHT*0.41+89;
@@ -802,7 +841,7 @@
         }
         
         
-        
+        }
         
       
         
@@ -1031,7 +1070,7 @@
     //http://192.168.1.107:9191/coach/working/to/leaving?date=2018-06-12&snowPackId=1
    
     NSString *data=dateString;
-    NSString *str = [NSString stringWithFormat:@"http://192.168.1.107:9191/coach/working/to/leaving?date=%@&snowPackId=1",data];
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.107:9191/coach/working/to/leaving?date=%@&snowPackId=%@",data,snowPackId];
     NSLog(@"%@",str);
     
     
@@ -1101,12 +1140,8 @@
          manager.securityPolicy.validatesDomainName = NO;
          
          NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            params[@"timesId"] = @"2";
-            params[@"date"] = @"2018-05-22";
-         
-         
-         
-         
+            params[@"timesId"] = str;
+            params[@"date"] = dateString;
          
          
          [manager POST:@"http://192.168.1.107:9191/coach/working/leaving" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -1115,7 +1150,7 @@
                          NSLog(@"请求成功:%@", responseObject);
                 
                       
-                
+                      [self loadData];
                       
                  
                  

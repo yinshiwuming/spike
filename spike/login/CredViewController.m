@@ -22,7 +22,7 @@
     [super viewDidLoad];
     
     
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     self.view.backgroundColor=[UIColor whiteColor];
    [[self navigationItem] setTitle:@"成为教练"];
     _oneview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT/2-1)];

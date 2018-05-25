@@ -7,6 +7,7 @@
 //
 
 #import "SkiViewController.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface SkiViewController (){
@@ -15,6 +16,7 @@
     
     UIButton*buybtn;
     NSMutableArray*ary;
+    NSString *sting;
     
 }
 @property (assign, nonatomic) NSIndexPath *selIndex;
@@ -24,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self loadNewData];
     self.navigationItem.title = @"雪场选择";
     [self.navigationController.navigationBar setTitleTextAttributes:
      
@@ -34,7 +36,7 @@
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     self.view.backgroundColor=[UIColor whiteColor];
     
-    ary=[NSMutableArray arrayWithObjects:@"奥森雪场",@"张北雪场", nil];
+    
     
     
     mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH,  HEIGHT*0.5) style:UITableViewStylePlain];
@@ -58,6 +60,8 @@
      [buybtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [buybtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
     buybtn.layer.cornerRadius = 4.0;
+  [buybtn addTarget:self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
+    
     [self.view addSubview:buybtn];
     // Do any additional setup after loading the view.
 }
@@ -81,7 +85,7 @@
     
     
     
-    cell.textLabel.text=ary[indexPath.row];
+    cell.textLabel.text=ary[indexPath.row][@"name"];
     
     
     
@@ -104,13 +108,126 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    NSLog(@"++++++++++%@",_selIndex);
+    NSLog(@"++++++++++%ld",(long)_selIndex.row);
+     sting=ary[_selIndex.row][@"id"];
+    
+    NSLog(@"%@",sting);
+   
+    
     
     
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)loadNewData{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    //    if([xieyi isEqualToString:@"http"]){
+    
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str =@"http://192.168.1.126:9191/coach/optionSnowPack";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          ary= responseObject[@"data"];
+         
+          [mytabview reloadData];
+          NSLog(@"%@",responseObject);
+          
+          
+          
+          
+          NSLog(@"%@",status_range);
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
+-(void)btn{
+    
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+   
+    //
+    //
+    //
+    //    NSString *str = [NSString stringWithFormat:@"%@,",string];
+    //    NSLog(@"yyyyyyyy%@",str);
+    params[@"snowPackId"]=sting;
+   
+  
+    
+    
+    
+    
+    
+    //
+    //
+    
+    
+    
+    
+    
+    [manager POST:@"http://192.168.1.126:9191/coach/updateSnowPack" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+        
+        
+        
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
+    
+    
+    
+    
+    
+    
+    
 }
 
 /*

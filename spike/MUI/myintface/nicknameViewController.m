@@ -7,9 +7,16 @@
 //
 
 #import "nicknameViewController.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
-@interface nicknameViewController ()
+@interface nicknameViewController (){
+    
+    UITextField *text ;
+    
+    
+    
+}
 
 @end
 
@@ -30,7 +37,7 @@
     UIView *vie=[[UIView alloc]initWithFrame:CGRectMake(0, 88,WIDTH, 44)];
     vie.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:vie];
-     UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(7, 0,WIDTH-7, 44)];
+    text = [[UITextField alloc]initWithFrame:CGRectMake(7, 0,WIDTH-7, 44)];
 //    text.borderStyle = UITextBorderStyleRoundedRect;
      text.backgroundColor = [UIColor whiteColor];
      text.placeholder = @"   请输入昵称";
@@ -47,6 +54,7 @@
     
     [btn setTitle:@"提交" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     
 }
@@ -62,6 +70,72 @@
     [self.view endEditing:YES];
     
 }
+
+
+-(void)btn{
+    
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSString *string =text.text;
+//
+//
+//
+//    NSString *str = [NSString stringWithFormat:@"%@,",string];
+//    NSLog(@"yyyyyyyy%@",str);
+    params[@"userId"]=@"630130";
+    params[@"content"] =string;
+    params[@"type"]=@"1";
+    
+    
+    
+    
+    
+//
+//
+    
+    
+    
+    
+    
+    [manager POST:@"http://192.168.1.126:9191/coach/updateUser" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+        
+        
+       
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
+    
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
 /*
 #pragma mark - Navigation
 

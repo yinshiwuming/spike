@@ -8,6 +8,8 @@
 
 #import "opinionViewController.h"
 #import "CCTextView.h"
+#import "AFNetworking.h"
+//#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface opinionViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,JJPhotoDelegate,XWImagePickerSheetDelegate>{
@@ -122,7 +124,10 @@
     btnlik.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [btnlik setTitle:@"确认" forState:UIControlStateNormal];
     [btnlik setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+  
     [ke addSubview:textField];
+    
+    [ btnlik addTarget:self action:@selector(opin) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnlik];
     
     _showActionSheetViewController = self;
@@ -366,6 +371,100 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)opin{
+    
+    NSLog(@"点击了意见");
+        
+         [self image];
+        
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        //AFN 2.5.4
+        /**
+         manager.securityPolicy.allowInvalidCertificates = YES;
+         **/
+        //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+        manager.securityPolicy.validatesDomainName = NO;
+        
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+        //
+        //
+        //    NSString *str = [NSString stringWithFormat:@"%@,",string];
+        //    NSLog(@"yyyyyyyy%@",str);
+        params[@"describe"]=@"630130";
+     params[@"picture"]=@"20180524191227.jpg";
+    
+        
+        [manager POST:@"http://192.168.1.126:9191/coach/addFeedback" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"请求成功:%@", responseObject);
+            
+        
+            
+            
+            
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            
+            
+        }];
+        
+    
+}
+-(void)image{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    for (int i =0; i<_imageArray.count; i++) {
+    [manager POST:@"http://192.168.1.126:9191/coach/img" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        //上传文件参数
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"yyyyMMddHHmmss";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+//        NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
+//        NSData *imageData = UIImageJPEGRepresentation(_imageArray[0], 0);
+//        [formData appendPartWithFileData:imageData name:@"photo" fileName:fileName mimeType:@"image/png"];
+       
+            
+            NSData *data = UIImageJPEGRepresentation(_imageArray[i],0.7);
+            
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
+            
+            [formData appendPartWithFileData:data name:@"mf" fileName:fileName mimeType:@"image/jpg"];
+        
+            
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        //打印上传进度
+        CGFloat progress = 100.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
+        NSLog(@"%.2lf%%", progress);
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        //请求成功
+        NSLog(@"请求成功：%@",responseObject);
+        NSString *urlstr=responseObject[@"img"];
+        
+        NSLog(@"++++_____%@",urlstr);
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        //请求失败
+        NSLog(@"请求失败：%@",error);
+        
+    }];
+    
+    }
+    
+    
+    
+    
+    
 }
 
 /*

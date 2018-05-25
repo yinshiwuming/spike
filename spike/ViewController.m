@@ -13,6 +13,7 @@
 #import "LookViewController.h"
 #import "MUIViewController.h"
 #import "AFNetworking.h"
+#import "LoginViewController.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface ViewController ()<UITextFieldDelegate>
@@ -344,8 +345,8 @@
     
     
     
-    MUIViewController *vc=[[MUIViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+  MUIViewController *vc=[[MUIViewController alloc]init];
+   [self.navigationController pushViewController:vc animated:YES];
     
     
 }
@@ -443,7 +444,7 @@
     
     NSString*mima=pwd.text;
     //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
-    NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/userLogin?mobile=%@&pwd=%@",pone,mima];
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.126:9191/coach/userLogin?mobile=%@&pwd=%@",pone,mima];
     NSLog(@"%@",str);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //AFN 2.5.4
@@ -458,18 +459,19 @@
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
           NSLog(@"%@",status_range);
-          //              NSString *status_msg   = responseObject[@"msg"];//msg
-          //              if([status_range isEqual:@1]){
-          //                  NSArray * ary =  responseObject[@"data"][@"data"];
-          //                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
-          //                  //[dd setObject:ary forKey:@"dataary"];
-          //                  //  [dd synchronize];
-          //                  _tgArry =  [myrang  tgWitharry:ary];
-          //                  [_rtableView setHidden:NO];
-          //                  NSLog(@"%@",_tgArry);
-          //                  [self.rtableView reloadData];
-          //                  [self.rtableView.header endRefreshing];
-          //
+          int sts=status_range.intValue;
+          
+          if (sts==2088) {
+              
+              
+              LoginViewController * vc=[[LoginViewController alloc]init];
+              [self.navigationController pushViewController:vc animated:YES];
+              
+              
+          }
+          
+          
+         
       }
          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSLog(@"==========%@",error);

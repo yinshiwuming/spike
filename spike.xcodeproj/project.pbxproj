@@ -132,6 +132,7 @@
 		02A7C0BB20633F4900D356FA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C0BA20633F4900D356FA /* LoginViewController.m */; };
 		02A7C0BE2063424B00D356FA /* MUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C0BD2063424B00D356FA /* MUIViewController.m */; };
 		02A7C0C120638B6D00D356FA /* registeredViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A7C0C020638B6D00D356FA /* registeredViewController.m */; };
+		02B4675920B4326200762563 /* UIViewController+XHPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B4675820B4326100762563 /* UIViewController+XHPhoto.m */; };
 		02B50428207C682500E7C5DF /* LBClearCacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B50426207C682500E7C5DF /* LBClearCacheTool.m */; };
 		02F136D92069EFF800D6FAC5 /* MyintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F136D82069EFF800D6FAC5 /* MyintViewController.m */; };
 		02F136DC206A2BF200D6FAC5 /* LookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F136DB206A2BF200D6FAC5 /* LookViewController.m */; };
@@ -471,6 +472,8 @@
 		02A7C0BD2063424B00D356FA /* MUIViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUIViewController.m; sourceTree = "<group>"; };
 		02A7C0BF20638B6D00D356FA /* registeredViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = registeredViewController.h; sourceTree = "<group>"; };
 		02A7C0C020638B6D00D356FA /* registeredViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = registeredViewController.m; sourceTree = "<group>"; };
+		02B4675720B4326100762563 /* UIViewController+XHPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+XHPhoto.h"; sourceTree = "<group>"; };
+		02B4675820B4326100762563 /* UIViewController+XHPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+XHPhoto.m"; sourceTree = "<group>"; };
 		02B50426207C682500E7C5DF /* LBClearCacheTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBClearCacheTool.m; sourceTree = "<group>"; };
 		02B50427207C682500E7C5DF /* LBClearCacheTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBClearCacheTool.h; sourceTree = "<group>"; };
 		02F136D72069EFF800D6FAC5 /* MyintViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyintViewController.h; sourceTree = "<group>"; };
@@ -1020,6 +1023,7 @@
 				02F49909206B29B70016C636 /* CredViewController.h */,
 				02F4990A206B29B70016C636 /* CredViewController.m */,
 				02F4990C206B36F20016C636 /* HavViewController.h */,
+				02B4675620B4326100762563 /* XHPhoto */,
 				02F4990D206B36F20016C636 /* HavViewController.m */,
 				0217C5B1206B6A4C00A4051F /* HavTableViewCell.h */,
 				0217C5B2206B6A4C00A4051F /* HavTableViewCell.m */,
@@ -1052,6 +1056,15 @@
 				0236011F207F28BC009CFC11 /* myTableViewCell.m */,
 			);
 			path = MUI;
+			sourceTree = "<group>";
+		};
+		02B4675620B4326100762563 /* XHPhoto */ = {
+			isa = PBXGroup;
+			children = (
+				02B4675720B4326100762563 /* UIViewController+XHPhoto.h */,
+				02B4675820B4326100762563 /* UIViewController+XHPhoto.m */,
+			);
+			path = XHPhoto;
 			sourceTree = "<group>";
 		};
 		02F136D62069EED300D6FAC5 /* myintface */ = {
@@ -1376,6 +1389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B4675920B4326200762563 /* UIViewController+XHPhoto.m in Sources */,
 				0220937B2099BAB300D5CEC6 /* JJOneScrollView.m in Sources */,
 				022E25D42084831400B49E84 /* timeTableViewCell.m in Sources */,
 				0220936E2099BAB300D5CEC6 /* MFlowLayOut.m in Sources */,

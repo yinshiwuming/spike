@@ -11,6 +11,8 @@
 #import "LBClearCacheTool.h"
 #import "HelpViewController.h"
 #import "SVProgressHUD.h"
+#import "AFNetworking.h"
+#import "ViewController.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 #define filePath [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
@@ -57,6 +59,7 @@
     exit=[[UIButton alloc]initWithFrame:CGRectMake(0, HEIGHT-40, WIDTH, 40)];
     exit.backgroundColor= [UIColor colorWithRed:255./256. green:214./256. blue:0./256. alpha:1.];
     [exit setTitle:@"退出登录" forState:UIControlStateNormal];
+    [exit addTarget:self action:@selector(loadNewData) forControlEvents:UIControlEventTouchUpInside];
     [exit setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:exit];
    
@@ -190,5 +193,55 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+-(void)loadNewData{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    //    if([xieyi isEqualToString:@"http"]){
+    
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str =@"http://192.168.1.126:9191/coach/userQuit";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+       
+          
+          [mytabview reloadData];
+          NSLog(@"%@",responseObject);
+          
+          
+          
+          
+          NSLog(@"%@",status_range);
+          
+          
+          ViewController *vc=[[ViewController alloc]init];
+          [self.navigationController pushViewController:vc animated:YES];
+          
+          
+          
+          
+          
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
 @end

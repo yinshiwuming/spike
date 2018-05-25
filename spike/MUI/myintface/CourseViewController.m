@@ -42,7 +42,8 @@
     NSDictionary *dict5;
     NSDictionary *dict6;
     NSDictionary *dict7;
-    
+    NSMutableArray *idarry;
+    UIButton* pickbtn1;
     
 }
 @property (nonatomic,strong)UIPickerView * pickerView;//自定义pickerview
@@ -150,6 +151,19 @@
     
     
     confirm=[[UIButton alloc]initWithFrame:CGRectMake(30, HEIGHT-66, WIDTH-60, 44)];
+    
+    if (idarry.count>0) {
+         confirm.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
+        [confirm setEnabled:NO];
+    }else{
+        
+        
+         [confirm setEnabled:YES];
+        
+    }
+    
+    
+    
     confirm.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     [confirm setTitle:@"确认" forState:UIControlStateNormal];
     [confirm setTitleColor:[UIColor blackColor] forState: UIControlStateNormal ];
@@ -225,20 +239,62 @@
 //    timelab2.text= @"小班5次课250";
     
     timelab2.font=[UIFont fontWithName:@"PingFang-SC-Regular" size:15];
-    UIButton* pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 12, 27, 20)];
+     pickbtn1=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH-40, 12, 27, 20)];
     [pickbtn1 setImage:[UIImage imageNamed:@"椭圆 1 拷贝"] forState:UIControlStateNormal];
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell addSubview:timelab2];
     [cell addSubview:pickbtn1];
     
-   cell.textLabel.text=arry[indexPath.row][@"name"];
+    cell.textLabel.text=arry[indexPath.row][@"name"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     cell.separatorInset=UIEdgeInsetsZero;
     
     cell.layoutMargins=UIEdgeInsetsZero;
     cell.textLabel.font= [UIFont fontWithName:@"PingFang-SC-Regular" size:14];
     cell.textLabel.textColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:51/255.f alpha:1];
+    
+    
+    
+    
+    NSLog(@"7777777777777%@",idarry);
+    
+   
+        
+        for (int i=0; i<idarry.count; i++) {
+            
+            for (int h=0; h<arry.count; h++) {
+                
+                if ([idarry[i]isEqual:arry[h][@"id"]]) {
+                    
+                    
+                    NSLog(@"++++++_______%d",h);
+                    
+                    
+                    
+                    if (indexPath.row==h) {
+                        
+                        pickbtn1.selected=YES;
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+                
+                
+            }
+        }
+    
+    
+    
+    
+    
+    
+    
     return cell;
 }
 
@@ -296,10 +352,7 @@
 }
 - (void)onClick:(UIButton *)sender
 {
-    
-   
-    
-    
+
     if(((UIButton *)sender).selected==NO){
     
     UITableViewCell *cell = (UITableViewCell *)[sender superview];
@@ -334,12 +387,45 @@ else{
 -(void)ysClick{
     
     
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSString *string = [_selectIndexs componentsJoinedByString:@","];
+    
+    
+    
+    NSString *str = [NSString stringWithFormat:@"%@,",string];
+    NSLog(@"yyyyyyyy%@",str);
+    
+    params[@"courseIds"] =str;
     
     
     
     
     
     
+    
+    [manager POST:@"http://192.168.1.107:9191/coach/course/course" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+        
+        
+        confirm.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
     
     
 }
@@ -367,8 +453,9 @@ else{
           NSNumber *status_range = responseObject[@"status"];//状态
           
           arry=responseObject[@"data"][@"courses"];
+          idarry=responseObject[@"data"][@"courseIds"];
           
-          NSLog(@"+++++%@",arry);
+          NSLog(@"+++++%@",idarry);
           
          
           

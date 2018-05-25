@@ -9,12 +9,17 @@
 #import "PersonalViewController.h"
 #import "nicknameViewController.h"
 #import "WPhotoViewController.h"
+#import "AFNetworking.h"
 @interface PersonalViewController (){
     
     UITableView*mytabview;
     UIImageView *imageView;
     NSMutableArray *_photosArr;
     UIButton *submitbtn;
+    NSString*nicheng;
+    NSString *sex;
+    UIImage* image;
+    
     
 }
 
@@ -24,6 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadNewData];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [self.navigationItem setTitle:@"个人信息"];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
@@ -94,7 +100,7 @@
         //这里添加cell的头像
         imageView = [[UIImageView alloc] init];
         imageView.frame = CGRectMake(WIDTH-74,10,38,38);
-        imageView.image=[UIImage imageNamed:@"Home_Scroll_03"];
+        imageView.image=image;
         imageView.layer.cornerRadius=imageView.frame.size.width/2;//裁成圆角
         imageView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addButClick)];
@@ -108,11 +114,24 @@
     if (indexPath.row==1) {
         cell.textLabel.text=@"昵称";
          cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        UILabel *textlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.2, 16, WIDTH*0.7, 14)];
+        textlab.text=nicheng;
+        textlab.font = [UIFont systemFontOfSize:14];
+        textlab.textAlignment=NSTextAlignmentRight;
+        textlab.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        [cell addSubview:textlab];
+        
     }
     
     if (indexPath.row==2) {
         cell.textLabel.text=@"性别";
-         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        UILabel *textlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.2, 16, WIDTH*0.7, 14)];
+        textlab.text=sex;
+        textlab.font = [UIFont systemFontOfSize:14];
+        textlab.textAlignment=NSTextAlignmentRight;
+        textlab.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
+        [cell addSubview:textlab];
     }
     
     if (indexPath.row==3) {
@@ -161,12 +180,15 @@
                                                              handler:^(UIAlertAction * action) {
                                                                  //响应事件
                                                                  NSLog(@"action = %@", action);
-                                                                 
+                                                                 sex=@"男";
+                                                                 [mytabview reloadData];
                                                              }];
         UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault
                                                            handler:^(UIAlertAction * action) {
                                                                //响应事件
                                                                NSLog(@"action = %@", action);
+                                                               sex=@"女";
+                                                               [mytabview reloadData];
                                                            }];
         [alert addAction:saveAction];
         [alert addAction:cancelAction];
@@ -205,7 +227,59 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+ */-(void)loadNewData{
+     //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+     //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+     //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+     //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+     //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+     //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+     
+     //    if([xieyi isEqualToString:@"http"]){
+     
+     //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+     NSString *str =@"http://192.168.1.126:9191/page/myhome?status=1";
+     NSLog(@"%@",str);
+     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+     //AFN 2.5.4
+     /**
+      manager.securityPolicy.allowInvalidCertificates = YES;
+      **/
+     //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+     manager.securityPolicy.validatesDomainName = NO;
+     [manager GET:str
+       parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+           //反序列化成字符串
+           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+           NSNumber *status_range = responseObject[@"status"];//状态
+           NSString*imag=responseObject[@"data"][@"picImg"];
+           nicheng=responseObject[@"data"][@"nickName"];
+           //http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg
+           //这里缓存教练我的基本信息
+           NSString *urlString = @"http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg";
+           NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
+         image = [UIImage imageWithData:data];
+           imageView.image=image;
+          
+           NSLog(@"+++++++%@_________",responseObject);
+           
+           NSLog(@"%@",status_range);
+           
+           
+           
+           [mytabview reloadData];
+           
+           
+           
+           
+           
+           
+           
+       }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+              NSLog(@"==========%@",error);
+          }];
+ }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == 0) {
         return 64;

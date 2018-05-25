@@ -8,6 +8,7 @@
 
 #import "NoticeViewController.h"
 #import "noticTableViewCell.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface NoticeViewController (){
@@ -24,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadNewData];
     self.view.backgroundColor=[UIColor lightGrayColor];
     [self.navigationItem setTitle:@"我的通知"];
     mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH,  HEIGHT) style: UITableViewStylePlain ];
@@ -64,7 +66,55 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)loadNewData{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    //    if([xieyi isEqualToString:@"http"]){
+    
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str =@"http://192.168.1.126:9191/coach/myInform";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          
+          NSLog(@"%@",responseObject);
+          
+          
+          
+          
+          NSLog(@"%@",status_range);
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
 /*
 #pragma mark - Navigation
 

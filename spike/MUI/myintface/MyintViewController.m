@@ -21,6 +21,7 @@
 #import "invitationMianViewController.h"
 #import "PersonalViewController.h"
 #import "SkiViewController.h"
+#import "AFNetworking.h"
 @interface MyintViewController ()
 {
     UIView *topvew;
@@ -31,6 +32,7 @@
     UIButton *downright;
     UIImageView *imageView;
      NSMutableArray *_photosArr;
+    UIImage *image;
 }
 @property(nonatomic, strong) UILabel*titlab;
 @property(nonatomic, strong) UILabel*agelab;
@@ -42,6 +44,7 @@
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadNewData];
     [self.navigationController.navigationBar setTitleTextAttributes:
      
      @{NSFontAttributeName:[UIFont systemFontOfSize:15],
@@ -85,14 +88,14 @@
     [imageView addGestureRecognizer:tapGesture];
     imageView.userInteractionEnabled = YES;
     [topvew addSubview:imageView];
-    _titlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.4, HEIGHT*0.045, WIDTH*0.2, HEIGHT*0.112)];
+    _titlab=[[UILabel alloc]initWithFrame:CGRectMake(0, HEIGHT*0.045, WIDTH, HEIGHT*0.112)];
     _titlab.text=@"雪飞扬";
     _titlab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:13];
     _titlab.textAlignment= NSTextAlignmentCenter;
     _titlab.textColor=[UIColor whiteColor];
     [topvew addSubview:_titlab];
     _agelab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.4, HEIGHT*0.24, WIDTH*0.2, 17)];
-    _agelab.text=@"6年雪龄";
+    _agelab.text=@"4年雪龄";
     _agelab.font = [UIFont fontWithName:@"PingFang-SC-Medium" size:9.3];
     _agelab.textAlignment= NSTextAlignmentCenter;
     _agelab.backgroundColor=[UIColor colorWithRed:255/255.f green:214/255.f blue:0/255.f alpha:1];
@@ -311,6 +314,9 @@
     if (indexPath.section==0&&indexPath.row==0) {
 //        PersonalViewController *vc=[[PersonalViewController alloc]init];
 //        [self.navigationController pushViewController:vc animated:YES];
+        //雪场选择
+        
+       // http://192.168.1.126:9191/coach/optionSnowPack
         
         SkiViewController *vc=[[SkiViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
@@ -333,6 +339,75 @@
     
     NSLog(@"++++%@+++++",self.navigationController.viewControllers);
     
+}-(void)loadNewData{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    //    if([xieyi isEqualToString:@"http"]){
+   
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str =@"http://192.168.1.126:9191/page/myhome?status=1";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          NSString*imag=responseObject[@"data"][@"picImg"];
+          //http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg
+          //这里缓存教练我的基本信息
+          NSString *urlString = @"http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg";
+          NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
+           image = [UIImage imageWithData:data];
+          imageView.image=image;
+         NSString*nickname=responseObject[@"data"][@"nickName"];
+        NSString*snowage=responseObject[@"data"][@"snowAge"];
+        NSString *sex=responseObject[@"data"][@"sex"];
+          NSLog(@"对对对点点滴滴%@",sex);
+         NSUserDefaults *internetSetting = [NSUserDefaults standardUserDefaults];
+           [internetSetting setObject:nickname forKey:@"nickname"];
+         [internetSetting setObject:snowage forKey:@"snowage"];
+          [internetSetting setObject:imag forKey:@"imag"];
+          
+//          if (sex!=NULL) {
+//                [internetSetting setObject:sex forKey:@"sex"];
+//          }
+//
+//          [internetSetting setObject:sex forKey:@"sex"];
+          
+          
+          _titlab.text=nickname;
+          
+          
+          NSLog(@"+++++++%@_________",responseObject);
+          
+          NSLog(@"%@",status_range);
+     
+          
+          
+          
+          
+          
+          
+        
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
 }
 /*
 #pragma mark - Navigation
