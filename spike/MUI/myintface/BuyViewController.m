@@ -8,6 +8,7 @@
 
 #import "BuyViewController.h"
 #import "successViewController.h"
+#import "AFNetworking.h"
 @interface BuyViewController (){
     
     UIButton*view1;
@@ -325,6 +326,9 @@
     [rightbtn1 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
     [rightbtn3 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
     
+    [self btnpush];
+    
+    
     
     
 }
@@ -393,6 +397,46 @@
      [view1 setBackgroundColor:[UIColor whiteColor]];
      [view2 setBackgroundColor:[UIColor whiteColor]];
      [view3 setBackgroundColor:[UIColor whiteColor]];
+    
+}
+
+
+
+
+-(void)btnpush{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+   // params[@"realname"] = @"哈哈哈哈或";
+    // params[@"date"] = dateString;
+    
+    
+    [manager POST:@"http://192.168.1.116:9191/page/aliPays" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+        
+        
+        
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
+    
+    
+    
+
     
 }
 /*
