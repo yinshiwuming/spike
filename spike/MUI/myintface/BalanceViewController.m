@@ -9,6 +9,8 @@
 #import "BalanceViewController.h"
 #import "YsViewController.h"
 #import "WithdrawalViewController.h"
+#import "AFNetworking.h"
+#import "tupViewController.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface BalanceViewController (){
@@ -28,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     [self loadnewdate];
       self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
     [self.navigationItem setTitle:@"我的余额"];
     self.view.backgroundColor=[UIColor whiteColor];
@@ -57,7 +60,8 @@
     image=[[UIImageView alloc]initWithFrame:CGRectMake(WIDTH/2-20, HEIGHT*0.19, 40, 47)];
     image.image=[UIImage imageNamed:@"钱袋"];
     [self.view addSubview:image];
-    balance=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH/2-30, HEIGHT*0.30, 70, 15)];
+    balance=[[UILabel alloc]initWithFrame:CGRectMake(0, HEIGHT*0.30, WIDTH, 15)];
+    balance.textAlignment = NSTextAlignmentCenter;
     balance.text=@"￥189";
     
     
@@ -77,6 +81,7 @@
     twotbtn.titleLabel.font=[UIFont systemFontOfSize:15];
     [twotbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
     [twotbtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]];
+      [twotbtn addTarget:self action:@selector(twbtn) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:twotbtn];
     // Do any additional setup after loading the view.
 }
@@ -114,5 +119,72 @@
     
 }
 
+
+
+
+-(void)twbtn{
+    
+    
+    tupViewController *vc=[[tupViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    
+    
+    
+    
+    
+}
+-(void)loadnewdate{
+    
+    NSString *str =@"http://192.168.1.126:9191/skimeister/balanceController/queryBalance";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          
+          NSNumber *status_range = responseObject[@"status"];//状态
+          if ( [ status_range intValue]==5 ) {
+              
+            
+              
+              
+              NSLog(@"%@",responseObject);
+              //订单赋值创建数组然后字典转模型还是
+              int doc=[responseObject[@"data"] intValue];
+              NSLog(@"%@",status_range);
+             CGFloat rounded_up = round(doc) / 100;
+              NSString *aString = [NSString stringWithFormat:@"%.2lf",rounded_up];
+              balance.text=aString;
+              
+              
+              
+              
+          }
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
 
 @end

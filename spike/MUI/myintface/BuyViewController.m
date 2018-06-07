@@ -9,6 +9,7 @@
 #import "BuyViewController.h"
 #import "successViewController.h"
 #import "AFNetworking.h"
+#import "XHPayKit.h"
 @interface BuyViewController (){
     
     UIButton*view1;
@@ -43,7 +44,14 @@
     UIButton*rightbtn1;
     UIButton*rightbtn2;
     UIButton*rightbtn3;
-    
+    NSString* palytel;
+    NSString*appid;
+    NSString*noncestr;
+    NSString*packages;
+    NSString*partnerid;
+    NSString*prepayid;
+    NSString*sing;
+    NSString*timestamp;
     
     
     
@@ -314,7 +322,7 @@
    [rightbtn1 setImage:[UIImage imageNamed:@"选中 (3)"] forState:UIControlStateNormal ];
     [rightbtn2 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
     [rightbtn3 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
-    
+    palytel=@"1";
     
     
 }
@@ -326,9 +334,10 @@
     [rightbtn1 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
     [rightbtn3 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
     
-    [self btnpush];
+    //[self btnpush];
     
-    
+    palytel=@"2";
+    [self wxpilay];
     
     
 }
@@ -338,8 +347,9 @@
     [rightbtn3 setImage:[UIImage imageNamed:@"选中 (3)"] forState:UIControlStateNormal ];
     [rightbtn2 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
     [rightbtn1 setImage:[UIImage imageNamed:@"未选中 (2)"] forState:UIControlStateNormal ];
-    
-    
+    palytel=@"3";
+    [self btnpush];
+    [self alplay];
     
 }
 
@@ -348,9 +358,18 @@
 
 -(void)determine{
     
-    
+   
 //    successViewController *vc=[[successViewController alloc]init];
 //    [self.navigationController pushViewController:vc animated:YES];
+    NSLog(@"%@",palytel);
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -418,7 +437,7 @@
     // params[@"date"] = dateString;
     
     
-    [manager POST:@"http://192.168.1.116:9191/page/aliPays" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:@"http://192.168.1.126:9191/page/aliPays" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"请求成功:%@", responseObject);
@@ -439,6 +458,132 @@
 
     
 }
+
+
+
+
+
+
+-(void)wxpilay{
+    [self mywinxinge];
+    
+   
+    
+    
+    
+}
+
+
+-(void)alplay{
+    
+    
+    
+    
+    if(![XHPayKit isAliAppInstalled]){
+        NSLog(@"未安装支付宝");
+        return;
+    }
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    //支付宝订单签名,此签名由后台签名订单后生成,并返回给客户端(与官方SDK一致)
+    //注意:请将下面值设置为你自己真实订单签名,便可进行实际支付
+    NSString *orderSign = @"alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2018042460075107&biz_content=%7B%22out_trade_no%22%3A%222YkV26582a45216844452166p3873145%22%2C%22passback_params%22%3A%22Your+Body%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22Your+Subject%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%220.01%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fsqhkg.com%2FappPay&sign=E%2BNSPbK9gUIQEjy3160pC7erXU7K0jaxQtnNF0dhEXHfG3BDxG8pkmUczRcv30JSQ%2BrlEYXCZYdKuz%2B8watqWPRLgir5OA2i%2BT9L2yBI8h%2FHBRlElS%2BcCCGKSoKMabjRoGGXGreBdAlOv6epQ%2B5XPrdg2w%2BTRohwh5mPWySip0bLY%2FpKqpRN2i45TmzQGszlY%2B%2F2W3xU3bLxaOcsbrFP5eOpA%2BWBZh2uB%2Fp%2BMbLGYBRR0am508lpSHlu%2F1vKsWU7aOfEXJhJrVk%2BHOb%2BRC8vmXOHfwsl3XkRH290e3Jvo9m%2BUWBhVM6TyZNK8HxGUSdpnA%2Ba4lQanngtII5N1dOgDw%3D%3D&sign_type=RSA2&timestamp=2018-05-25+17%3A10%3A43&version=1.0";
+    
+    //传入支付宝订单签名 和 自己App URL Scheme,拉起支付宝支付
+    [[XHPayKit defaultManager] alipayOrder:orderSign fromScheme:@"XHPayKitExample" completed:^(NSDictionary *resultDict) {
+        NSLog(@"支付结果:\n%@",resultDict);
+        NSInteger status = [resultDict[@"resultStatus"] integerValue];
+        if(status == 9000){//支付成功
+            
+        }
+    }];
+
+    
+    
+}
+
+
+
+-(void)mywinxinge{
+    
+    NSString *str =@"http://192.168.1.126:9191/wePay";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          NSLog(@"%@",status_range);
+          
+          appid=responseObject[@"data"][@"appid"];
+          noncestr=responseObject[@"data"][@"noncestr"];
+          packages=responseObject[@"data"][@"packages"];
+          partnerid=responseObject[@"data"][@"partnerid"];
+        prepayid=responseObject[@"data"][@"prepayid"];
+        sing=responseObject[@"data"][@"sing"];
+        timestamp=responseObject[@"data"][@"timestamp"];
+          
+          if(![XHPayKit isWxAppInstalled]){
+              NSLog(@"未安装微信");
+              return;
+          }
+          
+          //微信支付参数,下面7个参数,由后台签名订单后生成,并返回给客服端(与官方SDK一致)
+          //注意:请将下面参数设置为你自己真实订单签名后服务器返回参数,便可进行实际支付
+          //以下参数详细介绍见
+          //微信官方文档:https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12&index=2
+          
+          XHPayWxReq *req = [[XHPayWxReq alloc] init];
+          req.openID = responseObject[@"data"][@"appid"];//微信开放平台审核通过的应用APPID
+          req.partnerId =responseObject[@"data"][@"partnerid"];//商户号
+          req.prepayId = responseObject[@"data"][@"prepayid"];//交易会话ID
+          req.nonceStr = responseObject[@"data"][@"noncestr"];//随机串，防重发
+          req.timeStamp = [responseObject[@"data"][@"timestamp"] intValue];//时间戳，防重发
+          req.package = responseObject[@"data"][@"package"];// 扩展字段,暂填写固定值Sign=WXPay
+          req.sign = responseObject[@"data"][@"sing"];//签名
+          
+          //传入订单模型,拉起微信支付
+          [[XHPayKit defaultManager] wxpayOrder:req completed:^(NSDictionary *resultDict) {
+              NSLog(@"支付结果:\n%@",resultDict);
+              NSInteger code = [resultDict[@"errCode"] integerValue];
+              if(code == 0){//支付成功
+                  
+              }
+          }];
+          
+          
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+    
+    
+    
+    
+    
+    
+    
+}
+
+
+
 /*
 #pragma mark - Navigation
 

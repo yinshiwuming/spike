@@ -147,24 +147,19 @@
           //反序列化成字符串
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
-          ary= responseObject[@"data"];
+          if ([status_range intValue]==5) {
+              ary= responseObject[@"data"];
+              
+              [mytabview reloadData];
+              NSLog(@"%@",responseObject);
+              
+             
+              
+              
+              NSLog(@"%@",status_range);
+          }
          
-          [mytabview reloadData];
-          NSLog(@"%@",responseObject);
-          
-          
-          
-          
-          NSLog(@"%@",status_range);
-          
-          
-          
-          
-          
-          
-          
-          
-          
+        
           
           
       }
@@ -210,10 +205,12 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"请求成功:%@", responseObject);
+         NSNumber *status_range = responseObject[@"status"];//状态
+         if ([status_range intValue]==5) {
         
-        
-        
-        
+             [self.navigationController popViewControllerAnimated:YES];
+             
+         }
         
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

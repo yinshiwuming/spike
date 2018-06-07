@@ -13,6 +13,7 @@
 #import "XWPhotoCell.h"
 #import "JJPhotoManeger.h"
 #import "XWImagePickerSheet.h"
+#import "MBProgressHUD.h"
 @interface opinionViewController : UIViewController<UITextViewDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) UICollectionView *pickerCollectionView;
 

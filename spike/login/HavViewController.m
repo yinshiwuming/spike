@@ -14,6 +14,12 @@
 #import "UIViewController+XHPhoto.h"
 #import "CCTextView.h"
 #import "AFNetworking.h"
+#import "SkiViewController.h"
+#import "ViewController.h"
+#import "MUIViewController.h"
+#import "MBProgressHUD.h"
+#import "skiresortsViewController.h"
+
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface HavViewController (){
@@ -22,6 +28,9 @@
     UITextField *name;
     UITextField *number;
     UIImage *myimg;
+    MBProgressHUD *HUD;
+    UIImageView *imageView;
+    UITapGestureRecognizer *tapGesturRecognizer;
     
 }
 @property(nonatomic,strong)UILabel * rightdate;
@@ -32,6 +41,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
     self.view.backgroundColor=[UIColor whiteColor];
     [[self navigationItem] setTitle:@"成为教练"];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
@@ -97,9 +115,26 @@
     [btn addTarget:self action:@selector(btnpush) forControlEvents:UIControlEventTouchUpInside];
    
     [footv addSubview:btn];
+    
+  tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
+   // [self.view addGestureRecognizer:tapGesturRecognizer];
+    
+    
+    
     [self.view addSubview:mytabview];
     
+    
+    
+    
+    
     // Do any additional setup after loading the view.
+}
+-(void)tapAction:(id)tap
+
+{
+    [self.view removeGestureRecognizer:tapGesturRecognizer];
+    [self.view endEditing:YES];
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // 设置每个section的row数量(都是从0下标开始)
@@ -128,17 +163,18 @@
         cell.textLabel.text=@"雪场选择";
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
          cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(250, 4, 80, 30)];
+        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.78, 4, 80, 30)];
         right.text=@"请选择";
         right.font=[UIFont systemFontOfSize:12];
         right.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
         [cell addSubview:right];
+        [self.view endEditing:YES];
     }
     if (indexPath.row==2) {
          cell.textLabel.text=@"姓名";
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
-
-        name=[self createTextFielfFrame:CGRectMake(250, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
+[self.view addGestureRecognizer:tapGesturRecognizer];
+        name=[self createTextFielfFrame:CGRectMake(WIDTH*0.78, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
         name.delegate=self;
         //name.clearButtonMode = UITextFieldViewModeWhileEditing;
                name.backgroundColor=[UIColor whiteColor];
@@ -154,16 +190,17 @@
     }
     if (indexPath.row==3) {
          cell.textLabel.text=@"照片";
-        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(250, 4, 80, 30)];
+        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.78, 4, 80, 30)];
         right.text=@"请上传";
         right.font=[UIFont systemFontOfSize:12];
         right.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
         [cell addSubview:right];
          cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        [self.view endEditing:YES];
     }
     if (indexPath.row==4) {
          cell.textLabel.text=@"年龄";
-        name=[self createTextFielfFrame:CGRectMake(250, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
+        name=[self createTextFielfFrame:CGRectMake(WIDTH*0.78, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
         name.delegate=self;
        // name.clearButtonMode = UITextFieldViewModeWhileEditing;
         name.backgroundColor=[UIColor whiteColor];
@@ -174,14 +211,15 @@
         [name setBorderStyle:UITextBorderStyleNone];
         // name.textAlignment = UITextAlignmentRight;
         name.font=[UIFont fontWithName:@"Helvetica" size:12];
+        [self.view addGestureRecognizer:tapGesturRecognizer];
         [cell addSubview:name];
-       // cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+     
         
     }
     
     if (indexPath.row==5) {
         cell.textLabel.text=@"身份证号";
-        name=[self createTextFielfFrame:CGRectMake(250, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
+        name=[self createTextFielfFrame:CGRectMake(WIDTH*0.78, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
         name.delegate=self;
         //name.clearButtonMode = UITextFieldViewModeWhileEditing;
         name.backgroundColor=[UIColor whiteColor];
@@ -197,7 +235,7 @@
     
     if (indexPath.row==6) {
         cell.textLabel.text=@"户籍";
-        name=[self createTextFielfFrame:CGRectMake(250, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
+        name=[self createTextFielfFrame:CGRectMake(WIDTH*0.78, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
         name.delegate=self;
         //name.clearButtonMode = UITextFieldViewModeWhileEditing;
         name.backgroundColor=[UIColor whiteColor];
@@ -213,7 +251,7 @@
     
     if (indexPath.row==7) {
         cell.textLabel.text=@"毕业院校";
-        name=[self createTextFielfFrame:CGRectMake(250, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
+        name=[self createTextFielfFrame:CGRectMake(WIDTH*0.78, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
         name.delegate=self;
         //name.clearButtonMode = UITextFieldViewModeWhileEditing;
         name.backgroundColor=[UIColor whiteColor];
@@ -229,7 +267,7 @@
     
     if (indexPath.row==8) {
         cell.textLabel.text=@"其他体育特长";
-        name=[self createTextFielfFrame:CGRectMake(250, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
+        name=[self createTextFielfFrame:CGRectMake(WIDTH*0.78, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
         name.delegate=self;
        // name.clearButtonMode = UITextFieldViewModeWhileEditing;
         name.backgroundColor=[UIColor whiteColor];
@@ -245,7 +283,7 @@
     
     if (indexPath.row==9) {
         cell.textLabel.text=@"雪龄";
-        name=[self createTextFielfFrame:CGRectMake(250, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
+        name=[self createTextFielfFrame:CGRectMake(WIDTH*0.78, 4, 80, 30) font:[UIFont systemFontOfSize:16] placeholder:@"请输入"];
         name.delegate=self;
        // name.clearButtonMode = UITextFieldViewModeWhileEditing;
         name.backgroundColor=[UIColor whiteColor];
@@ -262,31 +300,34 @@
     
     if (indexPath.row==10) {
         cell.textLabel.text=@"单双板";
-        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(250, 4, 80, 30)];
+        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.78, 4, 80, 30)];
         right.text=@"请选择";
         right.font=[UIFont systemFontOfSize:12];
         right.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
         [cell addSubview:right];
          cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        [self.view endEditing:YES];
     }
     
     if (indexPath.row==11) {
         cell.textLabel.text=@"证书照片";
-        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(250, 4, 80, 30)];
+        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.78, 4, 80, 30)];
         right.text=@"请上传";
         right.font=[UIFont systemFontOfSize:12];
         right.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
         [cell addSubview:right];
         cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        [self.view endEditing:YES];
     }
     if (indexPath.row==12) {
         cell.textLabel.text=@"比赛证书照片";
-        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(250, 4, 80, 30)];
+        UILabel *right=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.78, 4, 80, 30)];
         right.text=@"请上传";
         right.font=[UIFont systemFontOfSize:12];
         right.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
         [cell addSubview:right];
          cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        [self.view endEditing:YES];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -339,6 +380,46 @@
     if (indexPath.row==12) {
          [self photoAction];
     }
+    if (indexPath.row==1) {
+        skiresortsViewController *vc=[[skiresortsViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
+    
+    if (indexPath.row==10) {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                       message:@"单双板"
+                                                                preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * action) {
+                                                                 //响应事件
+                                                                 NSLog(@"action = %@", action);
+                                                                 
+                                                             }];
+        UIAlertAction* deleteAction = [UIAlertAction actionWithTitle:@"单板" style:UIAlertActionStyleDestructive
+                                                             handler:^(UIAlertAction * action) {
+                                                                 //响应事件
+                                                                 NSLog(@"action = %@", action);
+                                                             
+                                                                 
+                                                             }];
+        UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"双板" style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               //响应事件
+                                                               NSLog(@"action = %@", action);
+                                                           
+                                                              
+                                                           }];
+        [alert addAction:saveAction];
+        [alert addAction:cancelAction];
+        [alert addAction:deleteAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
+    
+    
+    
 }
 
 
@@ -360,7 +441,11 @@
     //使用系统UIActionSheet来选择打开相机、相册
     //edit:照片需要裁剪:传YES,不需要裁剪传NO(默认NO)
     [self showCanEdit:YES photo:^(UIImage *photo) {
-        myimg=photo;
+        //赋值选中照片
+   
+            myimg=photo;
+        
+ 
 //        [sender setBackgroundImage:photo forState:UIControlStateNormal];
         
     }];
@@ -379,17 +464,54 @@
     manager.securityPolicy.validatesDomainName = NO;
     
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"realname"] = @"哈哈哈哈或";
-   // params[@"date"] = dateString;
+   
+ 
+      params[@"fieldId"] = @"1";
+      params[@"realName"] = @"哈哈哈哈或";
+      params[@"img"] = @"15281893527901312.jpg";
+      params[@"age"] = @"26";
+      params[@"idCard"] = @"412824199001312617";
+      params[@"address"] = @"Fdewrqere";
+      params[@"graduation"] = @"Bhfdghgfdh";
+      params[@"speciality"] = @"1";
+      params[@"snowAge"] = @"3";
+      params[@"boardType"] = @"SINGLE";
+     params[@"quelificationImg"] = @"15281893809031656.jpg";
+       params[@"gameImg"] = @"Bhfdghgfdh";
+       params[@"introduce"] = @"Dsavzxdfshgfrdsrew";
+      params[@"masterType"] = @"1";
     
     
-    [manager POST:@"http://192.168.1.123:9191/coach/applyCoach" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+    
+    
+    
+    
+    
+    
+    
+    [manager POST:@"http://192.168.1.126:9191/coach/applyCoach" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"请求成功:%@", responseObject);
         
-        
+        //返回状态打印提交成功跳转登录页
        
+        if ([responseObject[@"status"] intValue]==5) {
+            
+            //返回登录页并且打印msg
+            ViewController *vc=[[ViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+            
+        }
+        
+        [self mbProgressHUDUntil:responseObject[@"msg"]];
+        [HUD hideAnimated:YES afterDelay:2];
+        
+        
+        
+        
+        
         
         
         
@@ -445,7 +567,14 @@
     
 }
 
-
+//添加友情提示方法
+-(void)mbProgressHUDUntil:(NSString *)title {
+    
+    
+    HUD = [MBProgressHUD showHUDAddedTo:mytabview animated:YES];
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.label.text = title;}
 
 
 

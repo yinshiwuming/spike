@@ -16,6 +16,7 @@
     NSString *pushImageName;
     //添加图片提示
     UILabel *addImageStrLabel;
+     MBProgressHUD *HUD;
 }
 
 @property (nonatomic, strong) XWImagePickerSheet *imgPickerActionSheet;
@@ -393,6 +394,7 @@
         //    NSString *str = [NSString stringWithFormat:@"%@,",string];
         //    NSLog(@"yyyyyyyy%@",str);
         params[@"describe"]=@"630130";
+    //传回图片地址后再次传回去；
      params[@"picture"]=@"20180524191227.jpg";
     
         
@@ -401,7 +403,13 @@
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSLog(@"请求成功:%@", responseObject);
             
-        
+            if ([responseObject[@"status"] intValue]==5) {
+                
+                [self mbProgressHUDUntil:responseObject[@"msg"]];
+                [HUD hideAnimated:YES afterDelay:2];
+                
+                
+            }
             
             
             
@@ -414,6 +422,13 @@
         
     
 }
+-(void)mbProgressHUDUntil:(NSString *)title {
+    
+    
+    HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.label.text = title;}
 -(void)image{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     for (int i =0; i<_imageArray.count; i++) {

@@ -7,6 +7,7 @@
 //
 
 #import "WithdrawalViewController.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface WithdrawalViewController (){
@@ -22,6 +23,7 @@
     UIButton *submit;
     UILabel*leftmin;
     UIButton*rightmin;
+    UITextField *text;
     
 }
 
@@ -31,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    [self working];
     [self.navigationItem setTitle:@"提现"];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     topview=[[UIView alloc]initWithFrame:CGRectMake(0, 72, WIDTH, HEIGHT*0.18)];
@@ -83,7 +85,14 @@
     
     leftmin=[[UILabel alloc]initWithFrame:CGRectMake(20, 20, 100, 12)];
     leftmin.text=@"余额189,";
-    leftmin.font = [UIFont systemFontOfSize:12];
+    text = [[UITextField alloc]initWithFrame:CGRectMake(20, 20, 100, 12)];
+    //    text.borderStyle = UITextBorderStyleRoundedRect;
+    text.backgroundColor = [UIColor whiteColor];
+    text.placeholder = @"   请输入余额";
+    text.clearButtonMode = UITextFieldViewModeAlways;
+    
+    
+    text.font = [UIFont systemFontOfSize:12];
     [downview addSubview:leftmin];
     rightmin=[[UIButton alloc]initWithFrame:CGRectMake(54, 20, 100, 12)];
     [rightmin setTitle:@"全额提现" forState:UIControlStateNormal ];
@@ -94,6 +103,46 @@
     
     // Do any additional setup after loading the view.
 }
+-(void)working{
+    
+    NSLog(@"电器选国美");
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"alipayAccount"] =@"15011218654";
+    params[@"amount"] =@"12";
+    [manager POST:@"http://192.168.1.126:9191/skimeister/balanceController/transferOut" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+      
+        NSLog(@"%@",responseObject[@"msg"]);
+        
+        
+        
+        
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
+    
+    
+    
+}
+    
+    
+    
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

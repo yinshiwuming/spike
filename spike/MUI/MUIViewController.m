@@ -12,12 +12,17 @@
 #import "UIImageView+WebCache.h"
 #import "detailedViewController.h"
 #import "MUUITableViewCell.h"
+#import "AFNetworking.h"
+#import "MJExtension.h"
+#import "MUUITableViewCell.h"
+#import "muuidata.h"
+#import "MBProgressHUD.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface MUIViewController ()<SDCycleScrollViewDelegate>{
     
     
-    NSArray *_imagesURLStrings;
+    NSMutableArray*_imagesURLStrings;
     SDCycleScrollView *_customCellScrollViewDemo;
     UIButton *topbtn1;
     UIButton *topbtn2;
@@ -26,6 +31,11 @@
     UITableView *mytabview;
     UIView *view2;
     UIView *view;
+    NSString *str;
+    NSArray *havearry;
+    NSArray *completearry;
+    MBProgressHUD *HUD;
+    
 }
 
 @end
@@ -34,6 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self newimage];
     self.view.backgroundColor=[UIColor groupTableViewBackgroundColor];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
                                                                 style:UIBarButtonItemStylePlain
@@ -133,17 +144,11 @@
     // 由于iOS8中titleLabel的size为0，用上面这样设置有问题，修改一下即可
     downright.imageEdgeInsets = UIEdgeInsetsMake(-downright.titleLabel.intrinsicContentSize.height-offset/2, 0, 0, -downright.titleLabel.intrinsicContentSize.width);
     
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     [downright addTarget:self action:@selector(rightbuttonClick) forControlEvents:UIControlEventTouchUpInside];
      [self.view addSubview:downright];
+     [self loadNewData];
     mytabview = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT*0.405, WIDTH,  HEIGHT*0.51) style:UITableViewStylePlain ];
     // 设置tableView的数据源
     mytabview.dataSource = self;
@@ -175,7 +180,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     // 设置每个section的row数量(都是从0下标开始)
-    return 4;
+    return havearry.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString * cellIdentifier  = @"mucell";
@@ -186,6 +191,11 @@
     cell = [[[NSBundle mainBundle] loadNibNamed:@"MUIUEmpty" owner:nil options:nil] lastObject];
     cell.layoutMargins = UIEdgeInsetsZero;
     cell.separatorInset = UIEdgeInsetsZero;
+    if (havearry.count>0) {
+       muuidata *myuse = [muuidata objectWithKeyValues:havearry[indexPath.row]];
+       cell.muudata=myuse;
+    }
+   
     return cell;
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -214,6 +224,12 @@
     
     view.hidden=NO;
     
+    [self loadNewData];
+    
+    
+    
+    
+    
     
     
     
@@ -226,6 +242,7 @@
      [topbtn2 setTitleColor:[UIColor colorWithRed:51.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1]forState:UIControlStateNormal];
      [topbtn1 setTitleColor:[UIColor colorWithRed:102.0f/255.0f green:102.0f/255.0f blue:102.0f/255.0f alpha:1]forState:UIControlStateNormal];
     view.hidden=YES;
+     [self loadNewData];
 }
 
 
@@ -264,6 +281,124 @@
     
     return cell.frame.size.height;
 }
+
+
+
+-(void)loadNewData{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    if (view2.hidden) {
+        str =@"http://192.168.1.126:9191/skimeister/order/queryCoachOrderList?status=0";
+    }
+    if (view.hidden) {
+        str =@"http://192.168.1.126:9191/skimeister/order/queryCoachOrderList?status=1";
+    }
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    //NSString *str =@"http://192.168.1.134:9191/skimeister/order/queryCoachOrderList?status=1";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          
+          NSNumber *status_range = responseObject[@"status"];//状态
+          if ( [ status_range intValue]==5 ) {
+              
+              NSString *messg=responseObject[@"msg"];
+              NSLog(@"%@",responseObject);
+              //订单赋值创建数组然后字典转模型还是
+              havearry=responseObject[@"data"];
+              // NSLog(@"%lu",(unsigned long)arry.count);
+              [mytabview reloadData];
+              NSLog(@"%@",status_range);
+              NSLog(@"%@",messg);
+              
+              
+              
+              
+              
+          }
+          [self mbProgressHUDUntil:responseObject[@"msg"]];
+          [HUD hideAnimated:YES afterDelay:2];
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+    
+  
+    
+    
+}
+
+-(void)mbProgressHUDUntil:(NSString *)title {
+    
+    
+    HUD = [MBProgressHUD showHUDAddedTo:mytabview animated:YES];
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.label.text = title;}
+
+-(void)newimage{
+   
+    
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str =@"http://192.168.1.126:9191/page/home";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          NSLog(@"%@",responseObject);
+          NSArray *arry=responseObject[@"data"];
+          
+          
+          NSLog(@"%@",arry);
+          for (int i=0; i<arry.count; i++) {
+              
+             NSString *myimag=responseObject[@"data"][i][@"imgUrl"];
+              NSLog(@"%@",myimag);
+           //   [ _imagesURLStrings addObject:myimag];
+              
+              //赋值图片
+          }
+          
+          
+          
+         }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
+
+
+
+
+
+
+
+
 /*
 #pragma mark - Navigation
 

@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
  #import <KSGuaidViewManager.h>
+#import <UMCommon/UMCommon.h>
+#import <UMShare/UMShare.h>
+#import "XHPayKit.h"
 
 @interface AppDelegate ()
 
@@ -32,6 +35,10 @@
     
     KSGuaidManager.shouldDismissWhenDragging = YES;
     [KSGuaidManager begin];
+   
+    
+    [UMConfigure initWithAppkey:@"5b09028aa40fa370be000031" channel:@"App Store"];
+    
     
     return YES;
 }
@@ -62,6 +69,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    BOOL result = [[XHPayKit defaultManager] handleOpenURL:url];
+    if (!result) {//这里处理其他SDK(例如QQ登录,微博登录等)
+        return [[UMSocialManager defaultManager] handleOpenURL:url];
+    }
+    return result;
+    //return [[UMSocialManager defaultManager] handleOpenURL:url];
+}
 
 @end

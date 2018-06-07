@@ -8,8 +8,18 @@
 
 #import "MUUITableViewCell.h"
 
-@implementation MUUITableViewCell
 
+@implementation MUUITableViewCell
+-(void)setMuudata:(muuidata *)muudata{
+    
+    _muudata=muudata;
+    _mydata.text=muudata.useDate;
+    _mytitle.text=muudata.title;
+    _mytime.text=muudata.period;
+    _mytopy.text=muudata.name;
+    
+    
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

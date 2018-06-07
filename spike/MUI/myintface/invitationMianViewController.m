@@ -10,6 +10,9 @@
 #import "invitationViewController.h"
 #import "WebViewController.h"
 #import "AFNetworking.h"
+#import "Common.h"
+#import "ZYYCodePayViewController.h"
+
 @interface invitationMianViewController (){
     
     UIButton*imm;
@@ -26,6 +29,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadNewData];
+    [self peoleonuber];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
     self.view.backgroundColor=[UIColor whiteColor];
     //邀请朋友
     self.navigationItem.title = @"邀请教练";
@@ -43,7 +55,7 @@
     
     [self.view addSubview:imm];
     alread=[[UIButton alloc]initWithFrame:CGRectMake(0.3*WIDTH, HEIGHT*0.42+88, WIDTH*0.38, 44)];
-    [alread setTitle:@"已经邀请" forState:UIControlStateNormal ];
+    [alread setTitle:@"已经邀请66人" forState:UIControlStateNormal ];
     alread.backgroundColor=[UIColor lightGrayColor];
     [alread addTarget:self action:@selector(Method) forControlEvents:UIControlEventTouchUpInside];
     
@@ -53,6 +65,11 @@
 }
 -(void)Method{
     
+    
+    
+    
+    
+    
     invitationViewController *vc=[[invitationViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
     
@@ -61,10 +78,12 @@
 }
 -(void)now{
     
-    WebViewController* vc=[[WebViewController alloc]init];
-    
-    
-     [self.navigationController pushViewController:vc animated:YES];
+//    WebViewController* vc=[[WebViewController alloc]init];
+//
+//
+//     [self.navigationController pushViewController:vc animated:YES];
+    ZYYCodePayViewController *payVc = [[ZYYCodePayViewController alloc] init];
+    [self.navigationController pushViewController:payVc animated:YES];
     
     
 }
@@ -73,14 +92,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)loadNewData{
-    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
-    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
-    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
-    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
-    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
-    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
-    
-    //    if([xieyi isEqualToString:@"http"]){
+   
     
     //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
     NSString *str =@"http://192.168.1.126:9191/coach/inviteRenItem";
@@ -121,6 +133,55 @@
              NSLog(@"==========%@",error);
          }];
 }
+
+
+-(void)peoleonuber{
+    
+    
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str =@"http://192.168.1.126:9191/coach/inviteRenNumber";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          NSNumber *peonuber=responseObject[@"data"][@"number"];
+          
+          NSString *string = [NSString stringWithFormat:@"已经邀请%@人",peonuber];
+          NSLog(@"%@",responseObject);
+           [alread setTitle:string forState:UIControlStateNormal ];
+          
+          
+          
+          NSLog(@"%@",status_range);
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
+
+
+
 /*
 #pragma mark - Navigation
 

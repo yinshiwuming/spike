@@ -107,14 +107,6 @@
     self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
     self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
     self.navigationItem.backBarButtonItem = backItem;
-    
-    
-    
-    
-    
-    
-    
-    
     UIView*dcvie=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.125)];
     dcvie.backgroundColor=[UIColor groupTableViewBackgroundColor];
     [self.view addSubview:dcvie];
@@ -136,7 +128,7 @@
     [toplab setNumberOfLines:0];
     [toplab addSubview:vklab];
     [topview addSubview:toplab];
-
+    
     
     
     
@@ -166,11 +158,7 @@
     ribt.titleLabel.font=[UIFont systemFontOfSize:13];
     
     
-    
-//    [ribt.layer setMasksToBounds:YES];
-//    [lebt.layer setMasksToBounds:YES];
-//    [ribt.layer setBorderWidth:0.2];
-//    [lebt.layer setBorderWidth:0.2];
+
     
     prompt=[[UILabel alloc]initWithFrame:CGRectMake(5, HEIGHT*0.20, WIDTH, HEIGHT*0.0606+2)];
     prompt.text= @"   请选择可接受时间 ";
@@ -278,39 +266,7 @@
     //关于传过来的数组
     
      _selectIndexs = [NSMutableArray new];
-//    dict = @{
-//             @"name" : @"9：00-12：00",
-//
-//             };
-//
-//    // 将字典转为User模型
-//    
-//    dict3 = @{
-//              @"name" : @"14：00-17：00",
-//              
-//              
-//              };
-//    dict1 = @{
-//              @"name" : @"19：00-21：00",
-//
-//              };
-//    dict4= @{
-//              @"name" : @"19：00-21：00",
-//              
-//              };
-//    dict5 = @{
-//              @"name" : @"19：00-21：00",
-//              
-//              };
-//    dict6 = @{
-//              @"name" : @"19：00-21：00",
-//              
-//              };
-    
-   
-    //arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
-    
-  //这里是scoview
+
     
     self.automaticallyAdjustsScrollViewInsets=NO;
     
@@ -480,7 +436,7 @@
     //需要展示的数据以数组的形式保存
     
     
-    NSString *str =@"http://192.168.1.107:9191/coach/working/to/working";
+    NSString *str =@"http://192.168.1.126:9191/coach/working/to/working";
     NSLog(@"%@",str);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //AFN 2.5.4
@@ -495,7 +451,7 @@
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
           
-          if ([status_range isEqual:@"5"]) {
+          if ([status_range intValue]==5) {
               dayary=responseObject[@"data"][@"dayNTimes"];
               if (responseObject[@"data"][@"dayNTimes"]) {
                   arry=responseObject[@"data"][@"dayNTimes"];
@@ -513,7 +469,7 @@
               NSLog(@"%@",leftarry);
           }
           
-          NSLog(@"+++++%@",status_range);
+          NSLog(@"+++++%@",responseObject);
           
           // leftarry =responseObject[@"data"][@"dayNTimes"];//左边
 //          dayary=responseObject[@"data"][@"dayNTimes"];
@@ -615,7 +571,7 @@
     [pickbtn1 setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateSelected];
     [pickbtn1 addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell addSubview:pickbtn1];
-//   celldata *myuse = [celldata objectWithKeyValues:arry[indexPath.row]];
+//  celldata *myuse = [celldata objectWithKeyValues:arry[indexPath.row]];
 //   cell.celldata=myuse;
     
     
@@ -1070,7 +1026,7 @@
     //http://192.168.1.107:9191/coach/working/to/leaving?date=2018-06-12&snowPackId=1
    
     NSString *data=dateString;
-    NSString *str = [NSString stringWithFormat:@"http://192.168.1.107:9191/coach/working/to/leaving?date=%@&snowPackId=%@",data,snowPackId];
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.126:9191/coach/working/to/leaving?date=%@&snowPackId=%@",data,snowPackId];
     NSLog(@"%@",str);
     
     
@@ -1144,7 +1100,7 @@
             params[@"date"] = dateString;
          
          
-         [manager POST:@"http://192.168.1.107:9191/coach/working/leaving" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+         [manager POST:@"http://192.168.1.126:9191/coach/working/leaving" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
             
                   } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                          NSLog(@"请求成功:%@", responseObject);
@@ -1207,7 +1163,7 @@
     
     
     
-    [manager POST:@"http://192.168.1.107:9191/coach/working/working" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:@"http://192.168.1.126:9191/coach/working/working" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"请求成功:%@", responseObject);

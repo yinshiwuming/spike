@@ -14,6 +14,10 @@
 #import "MUIViewController.h"
 #import "AFNetworking.h"
 #import "LoginViewController.h"
+#import <UMShare/UMShare.h>
+#import <UMCommon/UMCommon.h>
+#import <UShareUI/UShareUI.h>
+#import "bindingViewController.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface ViewController ()<UITextFieldDelegate>
@@ -21,12 +25,13 @@
     MBProgressHUD *HUD;
     UITextField *pwd;
     UITextField *user;
-    UIView *imageView;
+    UIImageView *imageView;
     UILabel *registeredlab;
     UILabel *lookinglab;
     UILabel * additionallab;
     UILabel *third;
     UIButton *landBtn;
+    NSString*myopenid;
     
 }
 @end
@@ -48,11 +53,15 @@
     self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
     self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
     self.navigationItem.backBarButtonItem = backItem;
-    imageView = [[UIView alloc] init];
+    imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(0,0,WIDTH,HEIGHT);
+    imageView.userInteractionEnabled = YES;
+    imageView.image=[UIImage imageNamed:@"背景"];
     //这里有问题6p的屏幕
-    imageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景"]];
+    //imageView.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景"]];
+    
     //imageView.backgroundColor=[UIColor blueColor];
+    
      UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
      [imageView addGestureRecognizer:tapGesturRecognizer];
     [self.view addSubview:imageView];
@@ -71,11 +80,7 @@
     [registeredlab addGestureRecognizer:registered];
     
     
-    
-    
-    
-    
-    
+
     //找回密码的lab在这里添加触摸
     
     lookinglab = [[UILabel alloc] init];
@@ -103,6 +108,14 @@
     third.text=@"其他方式登录";
     third.font=[UIFont fontWithName:@"PingFang-SC-Medium" size:13];
     third.textColor= [UIColor colorWithRed:255/255 green:255/255 blue:255/255 alpha:1];
+    UIButton*win=[[UIButton alloc]initWithFrame:CGRectMake(WIDTH*0.43, HEIGHT*0.78, 44, 44)];
+    
+    
+    
+    
+    [imageView addSubview:win];
+    [win addTarget:self action:@selector(winbtn) forControlEvents:UIControlEventTouchUpInside];
+    [win setImage:[UIImage imageNamed:@"微信"] forState: UIControlStateNormal ];
     [imageView addSubview:third];
     
 }
@@ -217,7 +230,7 @@
     [userview addSubview:user];
     
     
-    pwd=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.37, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入6至12位密码区分大小写" ];
+    pwd=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.37, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入8至12位密码区分大小写" ];
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwd.keyboardType=UIKeyboardTypeWebSearch;
@@ -345,9 +358,9 @@
     
     
     
-  MUIViewController *vc=[[MUIViewController alloc]init];
-   [self.navigationController pushViewController:vc animated:YES];
-    
+//  MUIViewController *vc=[[MUIViewController alloc]init];
+//   [self.navigationController pushViewController:vc animated:YES];
+//    
     
 }
 
@@ -375,6 +388,21 @@
 }- (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
+    NSLog(@"我要登录了");
+//    NSUserDefaults*dd= [NSUserDefaults standardUserDefaults];
+//    NSString *denglu=[dd objectForKey:@"denglu"];
+//    
+//    if ([denglu isEqualToString:@"denglu"]) {
+//        
+//        MUIViewController *vc=[[MUIViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
+//        
+//    }
+//    
+//  
+    
+    
+    
     [super viewWillAppear:animated];
 }
 
@@ -390,7 +418,7 @@
 }
 -(void)textFieldDidChange:(UITextField *)textField {
     if (textField == user || textField == pwd) {
-        if (user.text.length >= 11 && pwd.text.length >= 6) {
+        if (user.text.length >= 11 && pwd.text.length >= 8) {
             //_loginBtn.selected = YES;
             
             landBtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
@@ -458,11 +486,212 @@
           //反序列化成字符串
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
-          NSLog(@"%@",status_range);
+          
+          
+          
+          NSLog(@"%@",responseObject);
+          
+         
+          
+          
+          
+          
           int sts=status_range.intValue;
           
           if (sts==2088) {
+             // MUIViewController *vc=[[MUIViewController alloc]init];
+             // [self.navigationController pushViewController:vc animated:YES];
+              //测试待会要改下来
+        LoginViewController * vc=[[LoginViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+              NSMutableArray *mysikearry=responseObject[@"data"][@"snowPackList"];
               
+              
+              //存取返回的雪场数组
+              NSUserDefaults*dd=[NSUserDefaults standardUserDefaults];
+              [dd setObject:mysikearry forKey:@"mysikearry"];
+              
+              [dd synchronize];
+              
+              
+              
+          }
+          if (sts==5) {
+              
+//              NSUserDefaults*dd= [NSUserDefaults standardUserDefaults];
+//              [dd setObject:@"denglu" forKey:@"denglu"];
+//
+//              [dd synchronize];
+              
+              MUIViewController *vc=[[MUIViewController alloc]init];
+              [self.navigationController pushViewController:vc animated:YES];
+          }else{
+              
+              
+              
+              
+              NSUserDefaults*dd= [NSUserDefaults standardUserDefaults];
+              [dd setObject:@"meiyou" forKey:@"denglu"];
+              
+              [dd synchronize];
+              
+              
+          }
+          
+          [self mbProgressHUDUntil:responseObject[@"msg"]];
+          [HUD hideAnimated:YES afterDelay:2];
+          
+          
+      }
+     
+     
+     
+     
+     
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
+
+
+
+
+
+- (void)confitUShareSettings
+{
+    /*
+     * 打开图片水印
+     */
+    //[UMSocialGlobal shareInstance].isUsingWaterMark = YES;
+    /*
+     * 关闭强制验证https，可允许http图片分享，但需要在info.plist设置安全域名
+     <key>NSAppTransportSecurity</key>
+     <dict>
+     <key>NSAllowsArbitraryLoads</key>
+     <true/>
+     </dict>
+     */
+    //[UMSocialGlobal shareInstance].isUsingHttpsWhenShareContent = NO;
+}
+- (void)configUSharePlatforms
+{
+    /* 设置微信的appKey和appSecret */
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx62404a58bdbcf9a2" appSecret:@"fb6ea7e8d07598fa071b5171683307e7" redirectURL:@"http://mobile.umeng.com/social"];
+    
+
+}
+
+- (void)getAuthWithUserInfoFromWechat
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+        if (error) {
+            
+            
+            
+        } else {
+            UMSocialUserInfoResponse *resp = result;
+            myopenid=resp.openid;
+            NSUserDefaults*dd= [NSUserDefaults standardUserDefaults];
+            [dd setObject:myopenid forKey:@"myopenid"];
+            
+            [dd synchronize];
+            
+            
+            // 授权信息
+            NSLog(@"Wechat uid: %@", resp.uid);
+            NSLog(@"Wechat openid: %@", resp.openid);
+            NSLog(@"Wechat unionid: %@", resp.unionId);
+            NSLog(@"Wechat accessToken: %@", resp.accessToken);
+            NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
+            NSLog(@"Wechat expiration: %@", resp.expiration);
+            // 用户信息
+            NSLog(@"Wechat name: %@", resp.name);
+            NSLog(@"Wechat iconurl: %@", resp.iconurl);
+            NSLog(@"Wechat gender: %@", resp.unionGender);
+            // 第三方平台SDK源数据
+            NSLog(@"Wechat originalResponse: %@", resp.originalResponse);
+            [self binding];
+            
+            
+            
+            
+            
+        }
+    }];
+}
+-(void)winbtn{
+    
+
+        //微信分享
+   [self configUSharePlatforms];
+   [self confitUShareSettings];
+    
+    [self getAuthWithUserInfoFromWechat];
+   // [self shareWebPageToPlatformType:UMSocialPlatformType_WechatSession ];
+    
+
+    
+}
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    //创建网页内容对象
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:[UIImage imageNamed:@"icon"]];
+    //设置网页地址
+    shareObject.webpageUrl =@"http://mobile.umeng.com/social";
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+        }
+    }];
+}
+
+-(void)binding{
+    
+    NSString *pone=user.text;
+    
+    NSString*mima=pwd.text;
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.126:9191/coach/wechatLogin?weChatOpenId=%@",myopenid];
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          NSLog(@"%@",status_range);
+          int sts=status_range.intValue;
+         
+          if (sts==1004) {
+              bindingViewController *vc=[[bindingViewController alloc]init];
+              [self.navigationController pushViewController:vc animated:YES];
+             
+              
+              
+          }
+          if (sts==5) {
+              
+              MUIViewController *vc=[[MUIViewController alloc]init];
+              [self.navigationController pushViewController:vc animated:YES];
+           
+          }
+          
+          
+          
+          if ([responseObject[@"status"] intValue]==2088) {
               
               LoginViewController * vc=[[LoginViewController alloc]init];
               [self.navigationController pushViewController:vc animated:YES];
@@ -471,11 +700,22 @@
           }
           
           
-         
       }
          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSLog(@"==========%@",error);
          }];
 }
+
+
+
+    
+
+
+
+
+
+
+
+
 
 @end

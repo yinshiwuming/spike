@@ -11,6 +11,7 @@
 #import "courTableViewCell.h"
 #import "MJExtension.h"
 #import "AFNetworking.h"
+#import "MBProgressHUD.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface CourseViewController (){
@@ -44,6 +45,8 @@
     NSDictionary *dict7;
     NSMutableArray *idarry;
     UIButton* pickbtn1;
+     MBProgressHUD *HUD;
+    UIImageView *imageView;
     
 }
 @property (nonatomic,strong)UIPickerView * pickerView;//自定义pickerview
@@ -199,10 +202,16 @@
               
               };
     
-    arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
+   // arry=[NSMutableArray arrayWithObjects:dict,dict1,dict3, nil];
     // Do any additional setup after loading the view.
 }
-
+-(void)mbProgressHUDUntil:(NSString *)title {
+    
+    
+    HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.label.text = title;}
 //tabview的数据源
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -411,10 +420,21 @@ else{
     
     
     
-    [manager POST:@"http://192.168.1.107:9191/coach/course/course" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:@"http://192.168.1.126:9191/coach/course/course" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"请求成功:%@", responseObject);
+        
+        
+        if ( [responseObject[@"status"] intValue]==5) {
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+        }
+        
+        [self mbProgressHUDUntil:responseObject[@"msg"]];
+        [HUD hideAnimated:YES afterDelay:2];
         
         
         confirm.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
@@ -437,7 +457,7 @@ else{
     //需要展示的数据以数组的形式保存
     
     
-    NSString *str =@"http://192.168.1.107:9191/coach/course/to/course";
+    NSString *str =@"http://192.168.1.126:9191/coach/course/to/course";
     NSLog(@"%@",str);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //AFN 2.5.4
@@ -451,16 +471,23 @@ else{
           //反序列化成字符串
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
-          
-          arry=responseObject[@"data"][@"courses"];
-          idarry=responseObject[@"data"][@"courseIds"];
-          
-          NSLog(@"+++++%@",idarry);
-          
-         
-          
-          [mytabview reloadData];
-          
+          int i=[status_range intValue];
+          if (i==5) {
+              
+              arry=responseObject[@"data"][@"courses"];
+              idarry=responseObject[@"data"][@"courseIds"];
+              if (idarry.count>0) {
+                  [mytabview setUserInteractionEnabled:NO];
+              }
+              
+              
+              NSLog(@"+++++%@",idarry);
+              
+              
+              
+              [mytabview reloadData];
+              
+          }
        
           //
       }

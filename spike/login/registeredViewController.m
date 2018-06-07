@@ -10,6 +10,8 @@
 #import "MBProgressHUD.h"
 #import "LoginViewController.h"
 #import "AFNetworking.h"
+#import "ViewController.h"
+#import "LoginViewController.h"
 @interface registeredViewController ()
 {   MBProgressHUD *HUD;
     UITextField *pwd;
@@ -38,8 +40,10 @@
   _topLAB.layer.cornerRadius = 3.0;
    _topLAB.clipsToBounds = YES;
     [self.view addSubview:_topLAB];
+    UIImageView *imageView=[[UIImageView alloc]initWithFrame:self.view.bounds];
+    imageView.image=[UIImage imageNamed:@"背景图"];
+    [self.view insertSubview:imageView atIndex:0];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage  imageNamed:@"背景图"]];
     UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tapGesturRecognizer];
     
@@ -113,7 +117,7 @@
     
     
     
-    pwd=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.46, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入6至12位密码区分大小写" ];
+    pwd=[self createTextFielfFrame:CGRectMake(40, HEIGHT*0.46, WIDTH-80, 44) font:[UIFont systemFontOfSize:16]  placeholder:@"请输入8至12位密码区分大小写" ];
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeWhileEditing;
     pwd.keyboardType=UIKeyboardTypeWebSearch;
@@ -186,7 +190,7 @@
 }
 -(void)createLoginButtons
 {
-    landBtn=[self createButtonFrame:CGRectMake(40, HEIGHT*0.7, WIDTH-80, 44) backImageName:nil title:@"登录" titleColor:[UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1]  font:[UIFont systemFontOfSize:19] target:self action:@selector(loginButtonClick)];
+    landBtn=[self createButtonFrame:CGRectMake(40, HEIGHT*0.7, WIDTH-80, 44) backImageName:nil title:@"注册" titleColor:[UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1]  font:[UIFont systemFontOfSize:19] target:self action:@selector(loginButtonClick)];
     landBtn.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
     landBtn.layer.cornerRadius=3.0f;
     
@@ -302,7 +306,7 @@
 
 -(void)textFieldDidChange:(UITextField *)textField {
     if (textField == user || textField == pwd||textField == code) {
-        if (user.text.length >= 11 && pwd.text.length >= 6&&code.text.length>=6) {
+        if (user.text.length >= 11 && pwd.text.length >= 8&&code.text.length>=6) {
             //_loginBtn.selected = YES;
             landBtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
             
@@ -319,7 +323,7 @@
         }
         
         
-        if (user.text.length <11 || pwd.text.length <6 || code.text.length<6) {
+        if (user.text.length <11 || pwd.text.length <8 || code.text.length<6) {
             //_loginBtn.selected = YES;
             landBtn.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
             NSLog(@"要变天了");
@@ -352,54 +356,82 @@
 }
 
 -(void)loadNewData{
-  //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
-//    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
-//    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
-//    NSString* tbm_port=[user objectForKey:@"server_port"];//port
-//    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
-//    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
-    
-//    if([xieyi isEqualToString:@"http"]){
+
     NSString *pone=user.text;
     NSString*yanzheng=code.text;
     NSString*mima=pwd.text;
-    //http://192.168.1.123:9191/coach/regAccount?mobile=15011218654&pwd=123456&regCode=836766
-        NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/regAccount?mobile=%@&pwd=%@&regCode=%@",pone,mima,yanzheng];
-        NSLog(@"%@",str);
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        //AFN 2.5.4
-        /**
-         manager.securityPolicy.allowInvalidCertificates = YES;
-         **/
-        //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
-        manager.securityPolicy.validatesDomainName = NO;
-        [manager GET:str
-          parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-              //反序列化成字符串
-              // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
-              NSNumber *status_range = responseObject[@"status"];//状态
-              NSLog(@"%@",status_range);
-//              NSString *status_msg   = responseObject[@"msg"];//msg
-//              if([status_range isEqual:@1]){
-//                  NSArray * ary =  responseObject[@"data"][@"data"];
-//                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
-//                  //[dd setObject:ary forKey:@"dataary"];
-//                  //  [dd synchronize];
-//                  _tgArry =  [myrang  tgWitharry:ary];
-//                  [_rtableView setHidden:NO];
-//                  NSLog(@"%@",_tgArry);
-//                  [self.rtableView reloadData];
-//                  [self.rtableView.header endRefreshing];
+//    //http://192.168.1.123:9191/coach/regAccount?mobile=15011218654&pwd=123456&regCode=836766
+//        NSString *str = [NSString stringWithFormat:@"http://192.168.1.126:9191/coach/regAccount?mobile=%@&pwd=%@&regCode=%@",pone,mima,yanzheng];
+//        NSLog(@"%@",str);
+       AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//        //AFN 2.5.4
+//        /**
+       manager.securityPolicy.allowInvalidCertificates = YES;
+//         **/
+//        //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+       manager.securityPolicy.validatesDomainName = NO;
+//        [manager GET:str
+//          parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//              //反序列化成字符串
+//              // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+//              NSNumber *status_range = responseObject[@"status"];//状态
+//              NSLog(@"%@",status_range);
+////              NSString *status_msg   = responseObject[@"msg"];//msg
+////              if([status_range isEqual:@1]){
+////                  NSArray * ary =  responseObject[@"data"][@"data"];
+////                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
+////                  //[dd setObject:ary forKey:@"dataary"];
+////                  //  [dd synchronize];
+////                  _tgArry =  [myrang  tgWitharry:ary];
+////                  [_rtableView setHidden:NO];
+////                  NSLog(@"%@",_tgArry);
+////                  [self.rtableView reloadData];
+////                  [self.rtableView.header endRefreshing];
+////
+//              }
+//           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//              NSLog(@"==========%@",error);
+//          }];
+//    }
+//    
 //
-              }
-           failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-              NSLog(@"==========%@",error);
-          }];
-    }
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+   
+    params[@"mobile"] =pone;
+    params[@"pwd"] =mima;
+    params[@"regCode"] =yanzheng;
+    [manager POST:@"http://192.168.1.126:9191/coach/regAccount" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+       
+        NSLog(@"%@",responseObject[@"msg"]);
+       
+        if ([responseObject[@"status"] intValue]==5) {
+            
+            //返回登录页并且打印msg
+            LoginViewController *vc=[[LoginViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        
+            
+        }
+        
+        [self mbProgressHUDUntil:responseObject[@"msg"]];
+        [HUD hideAnimated:YES afterDelay:2];
+        
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
     
     
-    
-//}
+}
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -444,7 +476,7 @@
     NSLog(@"%@被点击了",label.text);
     
     NSString *pone=user.text;
-    NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/sendCode?mobile=%@",pone];
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.126:9191/coach/sendCode?mobile=%@",pone];
     NSLog(@"%@",str);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //AFN 2.5.4
@@ -458,8 +490,8 @@
           //反序列化成字符串
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
-          
-          
+          [self mbProgressHUDUntil:responseObject[@"msg"]];
+          [HUD hideAnimated:YES afterDelay:2];
           
           NSLog(@"+++++%@",status_range);
           

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WithdrawalViewController : UIViewController
+@interface WithdrawalViewController : UIViewController<UITextFieldDelegate>
 
 @end

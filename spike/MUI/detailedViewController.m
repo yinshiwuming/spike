@@ -8,6 +8,7 @@
 
 #import "detailedViewController.h"
 #import "myTableViewCell.h"
+#import "AFNetworking.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface detailedViewController (){
@@ -15,6 +16,12 @@
     UIImageView * _arrowMark;
     UIButton * sbt;
     UITableView *mytab;
+    UILabel *lab;
+    UILabel *lab1;
+    UILabel *lab2;
+    UILabel *lab3;
+    UILabel *lab4;
+    
 }
 
 @end
@@ -23,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
     NSString *passWord = @"1";NSUserDefaults *user = [NSUserDefaults standardUserDefaults];[user setObject:passWord forKey:@"userPassWord"];
          [NSUserDefaults resetStandardUserDefaults];
     [self.navigationItem setTitle:@"订单"];
@@ -39,6 +47,7 @@
    mytab.sectionHeaderHeight=14;
     mytab.sectionFooterHeight=8;
     mytab.contentInset=UIEdgeInsetsMake(0+6, 0, 0, 0);
+    [self working];
 }- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 2;
@@ -88,25 +97,58 @@
             
             cell.textLabel.text=@"时间";
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-            
+           lab=[[UILabel alloc]initWithFrame:CGRectMake(70, 18, WIDTH-80, 13)];
+        
+            lab.font = [UIFont systemFontOfSize:13];
+            lab.textColor = [UIColor colorWithRed:101.998/255.0 green:101.998/255.0 blue:101.998/255.0 alpha:1];
+            lab.textAlignment = UITextAlignmentRight;
+            [cell.contentView addSubview:lab];
             
         }
         if (indexPath.section==0&&indexPath.row==1) {
             cell.textLabel.text=@"订单类型";
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+         lab1=[[UILabel alloc]initWithFrame:CGRectMake(70, 18, WIDTH-80, 13)];
+        
+            lab1.font = [UIFont systemFontOfSize:13];
+            lab1.textColor = [UIColor colorWithRed:101.998/255.0 green:101.998/255.0 blue:101.998/255.0 alpha:1];
+            lab1.textAlignment = UITextAlignmentRight;
+            [cell.contentView addSubview:lab1];
+            
         }
         
         if (indexPath.section==0&&indexPath.row==2) {
             cell.textLabel.text=@"教学时长";
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+           lab2=[[UILabel alloc]initWithFrame:CGRectMake(70, 18, WIDTH-80, 13)];
+         
+            lab2.font = [UIFont systemFontOfSize:13];
+            lab2.textColor = [UIColor colorWithRed:101.998/255.0 green:101.998/255.0 blue:101.998/255.0 alpha:1];
+            lab2.textAlignment = UITextAlignmentRight;
+            [cell.contentView addSubview:lab2];
+            
         }
         if (indexPath.section==0&&indexPath.row==3) {
             cell.textLabel.text=@"订单状态";
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            lab3=[[UILabel alloc]initWithFrame:CGRectMake(70, 18, WIDTH-80, 13)];
+           
+            lab3.font = [UIFont systemFontOfSize:13];
+            lab3.textColor = [UIColor colorWithRed:101.998/255.0 green:101.998/255.0 blue:101.998/255.0 alpha:1];
+            lab3.textAlignment = UITextAlignmentRight;
+            [cell.contentView addSubview:lab3];
+            
         }
         if (indexPath.section==0&&indexPath.row==4) {
             cell.textLabel.text=@"学员联系方式";
             cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            lab4=[[UILabel alloc]initWithFrame:CGRectMake(70, 18, WIDTH-80, 13)];
+           
+            lab4.font = [UIFont systemFontOfSize:13];
+            lab4.textColor = [UIColor colorWithRed:101.998/255.0 green:101.998/255.0 blue:101.998/255.0 alpha:1];
+            lab4.textAlignment = UITextAlignmentRight;
+            [cell.contentView addSubview:lab4];
+            
         }
     }
     if ([passWord isEqualToString:@"0"]) {
@@ -253,5 +295,65 @@
        }
     
 }
+-(void)working{
+    
+    NSLog(@"电器选国美");
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"orderNo"] =@"15273177599443005";
+    [manager POST:@"http://192.168.1.126:9191/skimeister/order/queryOrderItems" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+        if ([responseObject[@"status"] intValue]==5){
+            if (responseObject[@"data"][@"orderItem"]) {
+                NSString *time=responseObject[@"data"][@"orderItem"][@"date"];
+                lab.text=time;
+                lab1.text=responseObject[@"data"][@"orderItem"][@"orderType"];
+                NSString *stringInt = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"orderItem"][@"duration"]];
+                lab2.text=stringInt;
+                //lab3.text=responseObject[@"data"][@"orderItem"][@"status"];
+                if ([responseObject[@"data"][@"orderItem"][@"status"]intValue]==0) {
+                    lab3.text=@"正常";
+                }
+                if ([responseObject[@"data"][@"orderItem"][@"status"] intValue]==1) {
+                    lab3.text=@"退票";
+                }
+                lab4.text=responseObject[@"data"][@"mobile"];
+                NSLog(@"&&&&&&&&&&&%@",time);
+                [mytab reloadData];
+            }
+            NSLog(@"%@",responseObject[@"msg"]);
+            
+        
+            
+            
+        }
+      
+       
+        
+        
+        
+       
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
+    
+    
+    
+}
+
 
 @end

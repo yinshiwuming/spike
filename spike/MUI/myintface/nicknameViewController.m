@@ -8,12 +8,13 @@
 
 #import "nicknameViewController.h"
 #import "AFNetworking.h"
+#import "MBProgressHUD.h"
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
 @interface nicknameViewController (){
     
     UITextField *text ;
-    
+    MBProgressHUD *HUD;
     
     
 }
@@ -91,27 +92,25 @@
 //
 //    NSString *str = [NSString stringWithFormat:@"%@,",string];
 //    NSLog(@"yyyyyyyy%@",str);
-    params[@"userId"]=@"630130";
-    params[@"content"] =string;
-    params[@"type"]=@"1";
-    
-    
-    
-    
-    
-//
-//
-    
-    
-    
-    
+  
+    params[@"nickName"] =string;
+   
+
     
     [manager POST:@"http://192.168.1.126:9191/coach/updateUser" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"请求成功:%@", responseObject);
         
-        
+        if (responseObject[@"status"]) {
+            
+            //这里吧修改的昵称
+            
+            [self mbProgressHUDUntil:responseObject[@"msg"]];
+            [HUD hideAnimated:YES afterDelay:2];
+            
+            
+        }
        
         
         
@@ -133,7 +132,13 @@
 
 
 
-
+-(void)mbProgressHUDUntil:(NSString *)title {
+    
+    
+    HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.label.text = title;}
 
 
 /*

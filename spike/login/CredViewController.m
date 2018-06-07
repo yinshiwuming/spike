@@ -22,15 +22,29 @@
     [super viewDidLoad];
     
     
+ 
+    [[self navigationItem] setTitle:@"成为教练"];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];
-    self.view.backgroundColor=[UIColor whiteColor];
-   [[self navigationItem] setTitle:@"成为教练"];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
+    
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
     _oneview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT/2-1)];
-    _oneview.backgroundColor=[UIColor blueColor];
+    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"20170628_185023"]];
+    _oneview.backgroundColor=bgColor;
     UIButton*btn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.35, WIDTH-40, 44)];
-    btn.backgroundColor=[UIColor yellowColor];
+    btn.backgroundColor= [UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     
     [btn setTitle: @"有滑雪证" forState: UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithRed:51.0026/255.0 green:51.0026/255.0 blue:51.0026/255.0 alpha:1] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
     [_oneview addSubview:btn];
     [self.view addSubview:_oneview];
@@ -38,10 +52,12 @@
     
     
     _twoview=[[UIView alloc]initWithFrame:CGRectMake(0, HEIGHT/2+1, WIDTH, HEIGHT/2-1)];
-    _twoview.backgroundColor=[UIColor yellowColor];
+     UIColor *bbgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"20170628_201450"]];
+    _twoview.backgroundColor=bbgColor;
     UIButton *btn2=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.35, WIDTH-40, 44)];
-    btn2.backgroundColor=[UIColor blueColor];
+    btn2.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
     [btn2 setTitle: @"无滑雪证" forState: UIControlStateNormal];
+    [btn2 setTitleColor: [UIColor colorWithRed:101.997/255.0 green:101.997/255.0 blue:101.997/255.0 alpha:1] forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(buttonClick2) forControlEvents:UIControlEventTouchUpInside];
     [_twoview addSubview:btn2];
     [self.view addSubview:_twoview];

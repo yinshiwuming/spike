@@ -25,15 +25,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor lightGrayColor];
-    topview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT*0.3)];
-   topview.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"20140517014348962"]];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"更多(4)"];
+    self.navigationItem.backBarButtonItem = backItem;
+    self.view.backgroundColor=[UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1];
+    topview=[[UIView alloc]initWithFrame:CGRectMake(0, -1, WIDTH, HEIGHT*0.3)];
+   topview.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"背景图-1"]];
     
     UIButton*btn=[[UIButton alloc]initWithFrame:CGRectMake(20, HEIGHT*0.2, WIDTH-40, 44)];
-    btn.backgroundColor=[UIColor yellowColor];
+    btn.backgroundColor= [UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
     
     [btn setTitle: @"成为教练开始赚钱" forState: UIControlStateNormal];
     [btn addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitleColor:[UIColor colorWithRed:51.0026/255.0 green:51.0026/255.0 blue:51.0026/255.0 alpha:1]forState:UIControlStateNormal];
     [topview addSubview:btn];
     [self.view addSubview:topview];
     

@@ -19,6 +19,8 @@
     NSString*nicheng;
     NSString *sex;
     UIImage* image;
+    UILabel *textlab;
+    NSString *sextg;
     
     
 }
@@ -26,6 +28,18 @@
 @end
 
 @implementation PersonalViewController
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self loadNewData];
+    [mytabview reloadData];
+    
+    
+    
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,11 +77,11 @@
     
     mytabview.layoutMargins=UIEdgeInsetsZero;
     [self.view addSubview:mytabview];
-    submitbtn=[[UIButton alloc]initWithFrame:CGRectMake(44, HEIGHT-60, WIDTH-88, 40)];
-    [submitbtn setTitle:@"提交" forState:UIControlStateNormal ];
-    submitbtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]; 
-    [submitbtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
-    [self.view addSubview:submitbtn];
+//    submitbtn=[[UIButton alloc]initWithFrame:CGRectMake(44, HEIGHT-60, WIDTH-88, 40)];
+//    [submitbtn setTitle:@"提交" forState:UIControlStateNormal ];
+//    submitbtn.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1]; 
+//    [submitbtn setTitleColor:[UIColor blackColor] forState: UIControlStateNormal];
+//    [self.view addSubview:submitbtn];
     
     
     // Do any additional setup after loading the view.
@@ -100,7 +114,10 @@
         //这里添加cell的头像
         imageView = [[UIImageView alloc] init];
         imageView.frame = CGRectMake(WIDTH-74,10,38,38);
-        imageView.image=image;
+        if (image) {
+            imageView.image=image;
+        }
+       
         imageView.layer.cornerRadius=imageView.frame.size.width/2;//裁成圆角
         imageView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addButClick)];
@@ -115,7 +132,10 @@
         cell.textLabel.text=@"昵称";
          cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         UILabel *textlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.2, 16, WIDTH*0.7, 14)];
-        textlab.text=nicheng;
+        if (nicheng) {
+            textlab.text=nicheng;
+        }
+       
         textlab.font = [UIFont systemFontOfSize:14];
         textlab.textAlignment=NSTextAlignmentRight;
         textlab.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
@@ -137,7 +157,7 @@
     if (indexPath.row==3) {
         cell.textLabel.text=@"称谓";
         
-        UILabel *textlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.8, 16, HEIGHT*0.266, 14)];
+       textlab=[[UILabel alloc]initWithFrame:CGRectMake(WIDTH*0.8, 16, HEIGHT*0.266, 14)];
         textlab.text=@"滑雪专家";
           textlab.font = [UIFont systemFontOfSize:14];
         textlab.textColor=[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
@@ -181,6 +201,8 @@
                                                                  //响应事件
                                                                  NSLog(@"action = %@", action);
                                                                  sex=@"男";
+                                                                 sextg=@"2";
+                                                                 [self btn];
                                                                  [mytabview reloadData];
                                                              }];
         UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault
@@ -188,6 +210,8 @@
                                                                //响应事件
                                                                NSLog(@"action = %@", action);
                                                                sex=@"女";
+                                                               sextg=@"1";
+                                                                [self btn];
                                                                [mytabview reloadData];
                                                            }];
         [alert addAction:saveAction];
@@ -214,7 +238,10 @@
         _photosArr = phostsArr;
         NSLog(@"++++++%@++++",[[_photosArr objectAtIndex:0] objectForKey:@"image"]);
         
-        imageView.image=[[_photosArr objectAtIndex:0] objectForKey:@"image"];
+        image=[[_photosArr objectAtIndex:0] objectForKey:@"image"];
+        [self image];
+        
+        
         
     }];
     [self presentViewController:WphotoVC animated:YES completion:nil];
@@ -251,19 +278,50 @@
        parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
            //反序列化成字符串
            // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
-           NSNumber *status_range = responseObject[@"status"];//状态
-           NSString*imag=responseObject[@"data"][@"picImg"];
+         //  NSNumber *status_range = responseObject[@"status"];//状态
+           if (responseObject[@"data"][@"picImg"]) {
+               NSString*imag=responseObject[@"data"][@"picImg"];
+               NSString *urlString = @"http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg";
+               
+               NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
+               image = [UIImage imageWithData:data];
+               imageView.image=image;
+               
+               
+               
+           }
+          // NSString*imag=responseObject[@"data"][@"picImg"];
            nicheng=responseObject[@"data"][@"nickName"];
+           
+           if ([responseObject[@"data"][@"sex"] intValue]==1) {
+               sex=@"女";
+           }
+           if ([responseObject[@"data"][@"sex"] intValue]==2) {
+               sex=@"男";
+           }
+        
+           //称谓的判断
+           
+           if ([responseObject[@"data"][@"masterType"] intValue]==0) {
+               textlab.text=@"滑雪助教";
+           }
+           if ([responseObject[@"data"][@"masterType"] intValue]==1) {
+               textlab.text=@"滑雪专家";
+           }
+           
+           
+           
+           
            //http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg
            //这里缓存教练我的基本信息
-           NSString *urlString = @"http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg";
-           NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
-         image = [UIImage imageWithData:data];
-           imageView.image=image;
+//           NSString *urlString = @"http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg";
+//           NSData *data = [NSData dataWithContentsOfURL:[NSURL  URLWithString:urlString]];
+//           image = [UIImage imageWithData:data];
+//           imageView.image=image;
           
            NSLog(@"+++++++%@_________",responseObject);
            
-           NSLog(@"%@",status_range);
+          // NSLog(@"%@",status_range);
            
            
            
@@ -286,4 +344,117 @@
     }
     return 52;
 }
+
+
+-(void)image{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    for (int i =0; i<1; i++) {
+        [manager POST:@"http://192.168.1.126:9191/coach/img" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            
+            //上传文件参数
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            //        NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
+            //        NSData *imageData = UIImageJPEGRepresentation(_imageArray[0], 0);
+            //        [formData appendPartWithFileData:imageData name:@"photo" fileName:fileName mimeType:@"image/png"];
+            
+            
+            NSData *data = UIImageJPEGRepresentation(image,0.7);
+            
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
+            
+            [formData appendPartWithFileData:data name:@"mf" fileName:fileName mimeType:@"image/jpg"];
+            
+            
+            
+        } progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+            //打印上传进度
+            CGFloat progress = 100.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
+            NSLog(@"%.2lf%%", progress);
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            //请求成功
+            NSLog(@"请求成功：%@",responseObject);
+            NSString *urlstr=responseObject[@"img"];
+            
+            NSLog(@"++++_____%@",urlstr);
+            
+            
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            //请求失败
+            NSLog(@"请求失败：%@",error);
+            
+        }];
+        
+    }
+    
+    
+    
+    
+    
+}
+
+-(void)btn{
+    
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    //
+    //    NSString *str = [NSString stringWithFormat:@"%@,",string];
+    //    NSLog(@"yyyyyyyy%@",str);
+    
+    params[@"sex"] =sextg;
+    
+    
+    
+    [manager POST:@"http://192.168.1.126:9191/coach/updateUser" parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"请求成功:%@", responseObject);
+        
+        if (responseObject[@"status"]) {
+            
+            //这里吧修改的昵称
+            
+        
+            
+        }
+        
+        
+        
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        
+        
+    }];
+    
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
 @end

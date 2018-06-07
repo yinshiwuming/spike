@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "muuidata.h"
 @interface MUUITableViewCell : UITableViewCell
+@property(nonatomic,strong)muuidata*muudata;
+@property (weak, nonatomic) IBOutlet UIImageView *myimage;
+@property (weak, nonatomic) IBOutlet UILabel *mytitle;
+@property (weak, nonatomic) IBOutlet UILabel *mytopy;
+@property (weak, nonatomic) IBOutlet UILabel *mydata;
+@property (weak, nonatomic) IBOutlet UILabel *mytime;
 
 @end

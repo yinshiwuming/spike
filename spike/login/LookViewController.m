@@ -8,6 +8,8 @@
 
 #import "LookViewController.h"
 #import "AFNetworking.h"
+#import "ViewController.h"
+#import "MBProgressHUD.h"
 
 #define HEIGHT    [[UIScreen mainScreen] bounds].size.height
 #define WIDTH     [[UIScreen mainScreen] bounds].size.width
@@ -18,6 +20,7 @@
     UITextField *Verification;
     UIButton *additionabtn;
     UIButton *look;
+    MBProgressHUD *HUD;
     
 }
 
@@ -96,7 +99,7 @@
     //[Verification addSubview:additionabtn];
     [self.view addSubview:Verification];
     [self.view addSubview:additionabtn];
-    pwd=[self createTextFielfFrame:CGRectMake(8, 155, WIDTH-8, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入6至12位密码区分大小写"];
+    pwd=[self createTextFielfFrame:CGRectMake(8, 155, WIDTH-8, 44) font:[UIFont systemFontOfSize:16] placeholder:@"请输入8至12位密码区分大小写"];
     pwd.delegate = self;
     pwd.clearButtonMode = UITextFieldViewModeNever;
     pwd.backgroundColor=[UIColor whiteColor];
@@ -112,7 +115,8 @@
     [self.view addSubview:pwd];
     
     look=[[UIButton alloc]initWithFrame:CGRectMake(44, 338, WIDTH-88, 44)];
-    [look setTitle:@"登录" forState:UIControlStateNormal];
+    [look setTitle:@"提交" forState:UIControlStateNormal];
+     [look addTarget:self action:@selector(lookpush)  forControlEvents:UIControlEventTouchUpInside];
    
     [look setTitleColor:[UIColor colorWithRed:153.0f/255.0f green:153.0f/255.0f blue:153.0f/255.0f alpha:1] forState:UIControlStateNormal ];
     look.backgroundColor=[UIColor colorWithRed:241.0f/255.0f green:241.0f/255.0f blue:241.0f/255.0f alpha:1];
@@ -151,11 +155,7 @@
     //验证码接口请求
     [self loadNewData];
     NSLog(@"点击了");
-    
-    
-    
-    
-    
+
 }
 
 
@@ -170,8 +170,9 @@
     //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
     
     //    if([xieyi isEqualToString:@"http"]){
-    NSString *pone=@"15011218654";
-    NSString *str = [NSString stringWithFormat:@"http://192.168.1.123:9191/coach/sendCode?mobile=%@",pone];
+    NSString *pone=user.text;
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.126:9191/coach/sendCodeSeek?mobile=%@",pone];
+    //NSString *str=@"http://192.168.1.126:9191user/sendCodeSeek";
     NSLog(@"%@",str);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //AFN 2.5.4
@@ -185,25 +186,14 @@
           //反序列化成字符串
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
           NSNumber *status_range = responseObject[@"status"];//状态
-          
-          
+
+          [self mbProgressHUDUntil:responseObject[@"msg"]];
+          [HUD hideAnimated:YES afterDelay:2];
           
           NSLog(@"+++++%@",status_range);
           
           
-          
-          //              NSString *status_msg   = responseObject[@"msg"];//msg
-          //              if([status_range isEqual:@1]){
-          //                  NSArray * ary =  responseObject[@"data"][@"data"];
-          //                  //   NSUserDefaults *dd= [NSUserDefaults standardUserDefaults];
-          //                  //[dd setObject:ary forKey:@"dataary"];
-          //                  //  [dd synchronize];
-          //                  _tgArry =  [myrang  tgWitharry:ary];
-          //                  [_rtableView setHidden:NO];
-          //                  NSLog(@"%@",_tgArry);
-          //                  [self.rtableView reloadData];
-          //                  [self.rtableView.header endRefreshing];
-          //
+         
       }
          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSLog(@"==========%@",error);
@@ -253,7 +243,7 @@
     return YES;
 }-(void)textFieldDidChange:(UITextField *)textField {
     if (textField == user || textField == pwd||textField == Verification) {
-        if (user.text.length >= 11 && pwd.text.length >= 6&&Verification.text.length>=6) {
+        if (user.text.length >= 11 && pwd.text.length >= 8&&Verification.text.length>=6) {
             //_loginBtn.selected = YES;
             look.backgroundColor=[UIColor colorWithRed:255/255.0 green:214/255.0 blue:0/255.0 alpha:1];
             
@@ -270,7 +260,7 @@
         }
         
         
-        if (user.text.length <11 || pwd.text.length <6 || Verification.text.length<6) {
+        if (user.text.length <11 || pwd.text.length <8 || Verification.text.length<6) {
             //_loginBtn.selected = YES;
             look.backgroundColor=[UIColor colorWithRed:241/255.0f green:241/255.0f blue:241/255.0f alpha:1];
             NSLog(@"要变天了");
@@ -282,4 +272,65 @@
         
     }
 }
+
+-(void)lookpush{
+    //http://192.168.1.123:9191/coach/regAccount?mobile=15011218654&pwd=123456&regCode=836766
+   // NSString *pone=user.text;
+    NSString *str = [NSString stringWithFormat:@"http://192.168.1.126:9191/coach/retrievePwd?regCode=%@&mobile=%@&pwd=%@",Verification.text,user.text,pwd.text];
+    //NSString *str=@"http://192.168.1.126:9191user/sendCodeSeek";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          if ([responseObject[@"status"] intValue]==5) {
+              
+              //[SVProgressHUD dismissWithDelay:2];
+              [self mbProgressHUDUntil:@"密码最少6位"];
+              [HUD hideAnimated:YES afterDelay:2];
+              
+              
+              ViewController *vc=[[ViewController alloc]init];
+              [self.navigationController pushViewController:vc animated:YES];
+              
+              
+              
+          }
+          
+          
+          NSLog(@"+++++%@",status_range);
+          
+          
+          
+      }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+    
+    
+    
+    
+    
+    
+}
+
+-(void)mbProgressHUDUntil:(NSString *)title {
+    
+    
+    HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    HUD.removeFromSuperViewOnHide = YES;
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.label.text = title;}
+
+
+
+
 @end

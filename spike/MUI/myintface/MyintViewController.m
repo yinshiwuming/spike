@@ -207,7 +207,7 @@
         return 4;
     }else if (section == 1)
     {
-        return 3;
+        return 2;
     }
     else {
         return 2;
@@ -236,9 +236,16 @@
     }
     if (indexPath.section==1&&indexPath.row==0) {
         cell.textLabel.text = @"预约时间";
-    } if (indexPath.section==1&&indexPath.row==1) {
-        cell.textLabel.text = @"购买";
-    } if (indexPath.section==1&&indexPath.row==2) {
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    if (indexPath.section==1&&indexPath.row==1) {
         cell.textLabel.text = @"余额";
     } if (indexPath.section==2&&indexPath.row==0) {
         cell.textLabel.text = @"通知";
@@ -273,7 +280,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
     
-    if (indexPath.section==1&&indexPath.row==2) {
+    if (indexPath.section==1&&indexPath.row==1) {
         
        BalanceViewController *vc=[[BalanceViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -301,14 +308,14 @@
         PersonalViewController *vc=[[PersonalViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if (indexPath.section==1&&indexPath.row==1) {
-        //cell.textLabel.text = @"购买";
-        BuyViewController *vc=[[ BuyViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-//        buymyViewController*vc=[[buymyViewController alloc]init];
+//    if (indexPath.section==1&&indexPath.row==1) {
+//        //cell.textLabel.text = @"购买";
+//        BuyViewController *vc=[[ BuyViewController alloc]init];
 //        [self.navigationController pushViewController:vc animated:YES];
-        
-    }
+////        buymyViewController*vc=[[buymyViewController alloc]init];
+////        [self.navigationController pushViewController:vc animated:YES];
+//        
+//    }
     
    //个人信息
     if (indexPath.section==0&&indexPath.row==0) {
@@ -318,8 +325,12 @@
         
        // http://192.168.1.126:9191/coach/optionSnowPack
         
-        SkiViewController *vc=[[SkiViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+        
+        [self snowon];
+        
+        
+        
+       
         
     }
     if (indexPath.section==0&&indexPath.row==3) {
@@ -350,7 +361,7 @@
     //    if([xieyi isEqualToString:@"http"]){
    
     //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
-    NSString *str =@"http://192.168.1.126:9191/page/myhome?status=1";
+    NSString *str =@"http://192.168.1.126:9191/page/myhome";
     NSLog(@"%@",str);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //AFN 2.5.4
@@ -363,8 +374,21 @@
       parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
           //反序列化成字符串
           // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          
           NSNumber *status_range = responseObject[@"status"];//状态
-          NSString*imag=responseObject[@"data"][@"picImg"];
+          
+          
+          if ([responseObject[@"status"] intValue]==5) {
+              
+          
+          if (responseObject[@"data"][@"picImg"]) {
+              NSLog(@"%@",responseObject[@"data"]);
+              
+           
+              
+          }
+          
+        //  NSString*imag=responseObject[@"data"][@"picImg"];
           //http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg
           //这里缓存教练我的基本信息
           NSString *urlString = @"http://p70kr2ki3.bkt.clouddn.com/15236086687651801.jpg";
@@ -372,13 +396,28 @@
            image = [UIImage imageWithData:data];
           imageView.image=image;
          NSString*nickname=responseObject[@"data"][@"nickName"];
-        NSString*snowage=responseObject[@"data"][@"snowAge"];
+        NSNumber*snowage=responseObject[@"data"][@"snowAge"];
+      
         NSString *sex=responseObject[@"data"][@"sex"];
+          NSNumber *nub=responseObject[@"data"][@"masterType"];
+              
+              if ([nub intValue]==0) {
+                  _namelab.text=@"称谓 滑雪指导员";
+              }
+              
+              
+              if ([nub intValue]==1) {
+                  _namelab.text=@"称谓 滑雪教练";
+              }
+              
+              
+              
+              
           NSLog(@"对对对点点滴滴%@",sex);
          NSUserDefaults *internetSetting = [NSUserDefaults standardUserDefaults];
            [internetSetting setObject:nickname forKey:@"nickname"];
-         [internetSetting setObject:snowage forKey:@"snowage"];
-          [internetSetting setObject:imag forKey:@"imag"];
+              [internetSetting setObject:snowage forKey:@"snowage"];
+         // [internetSetting setObject:imag forKey:@"imag"];
           
 //          if (sex!=NULL) {
 //                [internetSetting setObject:sex forKey:@"sex"];
@@ -394,13 +433,70 @@
           
           NSLog(@"%@",status_range);
      
-          
-          
-          
+        _agelab.text= [NSString stringWithFormat:@"%@年雪龄",snowage.stringValue];
+         //雪玲拼接
           
           
           
         
+          
+          
+          
+          }}
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"==========%@",error);
+         }];
+}
+
+-(void)snowon{
+    //  NSUserDefaults* user=[NSUserDefaults  standardUserDefaults];
+    //    NSString* xieyi=[user objectForKey:@"server_xieyi"];//协议
+    //    NSString* tbm_ip=[user objectForKey:@"server_ip"];//ip
+    //    NSString* tbm_port=[user objectForKey:@"server_port"];//port
+    //    NSString* tbm_token=[user objectForKey:@"tbm_device_token"];//token
+    //    NSString* tbm_device=[user objectForKey:@"tbm_device_id"];//token
+    
+    //    if([xieyi isEqualToString:@"http"]){
+    
+    //http://192.168.1.123:9191/coach/userLogin?mobile=15011218654&pwd=123456
+    NSString *str =@"http://192.168.1.126:9191/coach/optionSnowPack";
+    NSLog(@"%@",str);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //AFN 2.5.4
+    /**
+     manager.securityPolicy.allowInvalidCertificates = YES;
+     **/
+    //AFN 2.6.1 包括现在的3.0.4,里面它实现了代理,信任服务器
+    manager.securityPolicy.validatesDomainName = NO;
+    [manager GET:str
+      parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          //反序列化成字符串
+          // NSMutableArray *arry =[NSArray arrayWithArray:responseObject[@""]
+          NSNumber *status_range = responseObject[@"status"];//状态
+          
+          if ([status_range integerValue]==2012) {
+              return ;
+              //提示还有未完成订单
+          }
+          
+          SkiViewController *vc=[[SkiViewController alloc]init];
+          [self.navigationController pushViewController:vc animated:YES];
+          
+        
+          NSLog(@"%@",responseObject);
+          
+          
+          
+          
+          NSLog(@"%@",status_range);
+          
+          
+          
+          
+          
+          
+          
+          
           
           
           
